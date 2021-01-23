@@ -441,7 +441,14 @@ function countThumbnails(){
 		if(fs.existsSync(dir)){
 			fs.readdir(dir,(err,files)=>{
 				console.log('Number of thumbnails : ' + files.length);
-				console.log(files[0]);
+				let test = 0;
+				for(let i = 0 ; i < files.length ; i++){
+					if(getFilesizeInBytes(dir+'/'+files[i])===0){
+						console.log(files[i] + ' corrupt');
+						test++;
+					}
+				}
+				console.log(test + ' items corrupt');
 			})
 		}
 	})
