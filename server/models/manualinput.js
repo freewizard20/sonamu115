@@ -441,6 +441,7 @@ function countThumbnails(){
 		if(fs.existsSync(dir)){
 			fs.readdir(dir,(err,files)=>{
 				console.log('Number of thumbnails : ' + files.length);
+				console.log(files[0]);
 			})
 		}
 	})
