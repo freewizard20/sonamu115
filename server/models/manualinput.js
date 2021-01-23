@@ -443,7 +443,6 @@ function countThumbnails(){
 				console.log('Number of thumbnails : ' + files.length);
 				let test = 0;
 				for(let i = 0 ; i < files.length ; i++){
-					console.log(getFilesizeInBytes(dir+'/'+files[i]));
 					if(getFilesizeInBytes(dir+'/'+files[i])===0){
 						console.log(files[i] + ' corrupt');
 						test++;
