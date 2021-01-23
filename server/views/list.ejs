@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('parts/header') %>
+  </head>
+  <body  oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+    <%- include('parts/notice') %> <%- include('parts/logoarea') %>
+    <div class="container">
+      <div class="sidebar"><%- include('parts/sidebar') %></div>
+      <div class="maincontent">
+        <div class="list_search">
+          <div style="width: 100%">
+            <div class="list_search_title">상세검색</div>
+            <form action="/list" method="POST">
+              <div style="display:flex;height:37px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+                <div style="width:50%;padding-bottom:5px;padding-top:5px;">
+                  <div class="searchName">매물번호</div>
+                  <div class="letters" style="display:inline-block;margin-left:10px;padding-right:100px;border-right:1px solid #aaa;"><input class="searchinput_text" type="text" name="id"></div>
+                </div>
+                <div style="width:80%;padding-bottom:5px;padding-top:5px;">
+                  <div class="searchName">지역검색</div>
+                  <div class="letters" style="display:inline-block;margin-left:10px;">
+                    <select class="locationSelect locationSelect_first" name="si" id="si">
+                      <option value="">:: 시 선택 ::</option>
+                      <option value="서울">서울</option>
+                      <option value="경기">경기</option>
+                      <option value="인천">인천</option>
+                      <option value="부산">부산</option>
+                      <option value="대구">대구</option>
+                      <option value="광주">광주</option>
+                      <option value="대전">대전</option>
+                      <option value="울산">울산</option>
+                      <option value="강원">강원</option>
+                      <option value="경남">경남</option>
+                      <option value="경북">경북</option>
+                      <option value="전남">전남</option>
+                      <option value="전북">전북</option>
+                      <option value="충남">충남</option>
+                      <option value="충북">충북</option>
+                      <option value="제주">제주</option>
+                    </select>
+                    <select class="locationSelect" name="gun" id="gun">
+                      <option value="">:: 구 선택 ::</option>
+                    </select>
+                    <select class="locationSelect" name="up" id="up">
+                      <option value="">:: 동 선택 ::</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:7px;padding-bottom:5px;height:27px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+                <div class="searchName">지역</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="강하면">강하면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="강상면">강상면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="양평읍">양평읍</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="옥천면">옥천면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="양서면">양서면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="서종면">서종면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="용문면">용문면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="지평면">지평면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="개군면">개군면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="청운면">청운면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="단월면">단월면</div>
+              </div>
+              <div style="margin-top:7px;padding-bottom:5px;height:27px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+                <div class="searchName" style="width:30px;"></div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="양동면">양동면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="퇴촌면">퇴촌면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="남종면">남종면</div>
+                <div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="기타지역">기타지역</div>
+              </div>
+            <div style="margin-top:5px;padding-bottom:5px;height:27px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+              <div class="searchName">매물종류</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="house">전원주택/별장/농가주택/펜션</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="land">토지/농막</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="consumer">상가/모텔/빌딩</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="rent">전월세</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="factory">창고/공장</div>
+              <div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" value="villa">아파트/빌라</div>
+            </div>
+            <div style="display:flex;height:37px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+              <div style="width:33.33%;padding-bottom:5px;padding-top:5px;">
+                <div class="searchName">가격</div>
+                <div class="letters" style="display:inline-block;margin-left:10px;padding-right:50px;border-right:1px solid #aaa;"><input class="searchinput" type="number" name="price_low"> 만원 ~ <input class="searchinput" type="number" name="price_high"> 만원</div>
+              </div>
+              <div style="width:33.33%;padding-bottom:5px;padding-top:5px;">
+                <div class="searchName">토지면적</div>
+                <div class="letters" style="display:inline-block;margin-left:10px;padding-right:30px;border-right:1px solid #aaa;"><input class="searchinput" type="number" name="area_ground_low"> 평 ~ <input class="searchinput" type="number" name="area_ground_high"> 평</div>
+              </div>
+              <div style="width:33.33%;padding-bottom:5px;padding-top:5px;">
+                <div class="searchName">건물면적</div>
+                <div class="letters" style="display:inline-block;margin-left:10px;padding-right:10px;"><input class="searchinput" type="number" name="area_building_low"> 평 ~ <input class="searchinput" type="number" name="area_building_high"> 평</div>
+              </div>
+            </div>
+            <div style="margin-top:7px;padding-bottom:5px;height:27px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+              <div class="searchName" style="margin-right:4px;">옵션</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="landscape">조경우수</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="scene">경관우수</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="river">강조망</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="south">남향</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="mountainside">산자락</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="private">사생활보호</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="school">학교인근</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="valley">계곡인접</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="subway">지하철도보</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="flatland">평지</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="complex">단지형</div>
+              <div class="optionButton2"><input class="locationCheckbox" type="checkbox" name="theme" value="traditional">한옥</div>
+            </div>
+            <div style="margin-top:5px;padding-bottom:5px;height:27px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+              <div class="searchName" style="margin-right:4px;">건축구조</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="전체선택">전체선택</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="철근콘크리트">철근콘크리트</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="일반목구조">일반목구조</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="조적조">조적조</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="경량철골조">경량철골조</div>
+              <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" value="기타">기타</div>
+            </div>				
+            <input type="submit" value="매물검색" class="search_submit">
+            </form>
+          </div>
+        </div>
+        <div class="main_items">
+          <div class="section_name list_section">
+            <% if(listType==='recommended') { %>
+            <span class="section_big" id="list_section_title">추천매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >시골이장이 자신있게 권해드리는 추천매물입니다.</span
+            >
+            <% } else if(listType==='urgent') { %>
+            <span class="section_big" id="list_section_title">급매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >투자가치가 높은 저렴한 급매물입니다.</span
+            >
+            <% } else if(listType==='house') { %>
+            <span class="section_big" id="list_section_title"
+              >전원주택/빌라/농가</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >전원주택 및 빌라 등의 주거매물입니다.</span
+            >
+            <% } else if(listType==='land') { %>
+            <span class="section_big" id="list_section_title">토지매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >전원주택 및 상가부지 등의 토지매물입니다.</span
+            >
+            <% } else if(listType==='commercial') { %>
+            <span class="section_big" id="list_section_title"
+              >상가/펜션/수익형</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >음식점, 펜션, 카페 등의 수익형매물입니다.</span
+            >
+            <% } else if(listType==='affordable') { %>
+            <span class="section_big" id="list_section_title"
+              >3억 이하 매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >매매가 3억 미만의 실속형주택입니다.</span
+            >
+            <% } else if(listType==='midprice') { %>
+            <span class="section_big" id="list_section_title"
+              >3억 ~ 6억 매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >매매가 6억 미만의 매물입니다.</span
+            >
+            <% } else if(listType==='highprice') { %>
+            <span class="section_big" id="list_section_title"
+              >6억 ~ 10억 매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >매매가 10억 미만의 매물입니다.</span
+            >
+            <% } else if(listType==='luxury') { %>
+            <span class="section_big" id="list_section_title"
+              >10억 이상 매물</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >매매가 10억 이상의 고급주택입니다.</span
+            >
+            <% } else if(listType==='affordable_land') { %>
+              <span class="section_big" id="list_section_title"
+                >2억 이하 매물</span
+              >&nbsp;&nbsp;<span
+                id="list_section_explanation"
+                class="section_little"
+                >매매가 2억 이하의 토지입니다.</span
+              >
+              <% } else if(listType==='midprice_land') { %>
+                <span class="section_big" id="list_section_title"
+                  >2억 ~ 5억 매물</span
+                >&nbsp;&nbsp;<span
+                  id="list_section_explanation"
+                  class="section_little"
+                  >매매가 5억 이하의 토지입니다.</span
+                >
+                <% } else if(listType==='highprice_land') { %>
+                  <span class="section_big" id="list_section_title"
+                    >5억 이상 매물</span
+                  >&nbsp;&nbsp;<span
+                    id="list_section_explanation"
+                    class="section_little"
+                    >매매가 5억 이상의 토지입니다.</span
+                  >
+            <% } else if(listType==='sidebar_house') { %>
+            <span class="section_big" id="list_section_title"
+              >전원주택/별장/농가주택/펜션</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >전원주택 및 별장 매물입니다.</span
+            >
+            <% } else if(listType==='sidebar_land') { %>
+              <span class="section_big" id="list_section_title"
+                >토지/농막</span
+              >&nbsp;&nbsp;<span
+                id="list_section_explanation"
+                class="section_little"
+                >토지 및 농막 매물입니다.</span
+              >
+            <% } else if(listType==='sidebar_consumer') { %>
+            <span class="section_big" id="list_section_title"
+              >상가/모텔/빌딩</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >상가 및 수익형 부동산입니다.</span
+            >
+            <% } else if(listType==='sidebar_rent') { %>
+            <span class="section_big" id="list_section_title"
+              >전월세</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >전월세 매물입니다.</span
+            >
+            <% } else if(listType==='sidebar_factory') { %>
+            <span class="section_big" id="list_section_title"
+              >창고/공장</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >창고 또는 공장 매물입니다.</span
+            >
+            <% } else if(listType==='sidebar_villa') { %>
+            <span class="section_big" id="list_section_title"
+              >아파트/빌라</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >아파트 또는 빌라 매물입니다.</span
+            >
+            <% } else { %>
+            <span class="section_big" id="list_section_title">검색결과</span
+            >&nbsp;&nbsp;<span
+              id="list_section_explanation"
+              class="section_little"
+              >검색결과에 맞는 매물입니다.</span
+            >
+            <% } %>
+            <div class="list_sort">
+              <span id="price_sell_asc">낮은가격순</span> |
+              <span id="price_sell_desc">높은가격순</span> |
+              <span id="area_ground_desc">넓은면적순</span> |
+              <span id="area_ground_asc">좁은면적순</span> |
+              <span id="timestamp_modified_desc">등록일순</span>
+            </div>
+          </div>
+          <div class="card_items" id="card_items">
+            <% for(let i = 0 ; i < data.length ; i++) { %> <%-
+            include('parts/card', {pageType : 'list', data: data[i]}) %> <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer><%- include('parts/footer') %></footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+			var si = document.getElementById('si').addEventListener('change',function(){
+				document.getElementById('gun').options.length = 1;
+				document.getElementById('up').options.length = 1;
+				if(document.getElementById('si').value===''){
+
+				}
+				else{
+					$.get('/si?name='+document.getElementById('si').value,function(data){
+						for(var i = 0 ; i < data.length ; i++){
+							var opt = document.createElement('option');
+							opt.value = data[i];
+							opt.innerHTML = data[i];
+							document.getElementById('gun').appendChild(opt);
+						}
+					})
+				}
+			});
+
+			var gun = document.getElementById('gun').addEventListener('change',function(){
+				document.getElementById('up').options.length = 1;
+				if(document.getElementById('gun').value===''){
+					
+				}else{
+					$.get('/gun?name='+document.getElementById('gun').value,function(data){
+						for(var i = 0 ; i < data.length ; i++){
+							var opt = document.createElement('option');
+							opt.value = data[i];
+							opt.innerHTML = data[i];
+							document.getElementById('up').appendChild(opt);
+						}
+					})
+				}
+			});
+
+
+      function getQueryStringValue(key) {
+        return decodeURIComponent(
+          window.location.search.replace(
+            new RegExp(
+              "^(?:.*[&\\?]" +
+                encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") +
+                "(?:\\=([^&]*))?)?.*$",
+              "i"
+            ),
+            "$1"
+          )
+        );
+      }
+
+      function UpdateQueryString(key, value, url) {
+        if (!url) url = window.location.href;
+        var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+          hash;
+
+        if (re.test(url)) {
+          if (typeof value !== "undefined" && value !== null) {
+            return url.replace(re, "$1" + key + "=" + value + "$2$3");
+          } else {
+            hash = url.split("#");
+            url = hash[0].replace(re, "$1$3").replace(/(&|\?)$/, "");
+            if (typeof hash[1] !== "undefined" && hash[1] !== null) {
+              url += "#" + hash[1];
+            }
+            return url;
+          }
+        } else {
+          if (typeof value !== "undefined" && value !== null) {
+            var separator = url.indexOf("?") !== -1 ? "&" : "?";
+            hash = url.split("#");
+            url = hash[0] + separator + key + "=" + value;
+            if (typeof hash[1] !== "undefined" && hash[1] !== null) {
+              url += "#" + hash[1];
+            }
+            return url;
+          } else {
+            return url;
+          }
+        }
+      }
+    
+    var skip = 0;
+    var loading = false;
+
+    window.onscroll = function(e) {
+      var scrollpos = window.scrollY || window.pageYOffset;
+      if((window.innerHeight + scrollpos) >= document.body.offsetHeight-100){
+        // do ajax
+        if(!loading){
+          loading = true;
+        var addContent = '';        
+        skip++;
+        $.get(UpdateQueryString('skip',skip),function(data){          
+          addContent = data;    
+          $('#card_items').append(addContent);
+          loading = false;
+        });                
+        console.log(skip);
+        }
+      }
+    }
+
+      if (getQueryStringValue("sort") === "price_sell_asc"){
+        document.getElementById("price_sell_asc").classList.add("sort_selected");
+	  } else if (getQueryStringValue("sort") === "price_sell_desc") {
+        document.getElementById("price_sell_desc").classList.add("sort_selected");
+	  } else if (getQueryStringValue("sort") === "area_ground_desc") {
+        document.getElementById("area_ground_desc").classList.add("sort_selected");
+	  } else if (getQueryStringValue("sort") === "area_ground_asc") {
+        document.getElementById("area_ground_asc").classList.add("sort_selected");
+	  } else if (getQueryStringValue("sort") === "timestamp_modified_desc") {
+		document.getElementById("timestamp_modified_desc").classList.add("sort_selected");
+	  }
+
+	  // sort 버튼 누르면, 눌려있는거 누르면 제거, 안눌려있는거 누르면 변경
+	  	document.getElementById('price_sell_asc').addEventListener('click',function(){
+		if(getQueryStringValue('sort')==='price_sell_asc'){
+			window.location.href = UpdateQueryString('sort','');
+		}else{
+			window.location.href = UpdateQueryString('sort','price_sell_asc');
+		}
+	});
+
+		document.getElementById('price_sell_desc').addEventListener('click',function(){
+		if(getQueryStringValue('sort')==='price_sell_desc'){
+			window.location.href = UpdateQueryString('sort','');
+		}else{
+			window.location.href = UpdateQueryString('sort','price_sell_desc');
+		}
+	});
+		document.getElementById('area_ground_desc').addEventListener('click',function(){
+		if(getQueryStringValue('sort')==='area_ground_desc'){
+			window.location.href = UpdateQueryString('sort','');
+		}else{
+			window.location.href = UpdateQueryString('sort','area_ground_desc');
+		}
+	});
+		document.getElementById('area_ground_asc').addEventListener('click',function(){
+		if(getQueryStringValue('sort')==='area_ground_asc'){
+			window.location.href = UpdateQueryString('sort','');
+		}else{
+			window.location.href = UpdateQueryString('sort','area_ground_asc');
+		}
+	});
+		document.getElementById('timestamp_modified_desc').addEventListener('click',function(){
+		if(getQueryStringValue('sort')==='timestamp_modified_desc'){
+			window.location.href = UpdateQueryString('sort','');
+		}else{
+			window.location.href = UpdateQueryString('sort','timestamp_modified_desc');
+		}
+	  });
+    </script>
+  </body>
+</html>

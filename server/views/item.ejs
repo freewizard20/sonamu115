@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include('parts/header') %>
+	</head>
+	<body  oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+		<div style="display:none;">
+			<%- include('parts/card', {pageType : 'item', data: {}}) %>
+		</div>
+		<%- include('parts/notice') %>
+		<%- include('parts/logoarea') %>
+		<div class="container">
+			<div class="item_sidebar">
+				<%- include('parts/sidebar') %>
+			</div>
+			<div class="item_divider"></div>
+			<div class="item_maincontent">
+				<div class="section_name item_section">
+					<span class="section_big">상세정보</span>&nbsp;&nbsp;<span class="section_little">자세한 정보를 제공해 드립니다.</span>
+				</div>
+				<div class="item_gallery">
+					<% if('image' in data && data.image.length!=0) { %>
+						<img class="item_gallery_main" id="main_image" src="images<%= data.image[0] %>">
+					<% } else { %>
+						<img class="item_gallery_main" id="main_image" src="assets/ready_big.png">
+					<% } %>
+					<div class="item_gallery_sub">
+						<% if('image' in data && data.image.length!=0) { %>
+							<% for(let i = 0 ; i < data.image.length ; i++) { %>
+								<img class="item_gallery_small" id="item_gallery_small_<%= i %>" src="images<%= data.image[i] %>">
+								<script>
+									document.getElementById("item_gallery_small_<%= i %>").addEventListener('mouseover',function(){
+										document.getElementById('main_image').src = document.getElementById('item_gallery_small_<%= i %>').src;
+									})
+								</script>
+							<% } %>
+						<% } %>
+					</div>
+				</div>
+				<div class="item_basic_info">
+				<div class="section_name item_title">
+					<span class="section_big"><%= data.title %></span>
+				</div>
+				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
+				<table class="item_table">
+					<tr>
+						<td class="item_label">가격</td>
+						<td class="item_value red bold" colspan="3">
+							<% if(data.price_sell !=0) { %>
+								매매가 :
+								<% if(data.price_sell>=10000) { %>
+									<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+								<% } else { %>
+									<%= data.price_sell %>만
+								<% } %>
+							<% } else if (data.price_jeondeposit != 0) { %>
+								전세보증금 :
+								<% if(data.price_jeondeposit>=10000) { %>
+									<%= Math.floor(data.price_jeondeposit/10000)%>억<% if(data.price_jeondeposit%10000!=0) { %><%= data.price_jeondeposit%10000 %>만<% } %>
+								<% } else { %>
+									<%= data.price_jeondeposit %>만
+								<% } %>
+								<% if(data.price_borrow != 0) { %>
+								/ 융자가 :
+								<% if(data.price_borrow>=10000) { %>
+									<%= Math.floor(data.price_borrow/10000)%>억<% if(data.price_borrow%10000!=0) { %><%= data.price_borrow%10000 %>만<% } %>
+								<% } else { %>
+									<%= data.price_borrow %>만
+								<% } %>
+								<% } %>
+							<% } else { %>
+								보증금 :
+								<% if(data.price_rentdeposit>=10000) { %>
+									<%= Math.floor(data.price_rentdeposit/10000)%>억<% if(data.price_rentdeposit%10000!=0) { %><%= data.price_rentdeposit%10000 %>만<% } %>
+								<% } else { %>
+									<%= data.price_rentdeposit %>만
+								<% } %>
+								/ 월세 : <%= data.price_rent %>만
+							<% } %>
+						</td>
+					</tr>
+					<tr>
+						<td class="item_label">진행사항</td>
+						<td class="item_value bold">
+							<% if(data.contract === 'on') { %>
+								<span style="color:green;">계약가능</span>
+							<% } else if(data.contract ==='pending') { %>
+								<span style="color:black;">계약보류</span>
+							<% } else { %>
+								<span style="color: red;">계약완료</span>
+							<% } %>
+						</td>
+						<td class="item_label">매물번호</td>
+						<td class="item_value"><span style="color:red;font-weight:bold;"><%= data.id %></span></td>
+					</tr>
+					<tr>
+						<td class="item_label">면적</td>
+						<td class="item_value">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+						<% if(data.area_building != 0) { %>
+						 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+						<% } %>
+						</td>
+						<td class="item_label">방/욕실</td>
+						<td class="item_value"><%= data.area_rooms %> / <%= data.area_toilets %></td>
+					</tr>
+					<tr>
+						<td class="item_label">건축구조</td>
+						<td class="item_value"><%= data.area_recommended %></td>
+						<td class="item_label">난방</td>
+						<td class="item_value"><%= data.detail_temperature %></td>
+					</tr>
+					<tr>
+						<td class="item_label">준공년도</td>
+						<td class="item_value"><%= data.detail_date %></td>
+						<td class="item_label">방향</td>
+						<td class="item_value"><%= data.detail_orientation %></td>
+					</tr>
+					<tr>
+						<td class="item_label">담당자</td>
+						<td class="item_value bold" id="user_name"><%= data.user %></td>
+						<td class="item_label">연락처</td>
+						<td class="item_value bold" id="user_contact">031-773-5900 / 010-5670-4530</td>
+					</tr>
+				</table>
+				</div>
+				<div class="item_detail_info">
+					<div class="section_name item_title">
+						<span class="section_big_smaller">상세정보</span>
+					</div>
+					<div class="item_detail_text" id="target">
+						<%= data.detail %>
+					</div>
+				</div>
+				<div class="item_related">
+					<div class="section_name item_title">
+						<span class="section_big_smaller">유사매물</span>
+					</div>
+					<div class="item_related_cards">
+						<% for(let i = 0 ; i < similar.length ; i++) { %>
+							<%- include('parts/card', {pageType : 'item', data: similar[i]}) %>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<%- include('parts/footer') %>
+		</footer>
+		<script>
+			let target = document.getElementById('target');
+			target.innerHTML = target.innerHTML.replace(/#8203;/gi,'').replace(/&gt;/gi,'>').replace(/&lt;/gi,'<').replace(/&amp;/gi,'').replace(/amp;/gi,'');
+			let user = document.getElementById('user_name').innerHTML;
+			if(user==='admin'){
+				document.getElementById('user_name').innerHTML = '공인중개사 최재성';
+				document.getElementById('user_contact').innerHTML = '031-773-5900 / 010-5265-4181';
+			}else{
+				document.getElementById('user_name').innerHTML = '공인중개사 최기혁';
+				document.getElementById('user_contact').innerHTML = '031-773-5900 / 010-5670-4530';
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include('parts/header') %>
+	</head>
+	<body>
+		<%- include('parts/notice') %>
+        <%- include('parts/logoarea') %>
+		<div style="width:1200px;margin:auto;margin-top:15px;">
+		<div class="main_gallery">
+			<div class="gallery_button gallery_button_left"><i class="fas fa-chevron-left"></i></div>
+			<div class="gallery_button gallery_button_right"><i class="fas fa-chevron-right"></i></div>
+			<div class="gallery_explanation">
+				<div class="gallery_content">
+				<p>[모던 갤러리 주택]</p>
+				<p>바로 앞 남한강 / 서울 강남권 30분 / 유럽풍 실내 인테리어</p>
+				</div>
+			</div>
+			
+			<div class="gallery_images">
+				<a href="/item">
+			<div class="gallery_main_box">
+			<img class="gallery_main" src="assets/example.jpg">
+			</div>
+			</a>
+			<div class="gallery_sub_box">
+				<a href="/item">
+				<div class="gallery_sub_box2">
+					<img class="gallery_sub1 gallery_sub" src="assets/example.jpg">
+					<img class="gallery_sub1 gallery_sub" src="assets/example.jpg">
+					<img class="gallery_sub1 gallery_sub" src="assets/example.jpg">
+				</div>
+				</a>
+			</div>	
+		</div>
+		</div>		
+		<div style="padding:10px;"></div>
+		<div style="border:1px solid #666;border-radius:6px;">
+			<div style="margin-bottom:8px;">
+				<div style="margin:8px;"></div>
+				<div style="display:inline-block;padding:5px 15px;border-right:1px solid #666;margin-right:10px;color:#dd464d;font-weight:bold;font-size:16px;">간편메뉴</div>
+				<a href="/list"><button class="searchButton">추천매물</button></a>
+				<a href="/list"><button class="searchButton">급매물</button></a>
+				<a href="/list"><button class="searchButton">전원주택/펜션/농가</button></a>
+				<a href="/list"><button class="searchButton">토지</button></a>
+				<a href="/list"><button class="searchButton">상가/수익형</button></a>
+				<a href="/list"><button class="searchButton">3억 이하</button></a>
+				<a href="/list"><button class="searchButton">3억 ~ 6억</button></a>
+				<a href="/list"><button class="searchButton">6억 ~ 10억</button></a>
+				<a href="/list"><button class="searchButton">10억 이상</button></a>
+			</div>
+			<div style="border-bottom:1px solid #666"></div>
+			<div style="display:flex;">
+				<div style="padding-left:10px;padding-right:10px;display:inline-block;border-right:1px solid #666;height:307px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;">
+					<div class="detail_search">상세검색</div>
+					<img src="assets/333.png"><br />
+					<img src="assets/3.PNG">
+				</div>
+				<div style="width:100%;border-bottom-right-radius: 5px;">
+				<div style="margin-top:7px;padding-bottom:5px;height:32px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div class="searchName">매물종류</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">전원주택/별장</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">농가주택/구옥</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">토지매물</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">펜션/모텔</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">빌라/연립/원룸</div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="location" value="1">상가/빌딩/기타</div>
+				</div>
+				<div style="display:flex;height:42px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div style="width:33.33%;padding-bottom:5px;padding-top:7px;">
+						<div class="searchName">가격</div>
+						<div class="letters" style="display:inline-block;margin-left:10px;padding-right:50px;border-right:1px solid #aaa;"><input class="searchinput" type="number" name="price_low"> 만원 ~ <input class="searchinput" type="number" name="price_high"> 만원</div>
+					</div>
+					<div style="width:33.33%;padding-bottom:5px;padding-top:7px;">
+						<div class="searchName">토지면적</div>
+						<div class="letters" style="display:inline-block;margin-left:10px;padding-right:30px;border-right:1px solid #aaa;"><input class="searchinput" type="number" name="price_low"> 평 ~ <input class="searchinput" type="number" name="price_high"> 평</div>
+					</div>
+					<div style="width:33.33%;padding-bottom:5px;padding-top:7px;">
+						<div class="searchName">건물면적</div>
+						<div class="letters" style="display:inline-block;margin-left:10px;padding-right:10px;"><input class="searchinput" type="number" name="price_low"> 평 ~ <input class="searchinput" type="number" name="price_high"> 평</div>
+					</div>
+				</div>
+				<div style="margin-top:7px;padding-bottom:5px;height:32px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div class="searchName">지역</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">퇴촌면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">남종면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">서종면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">양서면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">옥천면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">강하면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">강상면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">양평읍</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">용문면</div>
+					<div class="locationButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">지평면</div>
+				</div>
+				<div style="margin-top:7px;padding-bottom:5px;height:32px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div class="searchName" style="margin-right:4px;">옵션</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">조경우수</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">경관우수</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">강조망</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">남향</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">산자락</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">사생활보호</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">학교인근</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">계곡인접</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">지하철도보</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">평지</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">단지형</div>
+				</div>
+				<div style="margin-top:7px;padding-bottom:5px;height:32px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div class="searchName" style="margin-right:4px;">건축구조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">철근콘크리트</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">경량철골조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">일반목구조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">목조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">ALC블럭</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">조적조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">연와조</div>
+					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="location" value="1">시멘트블럭</div>
+				</div>
+				<div style="display:flex;height:42px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
+					<div style="width:50%;padding-bottom:5px;padding-top:7px;">
+						<div class="searchName">매물번호</div>
+						<div class="letters" style="display:inline-block;margin-left:10px;padding-right:270px;border-right:1px solid #aaa;"><input class="searchinput_text" type="number" name="price_low"></div>
+					</div>
+					<div style="width:50%;padding-bottom:5px;padding-top:7px;">
+						<div class="searchName">통합검색</div>
+						<div class="letters" style="display:inline-block;margin-left:10px;"><input style="width:350px;" type="number" name="price_low"></div>
+					</div>
+				</div>				
+				<a href="/list"><input type="submit" value="매물검색" class="search_submit"></a>
+				<!--<button class="search_refresh">초기화</button> -->
+				<a href="https://www.youtube.com/user/7735900/featured"><button class="search_youtube"><i class="fab fa-youtube yt"></i> 유튜브</button></a>
+			</div>
+			</div>
+		</div>
+		<div style="margin:20px;font-size:16px;">
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">
+				<span class="section_big">추천매물</span>&nbsp;&nbsp;<span class="section_little">시골이장이 자신있게 권해드리는 추천매물입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+			</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 10 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">
+				<span class="section_big">고급주택</span>&nbsp;&nbsp;<span class="section_little">매매가 10억 이상의 고급주택입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+			</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 10 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">				
+				<span class="section_big">토지매물</span>&nbsp;&nbsp;<span class="section_little">전원주택 및 상가부지 등의 토지매물입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+			</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 10 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">
+				<span class="section_big">실속형매물</span>&nbsp;&nbsp;<span class="section_little">매매가 3억 미만의 실속형주택입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+		</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 10 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">				
+				<span class="section_big">수익형매물</span>&nbsp;&nbsp;<span class="section_little">음식점,펜션,카페 등의 수익형매물입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+			</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 5 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+		<div class="section_div">
+			<a class="noline" href="/list">
+			<div class="section_name">				
+				<span class="section_big">전월세</span>&nbsp;&nbsp;<span class="section_little">전월세 매물입니다.</span>
+				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
+			</div>
+		</a>
+			<div style="display:flex;justify-content: space-between;flex-wrap:wrap;">
+				<% for(let i = 0 ; i < 5 ; i++) { %>
+					<%- include('parts/card') %>
+				<% } %>
+			</div>
+		</div>
+        </div>
+		<footer>
+			<%- include('parts/footer') %>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,234 @@
+<style>
+    .card_box {
+        margin-top: <%= pageType === 'home' ? '10px' : '25px' %>;
+        width: <%= pageType === 'item' ? '225px' : '233px' %>;
+        display: inline-block;
+        margin-bottom: 5px;
+        margin-right: 5px;
+    }
+
+    .card_image {
+        width: <%= pageType === 'item' ? '225px' : '233px' %>;
+        height: 165px;
+        border : 1px solid black;
+    }
+
+    .card_location {
+        font-size: 12px;
+        font-weight: bold;
+        margin-top : 5px;
+    }
+
+    .card_land {
+        margin-top:5px;
+    }
+
+    .card_land_breadcrum {
+        font-size:11px;
+        background-color: brown;
+        display: inline-block;
+        color:white;
+        padding: 3px 3px 3px 3px;
+        border-radius:2px;
+    }
+
+    .card_land_info {
+        display:inline-block;
+        position:relative;
+    }
+
+    .card_building {
+        margin-top:3px;
+    }
+
+    .card_building_breadcrum {
+        font-size:11px;
+        background-color:green;
+        display: inline-block;
+        color:white;
+        padding: 2px 3px 3px 2px;
+        border-radius:2px;
+    }
+
+    .card_building_info {
+        display:inline-block;
+        position:relative;
+    }
+
+    .card_code{
+        margin-top:5px;
+        margin-bottom:1px;
+    }
+
+    .card_code_breadcrum {
+        font-size:11px;
+        background-color:black;
+        display: inline-block;
+        color:white;
+        padding: 2px 4px 3px 4px;
+        border-radius:2px;
+    }
+
+    .card_code_info {
+        display:inline-block;
+        position:relative;
+    }
+
+    .card_title {
+        margin-top:5px;
+        font-weight:bold;
+        margin-bottom:1px;
+    }
+
+    .card_price_breadcrum {
+        font-size:12px;
+        background-color:navy;
+        display: inline-block;
+        color:white;
+        padding: 1px 2px;
+        border-radius:2px;
+    }
+
+    .card_price {
+        margin-top:5px;
+    }
+
+    .card_price_info {
+        display:inline-block;
+        font-weight:bold;
+        position:relative;
+        left:-1px;
+    }
+
+    .card_info{
+        font-size:12px;
+    }
+
+    .card_ready{
+        width: <%= pageType === 'item' ? '225px' : '233px' %>;
+        height: 120px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 120px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .card_jeon_breadcrum{
+        font-size:12px;
+        background-color: #2197BD;
+        display: inline-block;
+        color:white;
+        padding: 1px 3px 2px 2px;
+        border-radius:2px;
+    }
+
+    .card_jeon_info{
+        display:inline-block;
+        position:relative;
+    }
+
+    .card_rent_breadcrum{
+        font-size:12px;
+        background-color: #ff69b4;
+        display: inline-block;
+        color:white;
+        padding: 1px 2px;
+        border-radius:2px;
+    }
+
+    .card_rent_info{
+        display:inline-block;
+        position:relative;
+    }
+
+    .card_rent2_breadcrum{
+        font-size:12px;
+        background-color: #87CEEB;
+        display: inline-block;
+        color:white;
+        padding: 1px 3px 2px 1px;
+        border-radius:2px;
+    }
+
+    .card_rent2_info{
+        display:inline-block;
+        position:relative;
+    }
+</style>
+
+<% if(data===undefined || Object.keys(data).length===0) { %>
+<% var status = 0; %>
+<% } else if(data.image && data.image.length===0) { %>
+<% var status = 1; %>
+<% } else { %>
+<% var status = 2; %>
+<% } %>
+
+<a href="/item?id=<%= data._id %>">
+<div class="card_box">
+    <% if(status===2) { %>
+    <div style="position:relative;">
+        <% if(data.contract==='complete') { %>
+        <img style="position:absolute;top:-14px;left:-5px;z-index:10;height:72px;" src="assets/contract.png">
+        <% } %>
+        <img class="card_image" src="images<%= data.thumbnail %>">
+    </div>
+    <% }else if(status===1 || status===0){ %>
+    <img class="card_image" src="assets/ready.png">
+    <% } %>
+    
+    <% if(status === 0) { %>
+        <div class="card_ready">매물이 준비중입니다.</div>
+    <% } else { %>
+        <div class="card_location"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
+        <div class="card_land">
+            <div class="card_land_breadcrum">대지</div>
+            <div class="card_land_info card_info"><%= Math.floor(data.area_ground) %>평<span style="font-size:12px;">(<span style="color:red;font-size:11px;"><%= Math.floor(data.area_ground2) %></span>㎡)</span></div>
+            <% if(data.area_building!=0) { %>
+            <div class="card_building_breadcrum">건물</div>
+            <div class="card_building_info card_info"><%= Math.floor(data.area_building) %>평<span style="font-size:12px;">(<span style="color:red;font-size:11px;"><%= Math.floor(data.area_building2) %></span>㎡)</span></div>
+            <% } %>
+        </div>
+        <div class="card_code">
+            <div class="card_code_breadcrum">매물번호</div>
+            <div class="card_code_info"><span style="color:red;font-weight:bold;font-size:13px;position:relative;top:1px;"><%= data.id %></span></div>
+        </div>
+        <div class="card_title">
+            <%= data.title %>
+        </div>
+        <div class="card_price">
+            <% if(data.price_sell != 0 || (data.price_jeondeposit===0 && data.price_rentdeposit===0)) { %>
+                <div class="card_price_breadcrum">매</div>
+                <div class="card_price_info">
+                    <% if(data.price_sell>=10000) { %>
+                        <%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+                    <% } else { %>
+                        <%= data.price_sell %>만
+                    <% } %>
+                </div>
+            <% } else if(data.price_jeondeposit != 0) { %>
+                <div class="card_jeon_breadcrum">전</div>
+                <div class="card_jeon_info">
+                    <% if(data.price_jeondeposit>=10000) { %>
+                        <%= Math.floor(data.price_jeondeposit/10000)%>억<% if(data.price_jeondeposit%10000!=0) { %><%= data.price_jeondeposit%10000 %>만<% } %>
+                    <% } else { %>
+                        <%= data.price_jeondeposit %>만
+                    <% } %>
+                </div>
+            <% } else { %>
+                <div class="card_rent_breadcrum">보</div>
+                <div class="card_rent_info">
+                    <% if(data.price_rentdeposit>=10000) { %>
+                        <%= Math.floor(data.price_rentdeposit/10000)%>억<% if(data.price_rentdeposit%10000!=0) { %><%= data.price_rentdeposit%10000 %>만<% } %>
+                    <% } else { %>
+                        <%= data.price_rentdeposit %>만
+                    <% } %>
+                </div>
+                <div class="card_rent2_breadcrum">월</div>
+                <div class="card_rent2_info"><%= data.price_rent %>만</div>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+</a>

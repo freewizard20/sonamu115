@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<%- include('parts/header') %>
+</head>
+
+<body  oncontextmenu='return false' onselectstart='return false' ondragstart='return false'> 
+	<%- include('parts/mlogoarea') %>
+		<div class="top_button" id="top_button"><i class="far fa-caret-square-up"></i></div>
+		<div style="width:100%;max-width:900px;margin:auto;margin-top:-4px;">
+			<div class="sidebar_category"
+				style="width:100%;margin-bottom:8px;padding-bottom:5px;display:flex;flex-wrap:wrap;">
+				<div class="sidebar_title" style="margin-bottom:5px;">간편메뉴</div>
+				<a href="/m?category=recommended"><button class="searchButton mButton">추천매물</button></a>
+				<a href="/m?category=urgent"><button class="searchButton mButton">급매물</button></a>
+				<a href="/m?category=house"><button class="searchButton mButton">주택</button></a>
+				<a href="/m?category=land"><button class="searchButton mButton">토지</button></a>
+				<a href="/m?category=commercial"><button class="searchButton mButton">상업용</button></a>
+				<a href="/m?category=affordable"><button class="searchButton mButton">3억 이하</button></a>
+				<a href="/m?category=midprice"><button class="searchButton mButton">3억 ~ 6억</button></a>
+				<a href="/m?category=highprice"><button class="searchButton mButton">6억 ~ 10억</button></a>
+				<a href="/m?category=luxury"><button class="searchButton mButton">10억 이상</button></a>
+				<a href="/m?category=affordable_land"><button class="searchButton mButton">2억 이하 토지</button></a>
+				<a href="/m?category=midprice_land"><button class="searchButton mButton">2억 ~ 5억 토지</button></a>
+				<a href="/m?category=highprice_land"><button class="searchButton mButton">5억 이상 토지</button></a>
+			</div>
+			<div class="list_search" style="padding-bottom:0px;">
+				<div style="width: 100%">
+					<div id="detail_search" class="list_search_title closed" style="margin-bottom:0px;">상세검색<i
+							style="position:relative;left:10px;top:0px;color:#333;"
+							class="fas fa-angle-double-down" id="detail_icon"></i></div>
+					<div id="detail_search_content" class="mobile_search">
+						<form action="/m" method="POST">
+							<div class="mobile_search_content">
+								<div style="display:flex;flex: 0 0 100%;justify-content:left">
+									<div class="mobile_search_title">매물번호</div>
+									<div class="mobile_search_items">
+										<div class="mobile_left">
+											<input class="searchinput_text mobile_left" type="text" name="id">
+										</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">매물종류</div>
+									<div class="mobile_search_items">
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="house">전원주택/별장/농가주택/펜션</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="land">토지/농막</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="consumer">상가/모텔/빌딩</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="rent">전월세</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="factory">창고/공장</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="type" value="villa">아파트/빌라</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">가격</div>
+									<div class="mobile_search_items">
+										<div class="mobile_left">
+											<input class="searchinput" type="number" name="price_low"> 만원 ~ <input
+												class="searchinput" type="number" name="price_high"> 만원
+										</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">토지면적</div>
+									<div class="mobile_search_items">
+										<div class="mobile_left">
+											<input class="searchinput" type="number" name="area_ground_low"> 평 ~ <input
+												class="searchinput" type="number" name="area_ground_high"> 평
+										</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">건물면적</div>
+									<div class="mobile_search_items">
+										<div class="mobile_left">
+											<input class="searchinput" type="number" name="area_building_low"> 평 ~
+											<input class="searchinput" type="number" name="area_building_high"> 평
+										</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">지역</div>
+									<div class="mobile_search_items">
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="강하면">강하면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="강상면">강상면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="양평읍">양평읍</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="옥천면">옥천면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="양서면">양서면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="서종면">서종면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="용문면">용문면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="지평면">지평면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="개군면">개군면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="청운면">청운면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="단월면">단월면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="양동면">양동면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="퇴촌면">퇴촌면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="남종면">남종면</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="location" value="기타지역">기타지역</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">옵션</div>
+									<div class="mobile_search_items">
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="landscape">조경우수</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="scene">경관우수</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="river">강조망</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="south">남향</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="mountainside">산자락</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="private">사생활보호</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="school">학교인근</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="valley">계곡인접</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="subway">지하철도보</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="flatland">평지</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="complex">단지형</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="theme" value="traditional">한옥</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">건축구조</div>
+									<div class="mobile_search_items">
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="전체선택">전체선택</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="철근콘크리트">철근콘크리트</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="일반목구조">일반목구조</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="조적조">조적조</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="경량철골조">경량철골조</div>
+										<div class="mobile_button"><input class="locationCheckbox" type="checkbox"
+												name="recommended" value="기타">기타</div>
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<div style="display:flex;flex: 0 0 100%;">
+									<div class="mobile_search_title">통합검색</div>
+									<div class="mobile_search_items mobile_left">
+										<input style="width:150px;" type="text" name="title">
+									</div>
+								</div>
+								<div class="mobile_divider">
+									<div class="mobile_divider_2"></div>
+								</div>
+								<input type="submit" value="매물검색" class="search_submit"
+									style="margin: auto;display:block; margin-top:3px;">
+						</form>
+					</div>
+				</div>
+			</div>			
+		</div>
+		<div class="mobile_titlebar">
+			<%= listType %>
+		</div>
+		<div class="mobile_cards" id="card_items">
+			<% for(let i = 0 ; i < data.length ; i++) { %>
+				<%- include('parts/mcard.ejs', {data: data[i]}) %>
+			<% } %>
+		</div>
+		<footer>
+			<%- include('parts/footer') %>
+		</footer>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			document.getElementById('top_button').addEventListener('click',function(){
+				$('html, body').animate({scrollTop: 0}, 500);
+			})
+
+      function UpdateQueryString(key, value, url) {
+        if (!url) url = window.location.href;
+        var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+          hash;
+
+        if (re.test(url)) {
+          if (typeof value !== "undefined" && value !== null) {
+            return url.replace(re, "$1" + key + "=" + value + "$2$3");
+          } else {
+            hash = url.split("#");
+            url = hash[0].replace(re, "$1$3").replace(/(&|\?)$/, "");
+            if (typeof hash[1] !== "undefined" && hash[1] !== null) {
+              url += "#" + hash[1];
+            }
+            return url;
+          }
+        } else {
+          if (typeof value !== "undefined" && value !== null) {
+            var separator = url.indexOf("?") !== -1 ? "&" : "?";
+            hash = url.split("#");
+            url = hash[0] + separator + key + "=" + value;
+            if (typeof hash[1] !== "undefined" && hash[1] !== null) {
+              url += "#" + hash[1];
+            }
+            return url;
+          } else {
+            return url;
+          }
+        }
+      }
+
+			var clicked = false;
+			document.getElementById('detail_search').addEventListener('click',function(){
+				//document.getElementById('detail_search_content').style.
+				if(!clicked){
+					document.getElementById('detail_icon').style.transform = 'rotate(180deg)';
+					document.getElementById('detail_search').classList.remove('closed');
+					document.getElementById('detail_search_content').style.maxHeight = document.getElementById('detail_search_content').scrollHeight + 'px';
+				}else{
+					document.getElementById('detail_icon').style.transform = '';
+					document.getElementById('detail_search').classList.add('closed');
+					document.getElementById('detail_search_content').style.maxHeight = null;
+				}
+				clicked = clicked===true? false : true;
+			})
+
+			var skip = 0;
+			var loading = false;
+			window.onscroll = function(e) {
+			var scrollpos = window.scrollY || window.pageYOffset;
+			if((window.innerHeight + scrollpos) >= document.body.offsetHeight-100){
+				// do ajax
+				if(!loading){
+          		loading = true;
+				var addContent = '';
+				skip++;
+				$.get(UpdateQueryString('skip',skip),function(data){
+				addContent = data;    
+				$('#card_items').append(addContent);
+				loading = false;
+				});        
+				
+				//console.log(skip);
+			}
+			}
+			}
+		</script>
+</body>
+
+</html>

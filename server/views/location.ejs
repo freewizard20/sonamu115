@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('parts/header') %>
+  </head>
+  <body>
+    <%- include('parts/logoarea') %>
+    <div class="container">
+      <div class="item_sidebar"><%- include('parts/sidebar') %></div>
+      <div class="item_divider"></div>
+      <div class="item_maincontent">
+        <div class="section_name item_section">
+          <span class="section_big">오시는길</span>
+        </div>
+        <div style="font-size:16px;margin-top:50px;">
+          <table style="border-collapse: collapse;border:1px solid black;width:600px;margin: 0 auto;">
+            <tr>
+              <td style="padding:10px;text-align: center;">업체명</td>
+              <td style="padding:10px;">소나무공인중개사사무소</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;text-align: center;">대표자명</td>
+              <td style="padding:10px;">최기혁</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;text-align: center;">대표번호</td>
+              <td style="padding:10px;">031-773-5900</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;text-align: center;">팩스번호</td>
+              <td style="padding:10px;">031-773-5944</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;text-align: center;">주소</td>
+              <td style="padding:10px;">경기도 양평군 강하면 전수리 555-8</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;text-align: center;">이메일</td>
+              <td style="padding:10px;">rebchjs@naver.com</td>
+            </tr>
+          </table>
+        </div>
+        <div id="map" style="margin:auto;width:600px;height:600px;margin-top:15px;"></div>
+      </div>
+    </div>
+    <footer><%- include('parts/footer') %></footer>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=m980rrqwec&callback=initMap"></script>
+    <script type="text/javascript">
+        var map = null;
+
+        function initMap() {
+            map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(37.50302, 127.42422),
+                zoom: 18
+            });
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include('parts/header') %>
+		<style>
+			html, body{
+			padding: 0;
+			margin: 0;
+			}
+			html{
+			height: 100%;
+			}
+			body{
+			min-height: 100%;
+			}
+
+			body {
+				background-color: #45484D;
+			}
+
+			.card2 {
+				background-color: white;
+				width:500px;
+				border-radius: 7px;
+				padding: 20px;
+				text-align: center;
+			}
+
+			h4{
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="display:flex;justify-content:center;position:relative;top:35vh;min-height:100%">
+		<div class="card2">
+			<form action="/login" method="POST">					
+				<h2>소나무부동산 관리자페이지 로그인</h2>
+				<h4 style="display:inline-block;">아이디 : </h4>
+				<input type="text" name="name"/>
+				<br />
+				<h4 style="margin-left:-3px;display:inline-block;">비밀번호 : </h4>
+				<input style="margin-left:-1px;" type="password" name="password"/>
+				<div style="margin:10px;"></div>
+				<input type="submit" value="로그인"/>				
+			</form>
+		</div>
+		</div>
+		<footer>
+			<% include('parts/footer') %>
+		</footer>
+	</body>
+</html>

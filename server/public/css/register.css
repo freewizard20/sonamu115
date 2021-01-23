@@ -1,0 +1,40 @@
+table {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.uploadImage {
+  width: 105px;
+}
+
+.table_normal {
+  border: 0px;
+}
+
+.imagebox {
+  border: 1px black solid;
+  padding: 5px;
+}
+
+tr,
+td {
+  border: 1px solid black;
+}
+
+input[type="text"] {
+  margin: 1px;
+  width: 80px;
+}
+
+input[type="number"] {
+  margin: 1px;
+  width: 80px;
+}
+
+td {
+  padding: 5px;
+}
+
+.seperator {
+  margin: 10px;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include('parts/header') %>
+		<style>
+			div {
+				font-size: 16px;
+				line-height: 2em;
+			}
+
+			.timestamp_table{
+				border-collapse: collapse;
+				margin-top:5px;
+			}
+
+			.timestamp_date{
+				border: 1px solid #aaa;
+				padding: 5px 10px;
+			}
+
+			.timestamp_count{
+				border: 1px solid #aaa;
+				padding: 5px 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<%- include('parts/adminnavbar') %>
+		<div style="font-size:22px;font-weight:bold;">통계 페이지입니다.</div>
+		<div>
+			오늘 방문자수 : <%= today.count %> 명
+		</div>
+		<div>
+			(누적) 데스크톱 방문자수 : <%= desktop.count %> 명 / 모바일 방문자수 : <%= mobile.count %> 명
+		</div>
+		<div style="margin-top:10px;">
+			<span style="font-size:22px;font-weight:bold;">방문자 통계</span>
+			<table class="timestamp_table" >
+				<% for(let i = 0 ; i < timestamp.length ; i++) { %>
+					<tr>
+						<td class="timestamp_date"><%= new Date(Number(timestamp[i].timestamp)).toISOString().split('T')[0] %></td>
+						<td class="timestamp_count"><%= timestamp[i].count %> 명</td>
+					</tr>
+				<% } %>
+			</table>
+		</div>
+		<footer>
+			<%- include('parts/footer2') %>
+		</footer>
+	</body>
+</html>

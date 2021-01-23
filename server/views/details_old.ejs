@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<%- include('parts/header') %>
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+		tinymce.init({
+		  selector: '#detail',
+		  toolbar: 'undo redo bold italic underline fontsizeselect forecolor alignleft aligncenter alignright',
+		  statusbar: false,
+		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+		});
+		tinymce.init({
+		  selector: '#gallery',
+		  toolbar: 'undo redo bold italic underline fontsizeselect forecolor alignleft aligncenter alignright',
+		  statusbar: false,
+		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+		});
+	  </script>
+</head>
+
+<body>
+	<%- include('parts/adminnavbar') %>
+	<div id="preData"><%= data %></div>
+	매물등록
+	<form action="/register" method="POST" enctype='multipart/form-data'>
+		<select id="type" name="type">
+			<option value="house">전원주택/별장</option>
+			<option value="farm">농가주택/구옥</option>
+			<option value="land">토지매물</option>
+			<option value="motel">펜션/모텔</option>
+			<option value="villa">빌라/연립/원룸</option>
+			<option value="building">상가/빌딩/기타</option>
+		</select>
+		<select id="sell" name="sell">
+			<option id="sell" value="sell">매매</option>
+			<option id="jeon" value="jeon">전세</option>
+			<option id="rent" value="rent">월세</option>
+		</select>
+		<br />
+		<table border="1">
+			<tr>
+				<td>공유상태</td>
+				<td>
+					<input type="radio" name="share" value="Y" />YES
+					<input type="radio" name="share" value="N" checked />No
+				</td>
+				<td>광고상태</td>
+				<td>
+					<input type="radio" name="adon" value="Y" />YES
+					<input type="radio" name="adon" value="N" checked />No
+				</td>
+				<td>계약상태</td>
+				<td>
+					<select name="contract">
+						<option value="on">계약진행</option>
+						<option value="pending">계약보류</option>
+						<option value="complete">계약완료</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<table border="1">
+			<tr>
+				<td>아이콘선택</td>
+				<td colspan="3">
+					<input type="radio" name="icon" value="recommend" />추천
+					<input type="radio" name="icon" value="valley" />계곡인접
+					<input type="radio" name="icon" value="garden" />넓은정원
+					<input type="radio" name="icon" value="urgent" />급매
+					<input type="radio" name="icon" value="national" />국유지
+					<input type="radio" name="icon" value="best" />Best
+					<input type="radio" name="icon" value="remodel" />리모델링
+					<input type="radio" name="icon" value="outbuilding" />별채
+					<input type="radio" name="icon" value="interior" />인테리어
+					<input type="radio" name="icon" value="luxury" />럭셔리
+					<input type="radio" name="icon" value="done" />계약완료
+					<input type="radio" name="icon" value="almost" />계약임박
+					<input type="radio" name="icon" value="new" />신축
+					<input type="radio" name="icon" value="not_used" />사용안함
+				</td>
+			</tr>
+			<tr>
+				<td>광고종류</td>
+				<td colspan="3">
+					<input type="checkbox" name="ad" value="gallery" />갤러리매물
+					<input type="checkbox" name="ad" value="recommended" />추천매물
+					<input type="checkbox" name="ad" value="urgent" />급매물
+					<input type="checkbox" name="ad" value="premium" />프리미엄매물
+					<input type="checkbox" name="ad" value="new" />신규매물
+					<input type="checkbox" name="ad" value="theme" />테마
+					<input type="checkbox" name="ad" value="land" />토지
+				</td>
+			</tr>
+			<tr>
+				<td>테마선택</td>
+				<td colspan="3">
+					<input type="checkbox" name="theme" value="landscape" />조경우수
+					<input type="checkbox" name="theme" value="scene" />경관우수
+					<input type="checkbox" name="theme" value="river" />강조망
+					<input type="checkbox" name="theme" value="south" />남향
+					<input type="checkbox" name="theme" value="mountainside" />산자락
+					<input type="checkbox" name="theme" value="private" />사생활보호
+					<input type="checkbox" name="theme" value="school" />학교인근
+					<input type="checkbox" name="theme" value="valley" />계곡인접
+					<input type="checkbox" name="theme" value="subway" />지하철도보
+					<input type="checkbox" name="theme" value="flatland" />평지
+					<input type="checkbox" name="theme" value="complex" />단지형
+				</td>
+			</tr>
+			<tr>
+				<td>담당자</td>
+				<td colspan="3">
+					<select name="user">
+						<option value="admin">admin</option>
+						<option value="fw">fw</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>매물번호</td>
+				<td colspan="3">
+					<input type="text" name="id_letter" />
+					<input type="text" name="id_number" />
+				</td>
+			</tr>
+			<tr>
+				<td>광고제목</td>
+				<td colspan="3">
+					<input type="text" name="title" />
+				</td>
+			</tr>
+			<tr>
+				<td>광고주소</td>
+				<td colspan="3">
+					<input type="text" name="address_si" value="경기" placeholder="시/도" />
+					<input type="text" name="address_gun" value="양평군" placeholder="군" />
+					<input type="text" name="address_up" placeholder="읍/면/동" />
+					<input type="text" name="address_li" placeholder="리" />
+					<br />
+					<input id="address_bunji1" type="text" name="address_bunji1" />
+					-
+					<input type="text" name="address_bunji2" />
+					번지
+				</td>
+			</tr>
+			<tr id="1">
+				<td>대지면적</td>
+				<td colspan="3">
+					<input type="number" name="area_ground" /> py (
+					<input type="number" name="area_ground2" />m2 )
+				</td>
+			</tr>
+			<tr id="2">
+				<td>건물연면적</td>
+				<td colspan="3">
+					<input type="number" name="area_building" /> py (
+					<input type="number" name="area_building2" />m2 )
+				</td>
+			</tr>
+			<tr id="3">
+				<td>방 수</td>
+				<td>
+					<input type="number" name="area_rooms" /> 개
+				</td>
+				<td>욕실수</td>
+				<td>
+					<input type="number" name="area_toilets" /> 개
+				</td>
+			</tr>
+			<tr id="4" style="display:none;">
+				<td>추천용도</td>
+				<td>
+					<input type="text" name="area_recommended" />
+				</td>
+				<td>용도지역</td>
+				<td>
+					<input type="text" name="area_use" />
+				</td>
+			</tr>
+			<tr id="5" style="display:none;">
+				<td>지목</td>
+				<td>
+					<input type="text" name="area_using" />
+				</td>
+				<td>방향</td>
+				<td>
+					<select name="area_orientation" />
+					<option value="남향" />남향</option>
+					<option value="남동향" />남동향</option>
+					<option value="남서향" />남서향</option>
+					<option value="북향" />북향</option>
+					<option value="북서향" />북서향</option>
+					<option value="북동향" />북동향</option>
+					<option value="동향" />동향</option>
+					<option value="서향" />서향</option>
+					</select>
+				</td>
+			</tr>
+			<tr id="6" style="display:none;">
+				<td>용적률</td>
+				<td>
+					<input type="number" name="area_yong" />
+				</td>
+				<td>건폐율</td>
+				<td>
+					<input type="number" name="area_gun" />
+				</td>
+			</tr>
+			<tr id="7" style="display:none;">
+				<td>접근도로</td>
+				<td>
+					<input type="text" name="area_road" />
+				</td>
+				<td>주요도로</td>
+				<td>
+					<input type="text" name="area_mainroad" />
+				</td>
+			</tr>
+		</table>
+		금액
+		<table border="1">
+			<tr id="21">
+				<td>매매가</td>
+				<td>
+					<input type="number" name="price_sell" />만원
+				</td>
+			</tr>
+			<tr id="22" style="display:none;">
+				<td>전세보증금</td>
+				<td>
+					<input type="number" name="price_jeondeposit" />만원
+				</td>
+			</tr>
+			<tr id="23">
+				<td>융자가</td>
+				<td>
+					<input type="number" name="price_borrow" />만원
+				</td>
+			</tr>
+			<tr id="24" style="display:none;">
+				<td>월세보증금</td>
+				<td>
+					<input type="number" name="price_rentdeposit" />만원
+				</td>
+			</tr>
+			<tr id="25" style="display:none;">
+				<td>월세</td>
+				<td>
+					<input type="number" name="price_rent" />만원
+				</td>
+			</tr>
+			<tr id="26" style="display:none;">
+				<td>보증금</td>
+				<td>
+					<input type="number" name="price_deposit" />만원
+				</td>
+			</tr>
+			<tr id="27" style="display:none;">
+				<td>순익</td>
+				<td>
+					월순익: <input type="number" name="price_monthly" />% /
+					년순익: <input type="number" name="price_yearly" /> %
+				</td>
+			</tr>
+			<tr id="28" style="display:none;">
+				<td>수익률</td>
+				<td>
+					<input type="number" name="price_margin" /> %
+				</td>
+			</tr>
+			<tr id="29" style="display:none;">
+				<td>공시지가</td>
+				<td>
+					<input type="number" name="price_published" />
+				</td>
+			</tr>
+			<tr id="30">
+				<td>현전세</td>
+				<td>
+					<input type="number" name="price_jeon" /> 만원
+				</td>
+			</tr>
+			<tr id="300" style="display:none;">
+				<td>평단가</td>
+				<td>
+					<input type="number" name="price_unit" /> 만원
+				</td>
+			</tr>
+		</table>
+		<div id="current">
+			물건현황
+			<table border="1">
+				<tr id="31">
+					<td>냉난방방식</td>
+					<td>
+						<input type="text" name="detail_temperature" />
+					</td>
+				</tr>
+				<tr id="32">
+					<td>방향</td>
+					<td>
+						<input type="text" name="detail_orientation" />
+					</td>
+				</tr>
+				<tr id="33">
+					<td>건축구조</td>
+					<td>
+						<input type="text" name="detail_structure" />
+					</td>
+				</tr>
+				<tr id="34">
+					<td>준공년도</td>
+					<td>
+						<input type="text" name="detail_date" />
+					</td>
+				</tr>
+				<tr id="35" style="display:none">
+					<td>인테리어</td>
+					<td>
+						<input type="radio" name="detail_interior" value="Y" />YES
+						<input type="radio" name="detail_interior" value="N" checked />NO
+					</td>
+				</tr>
+				<tr id="36" style="display:none">
+					<td>엘리베이터</td>
+					<td>
+						<input type="text" name="detail_elevator" />
+					</td>
+				</tr>
+				<tr id="37" style="display:none">
+					<td>용도지역</td>
+					<td>
+						<input type="text" name="detail_use" />
+					</td>
+				</tr>
+				<tr id="38" style="display:none">
+					<td>사용승인일</td>
+					<td>
+						<input type="text" name="detail_approval" />
+					</td>
+				</tr>
+				<tr id="39" style="display:none">
+					<td>주차</td>
+					<td>
+						방식: <input type="text" name="detail_parking" />
+						/ 대수: <input type="text" name="detail_parking2" />
+					</td>
+				</tr>
+				<tr id="40" style="display:none">
+					<td>전화가용수</td>
+					<td>
+						<input type="text" name="detail_phone" />
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			특징설명(광고용)<br />
+			<textarea name="detail" id="detail"></textarea>
+		</div>
+		<div>
+			갤러리설명<br />
+			<textarea name="gallery" id="gallery"></textarea>
+		</div>
+		<div>
+			광고용이미지<br />
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+			<input type="file" name="image">
+		</div>
+		<div>
+			특징설명(관리자용)<br />
+			<textarea name="memo"></textarea>
+		</div>
+		<input type="submit" />
+	</form>
+	<footer>
+		<%- include('parts/footer') %>
+	</footer>
+</body>
+<script>
+	var selectType = document.getElementById('type');
+	var selectSell = document.getElementById('sell');
+
+	function changes() {
+		if (selectType.value === 'house' || selectType.value === 'motel' || selectType.value === 'villa') {
+			if (selectSell.value === 'sell') {
+				document.getElementById('21').style.display = "";
+				document.getElementById('22').style.display = "none";
+				document.getElementById('23').style.display = "";
+				document.getElementById('24').style.display = "none";
+				document.getElementById('25').style.display = "none";
+				document.getElementById('26').style.display = "none";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "none";
+				document.getElementById('29').style.display = "none";
+				document.getElementById('30').style.display = "";
+				document.getElementById('300').style.display = "none";
+			} else if (selectSell.value === "jeon") {
+				document.getElementById('21').style.display = "none";
+				document.getElementById('22').style.display = "";
+				document.getElementById('23').style.display = "";
+				document.getElementById('24').style.display = "none";
+				document.getElementById('25').style.display = "none";
+				document.getElementById('26').style.display = "none";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "none";
+				document.getElementById('29').style.display = "none";
+				document.getElementById('30').style.display = "none";
+				document.getElementById('300').style.display = "none";
+			} else {
+				document.getElementById('21').style.display = "none";
+				document.getElementById('22').style.display = "none";
+				document.getElementById('23').style.display = "none";
+				document.getElementById('24').style.display = "";
+				document.getElementById('25').style.display = "";
+				document.getElementById('26').style.display = "none";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "none";
+				document.getElementById('29').style.display = "none";
+				document.getElementById('30').style.display = "none";
+				document.getElementById('300').style.display = "none";
+			}
+		} else if (selectType.value === 'land') {
+			document.getElementById('21').style.display = "";
+			document.getElementById('22').style.display = "none";
+			document.getElementById('23').style.display = "";
+			document.getElementById('24').style.display = "none";
+			document.getElementById('25').style.display = "none";
+			document.getElementById('26').style.display = "none";
+			document.getElementById('27').style.display = "none";
+			document.getElementById('28').style.display = "none";
+			document.getElementById('29').style.display = "none";
+			document.getElementById('30').style.display = "";
+			document.getElementById('300').style.display = "";
+		} else if (selectType.value === 'farm') {
+			document.getElementById('21').style.display = "";
+			document.getElementById('22').style.display = "none";
+			document.getElementById('23').style.display = "";
+			document.getElementById('24').style.display = "none";
+			document.getElementById('25').style.display = "none";
+			document.getElementById('26').style.display = "none";
+			document.getElementById('27').style.display = "none";
+			document.getElementById('28').style.display = "none";
+			document.getElementById('29').style.display = "none";
+			document.getElementById('30').style.display = "";
+			document.getElementById('300').style.display = "none";
+		} else {
+			if (selectSell.value === 'sell') {
+				document.getElementById('21').style.display = "";
+				document.getElementById('22').style.display = "none";
+				document.getElementById('23').style.display = "";
+				document.getElementById('24').style.display = "none";
+				document.getElementById('25').style.display = "none";
+				document.getElementById('26').style.display = "";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "";
+				document.getElementById('29').style.display = "";
+				document.getElementById('30').style.display = "";
+				document.getElementById('300').style.display = "none";
+			} else if (selectSell.value === 'jeon') {
+				document.getElementById('21').style.display = "none";
+				document.getElementById('22').style.display = "";
+				document.getElementById('23').style.display = "";
+				document.getElementById('24').style.display = "none";
+				document.getElementById('25').style.display = "none";
+				document.getElementById('26').style.display = "none";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "none";
+				document.getElementById('29').style.display = "none";
+				document.getElementById('30').style.display = "none";
+				document.getElementById('300').style.display = "none";
+			} else {
+				document.getElementById('21').style.display = "none";
+				document.getElementById('22').style.display = "none";
+				document.getElementById('23').style.display = "none";
+				document.getElementById('24').style.display = "";
+				document.getElementById('25').style.display = "";
+				document.getElementById('26').style.display = "none";
+				document.getElementById('27').style.display = "none";
+				document.getElementById('28').style.display = "none";
+				document.getElementById('29').style.display = "none";
+				document.getElementById('30').style.display = "none";
+				document.getElementById('300').style.display = "none";
+			}
+		}
+	}
+
+	selectSell.addEventListener('change', function (e) {
+		changes();
+	});
+
+	selectType.addEventListener('change', function (e) {
+		changes();
+		selectSell.value = 'sell';
+		if (this.value === 'farm' || this.value === 'land') {
+			document.getElementById('jeon').style.display = "none";
+			document.getElementById('rent').style.display = "none";
+		} else {
+			document.getElementById('jeon').style.display = "block";
+			document.getElementById('rent').style.display = "block";
+		}
+
+
+		if (this.value === 'house' || this.value === "farm" || this.value === "motel" || this.value === "villa") {
+			document.getElementById('1').style.display = "";
+			document.getElementById('2').style.display = "";
+			document.getElementById('3').style.display = "";
+			document.getElementById('4').style.display = "none";
+			document.getElementById('5').style.display = "none";
+			document.getElementById('6').style.display = "none";
+			document.getElementById('7').style.display = "none";
+
+			document.getElementById('current').style.display = "block";
+			document.getElementById('31').style.display = "";
+			document.getElementById('32').style.display = "";
+			document.getElementById('33').style.display = "";
+			document.getElementById('34').style.display = "";
+			document.getElementById('35').style.display = "none";
+			document.getElementById('36').style.display = "none";
+			document.getElementById('37').style.display = "none";
+			document.getElementById('38').style.display = "none";
+			document.getElementById('39').style.display = "none";
+			document.getElementById('40').style.display = "none";
+		} else if (this.value === 'land') {
+			document.getElementById('1').style.display = "";
+			document.getElementById('2').style.display = "none";
+			document.getElementById('3').style.display = "none";
+			document.getElementById('4').style.display = "";
+			document.getElementById('5').style.display = "";
+			document.getElementById('6').style.display = "none";
+			document.getElementById('7').style.display = "none";
+
+			document.getElementById('current').style.display = "none";
+		} else {
+			document.getElementById('1').style.display = "";
+			document.getElementById('2').style.display = "";
+			document.getElementById('3').style.display = "";
+			document.getElementById('4').style.display = "none";
+			document.getElementById('5').style.display = "none";
+			document.getElementById('6').style.display = "";
+			document.getElementById('7').style.display = "";
+
+			document.getElementById('current').style.display = "block";
+			document.getElementById('31').style.display = "";
+			document.getElementById('32').style.display = "none";
+			document.getElementById('33').style.display = "none";
+			document.getElementById('34').style.display = "none";
+			document.getElementById('35').style.display = "";
+			document.getElementById('36').style.display = "";
+			document.getElementById('37').style.display = "";
+			document.getElementById('38').style.display = "";
+			document.getElementById('39').style.display = "";
+			document.getElementById('40').style.display = "";
+		}
+	});
+</script>
+
+</html>

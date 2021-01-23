@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include('parts/header') %>
+		<style>
+			table {
+				border-collapse: collapse;
+			}
+			td {
+				padding: 3px;
+				text-align:center;
+			}
+
+			.short {
+				width: 60px;
+			}
+
+			.medium {
+				width: 100px;
+			}
+
+			.long {
+				width: 150px;
+				font-size: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="count" style="display:none;"><%= count %></div>
+		<div id="current" style="display:none"><%= current %></div>
+		<%- include('parts/adminnavbar') %>
+		관리 페이지입니다(매물수 : <%= count %>).
+		<button id="deleteItem" onclick="onClick()">매물삭제</button>
+		<button id="searchItem">매물검색</button>
+		<button id="resetItem" onclick='window.location.href="/manage"'>검색초기화</button>
+		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>		
+		<div style="margin:5px;"></div>
+		<table border="1">
+			<tr>
+				<form id="searchForm" action="/search" method="POST">
+					<td style="background-color: #bbc8c0;">검색</td>
+					<td>xxx</td>
+					<td><input style="width:80px;" type="text" name="id"></td>
+					<td>
+						<select name="contract">
+							<option value="">전체</option>
+							<option value="on">진행</option>
+							<option value="pending">보류</option>
+							<option value="complete">완료</option>
+						</select>
+					</td>
+					<td>
+						<select name="adon">
+							<option value="">전체</option>
+							<option value="Y">ON</option>
+							<option value="N">OFF</option>
+						</select>
+					</td>
+					<td>
+						xxx
+					</td>
+					<td>
+						<input class="long" type="text" name="title">
+					</td>
+					<td>
+						<input class="long" type="text" name="memo">
+					</td>
+					<td>
+						<select name="sell">
+							<option value="">전체</option>
+							<option value="sell">매매</option>
+							<option value="jeon">전세</option>
+							<option value="rent">월세</option>
+						</select>
+					</td>
+					<td>
+						<select name="type">
+							<option value="">전체</option>
+							<option value="house">전원주택/별장</option>
+							<option value="farm">농가주택/구옥</option>
+							<option value="land">토지매물</option>
+							<option value="motel">펜션/모텔</option>
+							<option value="villa">빌라/연립/원룸</option>
+							<option value="building">상가/빌딩/기타</option>
+						</select>
+					</td>
+					<td>
+						<input class="short" type="text" name="address_up">
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_sell_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short" type="text" name="price_sell_upper">이하</div>
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_jeon_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_jeon_upper">이하</div>
+					</td>
+					<td>
+						<input type="text" class="short" name="detail_structure">
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_ground_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_ground_upper">이하</div>
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_building_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_building_upper">이하</div>
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_deposit_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_deposit_upper">이하</div>
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_rent_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_rent_upper">이하</div>
+					</td>
+					<td>
+						<input type="text" class="short" name="detail_date">
+					</td>
+					<td>
+						<input type="text" class="short" name="detail_orientation">
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_rooms_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_rooms_upper">이하</div>
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_toilets_lower">이상</div>
+						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_toilets_upper">이하</div>
+					</td>
+					<td>
+						<select name="ad">
+							<option value="">전체</option>
+							<option value="gallery">갤러리매물</option>
+							<option value="recommended">추천매물</option>
+							<option value="urgent">급매물</option>
+							<option value="premium">프리미엄매물</option>
+							<option value="new">신규매물</option>
+							<option value="theme">테마</option>
+							<option value="land">토지</option> 
+						</select>
+					</td>
+					<td>
+						<input type="text" class="medium" name="timestamp_modified_upper">
+						<input type="text" class="medium" name="timestamp_modified_lower">
+					</td>
+					<td>
+						<input type="text" class="medium" name="timestamp_upper">
+						<input type="text" class="medium" name="timestamp_lower">
+					</td>
+					<td>
+						<div style="display:flex;width:95px;"><input type="text" class="short" name="views_upper">이상</div>
+						<div style="position:relative;left:-2px;top:3px;"><input type="text" class="short" name="views_lower">이하</div>
+					</td>
+					<input type="submit" style="display:none">
+				</form>
+			</tr>
+			<tr style="background-color: #b1d0d3;font-weight:bolder;">
+				<td><input type="checkbox" name="1" id="checkAll"></td>
+				<td>매물상세</td>
+				<td><div style="display:flex">매물번호 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_asc&search=<%= uuid %>">🔺</span></a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_desc&search=<%= uuid %>">🔻</a></div></div></td>			
+				<td>계약</td>
+				<td>광고</td>
+				<td style="background-color: #F9EEEE;">광고사진</td>
+				<td style="background-color: #F9EEEE;">광고제목</td>
+				<td>관리설명</td>
+				<td>형태</td>
+				<td>매물종류</td>
+				<td>광고해당동</td>
+				<td><div style="display:flex">매매가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">전세가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td>건축구조</td>
+				<td><div style="display:flex">광고대지평 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">광고평수 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td>보증금</td>
+				<td>월세</td>
+				<td><div style="display:flex">준공년도 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td>방향</td>
+				<td><div style="display:flex">방수 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_rooms_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_rooms_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">욕실 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_toilets_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_toilets_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td>광고종류</td>
+				<td><div style="display:flex">수정일 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=timestamp_modified_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=timestamp_modified_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">등록일 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=timestamp_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=timestamp_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">조회 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=views_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=views_desc&search=<%= uuid %>">🔻</a></div></div></td>
+			</tr>
+			<% for(let i = 0 ; i < data.length ; i++){ %>
+				<div style="display:none;" id="<%= i %>0"><%= data[i]._id %></div>
+			<% } %>
+			<% data.forEach(function(d, index){ %>	
+						
+				<tr style="background-color:<%= index%2===1?'#FEF4C9':'white' %>">					
+					<td><input type="checkbox" class="1" name="1"></td>
+					<td><a href="/item?id=<%= d._id %>">LINK</a></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.contract %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images/<%= d.image[0] %>" style="height:110px;"></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
+					<td style="cursor:pointer;color:blue;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_sell %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_jeon %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_structure %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_ground %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_building %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_deposit %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_rent %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_date %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_orientation %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_rooms %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_toilets %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.ad %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= new Date(d.timestamp_modified).toISOString().split('T')[0] %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= new Date(d.timestamp).toISOString().split('T')[0] %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.views %></td>
+				</tr>
+				
+			<% }) %>
+		</table>		
+		<button id="left"><</button>
+		<div id="s">
+		</div>
+		<button id="right">></button>
+		<footer>
+			<%- include('parts/footer2') %>
+		</footer>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		function excel(){
+			$.post('/excel',function(data){
+				console.log(data);
+			})
+		}
+
+		document.getElementById('searchItem').addEventListener('click',function(){
+			document.getElementById('searchForm').submit();
+		})
+
+		document.getElementById('checkAll').addEventListener('click',function(){
+			var box = document.getElementsByClassName('1');
+			for(var i = 0 ; i < box.length ; i++){
+				if(!document.getElementById('checkAll').checked) box[i].checked = false;
+				else box[i].checked = true;
+			}
+		});
+
+		function getQueryStringValue(key) {  
+  			return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+		}  
+
+		function onClick(){
+			var checkboxes = document.getElementsByClassName('1');
+			var selected = [];
+			for(var i = 0 ; i < checkboxes.length ; i++){
+				if(checkboxes[i].checked){
+					selected.push(document.getElementById(i+'0').innerHTML);
+				}
+			}
+			console.log(selected);
+
+			var form = document.createElement('form');
+			form.setAttribute('method','post');
+			form.setAttribute('action','/delete');
+			document.charset = "utf-8";
+			var hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type','hidden');
+			hiddenField.setAttribute('name','deleteitems');
+			hiddenField.setAttribute('value',selected);
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+			form.submit();
+		}
+
+		var r = "";
+		var sortKey = getQueryStringValue('sort')===""?"":"&sort="+getQueryStringValue('sort');	
+		var searchKey = getQueryStringValue('search')===""?"":"&search="+getQueryStringValue('search');	
+		var current = Math.floor(document.getElementById('current').innerHTML/10);
+		var documentSize = document.getElementById('count').innerHTML;
+		if(documentSize<=300){
+			documentSize = Math.floor(documentSize / 30);
+		}else{
+			documentSize = 9;
+		}
+		documentSize++;
+		if(documentSize===1) documentSize++;
+
+		for(var i = current * 10 + 1; i < current * 10 + 1 + documentSize; i++){
+			if(document.getElementById('count').innerHTML >= 30 * (i-1) ) r += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+		}
+		document.getElementById('s').innerHTML = r;
+		
+		document.getElementById('left').addEventListener('click',function(){
+			current -= 1;
+			if(current===-1) current = 0;
+			var result = "";
+			var tmp = documentSize===2? 1 : documentSize;
+			for(var i = current * 10 + 1; i < current * 10 + 1 + tmp; i++){
+				result += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+			}
+			document.getElementById('s').innerHTML = result;
+		});
+
+		document.getElementById('right').addEventListener('click',function(){
+			current += 1;
+			if(current * 300 > document.getElementById('count').innerHTML) current--;
+			var result = "";
+			for(var i = current * 10 + 1; i < current * 10 + 1 + documentSize; i++){
+				if(document.getElementById('count').innerHTML >= 30 * (i-1)) result += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+			}
+			document.getElementById('s').innerHTML = result;
+		});
+	</script>
+</html>
