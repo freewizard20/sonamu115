@@ -20,6 +20,16 @@
         text-align: center;
         display:none;
     }
+
+    #details{
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+        display:none;
+        margin-top: 10px;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
 </style>
 <div style="text-align:center; margin-top:40px;">
 <h5 style="font-size:13px;font-weight:bold;margin-bottom:20px;"><a class="footerlink" href="/about">회사소개</a> / <a class="footerlink" href="/location">오시는길</a> / <a class="footerlink" href="/tos">이용약관</a> / <a class="footerlink" href="/privacy">개인정보취급방침</a> / <a class="footerlink" href="/responsibility">책임의한계</a></h5>    
@@ -36,6 +46,7 @@
         <input type="submit" id="submit" value="로그인">
     <div style="padding:10px;"></div>
 </div>
+<div id="details"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     document.getElementById('information').addEventListener('click',function(){
@@ -48,7 +59,9 @@
             password: document.getElementById('password').value,
             item: '<%= id %>'
         },function(data){
-            console.log(data);
+            document.getElementById('hiddenLogin').style.display = "none";
+            document.getElementById('details').innerHTML = data;
+            document.getElementById('details').style.display = "block";
         });
     })
 </script>
