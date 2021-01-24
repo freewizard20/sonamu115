@@ -1036,6 +1036,10 @@ app.get("/responsibility",(req,res)=>{
 	res.render('responsibility');
 });
 
+app.post('/footer',(req,res)=>{
+	console.log(req.body);
+});
+
 app.use(express.static('public'));
 
 app.listen(3001, () => {

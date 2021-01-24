@@ -13,6 +13,7 @@
 			<div class="item_sidebar">
 				<%- include('parts/sidebar') %>
 			</div>
+			<div id="idnumber" style="display:none"><%= data._id %></div>
 			<div class="item_divider"></div>
 			<div class="item_maincontent">
 				<div class="section_name item_section">
@@ -145,7 +146,7 @@
 		</div>
 
 		<footer>
-			<%- include('parts/footer') %>
+			<%- include('parts/footer_item') %>
 		</footer>
 		<script>
 			let target = document.getElementById('target');
