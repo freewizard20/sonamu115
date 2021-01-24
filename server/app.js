@@ -1038,6 +1038,13 @@ app.get("/responsibility",(req,res)=>{
 
 app.post('/footer',(req,res)=>{
 	console.log(req.body);
+	if(req.body.password==='3756'){
+		Item.find({_id:req.body.item}).then((data)=>{
+			res.send(data[0].detail);
+		})
+	}else{
+		res.send('비밀번호가 틀립니다.');
+	}
 });
 
 app.use(express.static('public'));
