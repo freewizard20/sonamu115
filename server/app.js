@@ -1040,7 +1040,7 @@ app.post('/footer',(req,res)=>{
 	console.log(req.body);
 	if(req.body.password==='3756'){
 		Item.find({_id:req.body.item}).then((data)=>{
-			res.send(data[0].detail);
+			res.send(data[0].memo);
 		})
 	}else{
 		res.send('비밀번호가 틀립니다.');
