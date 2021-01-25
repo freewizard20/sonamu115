@@ -350,7 +350,9 @@ app.get('/mitem',(req,res)=>{
 			data[0].detail = he.decode(data[0].detail).replace(/nbsp;/gi,'');
 			data[0].views = data[0].views ? data[0].views + 1 : 0;
 			Item.updateOne({_id: query}, data[0]).then(()=>{});
-			res.render('mitem',{data:data[0]});
+			User.find({name:data[0].user}).then((user)=>{
+				res.render('mitem',{data:data[0],user:user[0]});
+			})
 		}	
 	})	
 })
@@ -602,7 +604,9 @@ app.get("/item",(req,res)=>{
 		data[0].views = data[0].views ? data[0].views + 1 : 0;
 		Item.updateOne({_id: query}, data[0]).then(()=>{});
 		Item.find({sell:data[0].sell, type: data[0].type}).limit(20).then((similar)=>{
-			res.render('item',{data:data[0], similar: similar});
+			User.find({name:data[0].user}).then((user)=>{
+				res.render('item',{data:data[0], similar: similar, user:user[0]});
+			})
 		})	
 	}	
 	})	

@@ -118,9 +118,9 @@
 					</tr>
 					<tr>
 						<td class="item_label">담당자</td>
-						<td class="item_value bold" id="user_name"><%= data.user %></td>
+						<td class="item_value bold" id="user_name"><%= user.explanation %></td>
 						<td class="item_label">연락처</td>
-						<td class="item_value bold" id="user_contact">031-773-5900 / 010-5670-4530</td>
+						<td class="item_value bold" id="user_contact"><%= user.phone %></td>
 					</tr>
 				</table>
 				</div>
@@ -151,14 +151,6 @@
 		<script>
 			let target = document.getElementById('target');
 			target.innerHTML = target.innerHTML.replace(/#8203;/gi,'').replace(/&gt;/gi,'>').replace(/&lt;/gi,'<').replace(/&amp;/gi,'').replace(/amp;/gi,'');
-			let user = document.getElementById('user_name').innerHTML;
-			if(user==='admin'){
-				document.getElementById('user_name').innerHTML = '공인중개사 최재성';
-				document.getElementById('user_contact').innerHTML = '031-773-5900 / 010-5265-4181';
-			}else{
-				document.getElementById('user_name').innerHTML = '공인중개사 최기혁';
-				document.getElementById('user_contact').innerHTML = '031-773-5900 / 010-5670-4530';
-			}
 		</script>
 	</body>
 </html>
