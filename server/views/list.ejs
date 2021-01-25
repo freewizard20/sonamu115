@@ -383,8 +383,13 @@
           }
           skip = localStorage.getItem('skip');
           window.setTimeout(function(){
-            window.scrollTo(200,localStorage.getItem('y'));
-          },1000)
+            if(!window.document.documentMode){
+              //alert('not ie');
+              window.scrollTo(200,localStorage.getItem('y'));
+            }else{
+              //alert('ie');
+            }
+          },1500)
         }
     }else{
       // remove localstorage skip
