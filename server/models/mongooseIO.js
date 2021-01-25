@@ -19,12 +19,14 @@ async function getAll(){
 	});
 }
 
-function postUser(name, password) {
+function postUser(name, password, explanation, phone) {
 	bcrypt.genSalt(10, function (err, salt) {
 		bcrypt.hash(password, salt, function (err, hash) {
 			const user = new User({
 				name: name,
 				password: hash,
+				explanation: explanation,
+				phone: phone,
 			});
 			user
 				.save()
