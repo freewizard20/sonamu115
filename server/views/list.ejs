@@ -374,22 +374,26 @@
   if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
         // alert('back button!');
         if(localStorage.getItem('skip')!==null){
-          var toLoad = localStorage.getItem('skip');
+          var toLoad = Number(localStorage.getItem('skip'));
+          console.log('toLoad : ' + toLoad);
           for(let i = 1 ; i <= toLoad; i++){
             $.get(UpdateQueryString('skip',i),function(data){          
               addContent = data;    
               $('#card_items').append(addContent);
-            }); 
-          }
-          skip = localStorage.getItem('skip');
-          window.setTimeout(function(){
+              console.log(toLoad + ' ' + i);
+              if(i===toLoad){
+                window.setTimeout(function(){
             if(!window.document.documentMode){
               //alert('not ie');
               window.scrollTo(200,localStorage.getItem('y'));
             }else{
               //alert('ie');
             }
-          },1500)
+          },500)
+              }
+            }); 
+          }
+          skip = localStorage.getItem('skip');
         }
     }else{
       // remove localstorage skip
