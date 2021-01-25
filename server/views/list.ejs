@@ -289,7 +289,7 @@
     <footer><%- include('parts/footer') %></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-			var si = document.getElementById('si').addEventListener('change',function(){
+    		var si = document.getElementById('si').addEventListener('change',function(){
 				document.getElementById('gun').options.length = 1;
 				document.getElementById('up').options.length = 1;
 				if(document.getElementById('si').value===''){
@@ -368,24 +368,53 @@
           }
         }
       }
+
+    var skip=0;
+
+  if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+        // alert('back button!');
+        if(localStorage.getItem('skip')!==null){
+          var toLoad = localStorage.getItem('skip');
+          for(let i = 1 ; i <= toLoad; i++){
+            $.get(UpdateQueryString('skip',i),function(data){          
+              addContent = data;    
+              $('#card_items').append(addContent);
+            }); 
+          }
+          skip = localStorage.getItem('skip');
+          window.setTimeout(function(){
+            window.scrollTo(200,localStorage.getItem('y'));
+          },1000)
+        }
+    }else{
+      // remove localstorage skip
+      localStorage.clear();
+      localStorage.setItem('skip',0);
+    }
     
-    var skip = 0;
     var loading = false;
+    var backFlag = false;
 
     window.onscroll = function(e) {
       var scrollpos = window.scrollY || window.pageYOffset;
       if((window.innerHeight + scrollpos) >= document.body.offsetHeight-100){
+        if(!backFlag && window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD){
+          backFlag = true;
+        }else{
+          localStorage.setItem('y',window.scrollY);
+        }
         // do ajax
         if(!loading){
           loading = true;
         var addContent = '';        
         skip++;
+        localStorage.setItem('skip',skip);
         $.get(UpdateQueryString('skip',skip),function(data){          
           addContent = data;    
           $('#card_items').append(addContent);
           loading = false;
         });                
-        console.log(skip);
+        // console.log(skip);
         }
       }
     }
