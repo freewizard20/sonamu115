@@ -665,8 +665,12 @@ app.get("/manage", (req, res) => {
 		let sort = "";
 
 		// build search query
-		// let userQuery = userInfo[req.cookies.user];
-		let userQuery = new RegExp('[\s\S]*');
+		let userQuery;
+		if(userInfo[req.cookies.user]==='master'){
+			userQuery = new RegExp('[\s\S]*');
+		}else{
+			userQuery = userInfo[req.cookies.user];
+		}
 		let uuid = req.query.search;
 		let findQuery = {};
 		if (uuid && searchHistory[uuid]) {
