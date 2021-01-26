@@ -2,10 +2,24 @@
 <html>
 	<head>
 		<%- include('parts/header') %>
+		<style>
+			table {
+				font-size: 16px;
+				border-collapse: collapse;
+			}
+
+			td {
+				padding: 7px;
+				border: 1px solid black;
+			}
+
+			.deleteButton {
+				margin-top: 5px;
+			}
+		</style>
 	</head>
 	<body>
 		<%- include('parts/adminnavbar') %>
-		<%= user %>
 		<table>
 			<tr>
 				<td>
@@ -14,14 +28,37 @@
 				<td>
 					아이디
 				</td>
+				<td>
+					이름
+				</td>
+				<td>
+					전화번호
+				</td>
+				<td>
+					권한
+				</td>
 			</tr>
 			<% for(let i = 0 ; i < user.length ; i++) { %>
 				<tr>
 					<td>
-						
+						<input type="checkbox" name="deleteThis">
+					</td>
+					<td>
+						<%= user[i].name %>
+					</td>
+					<td>
+						<%= user[i].explanation %>
+					</td>
+					<td>
+						<%= user[i].phone %>
+					</td>
+					<td>
+						<%= user[i].permission %>
 					</td>
 				</tr>
+			<% } %>
 		</table>
+		<button class="deleteButton">계정삭제</button>
 		<footer>
 			<%- include('parts/footer2') %>
 		</footer>

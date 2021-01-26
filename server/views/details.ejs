@@ -129,8 +129,9 @@
 						<td>담당자</td>
 						<td colspan="3">
 							<select id="user" name="user">
-								<option value="admin">admin</option>
-								<option value="agassi37">agassi37</option>
+								<% for(let i = 0 ; i < user.length ; i++){ %>
+								<option value="<%= user[i].name %>"><%= user[i].explanation %> (<%=user[i].name %>)</option>
+								<% } %>
 							</select>
 						</td>
 					</tr>

@@ -676,160 +676,160 @@ app.get("/manage", (req, res) => {
 		let sharedItem = {share:'Y'};
 		User.find({name:userInfo[req.cookies.user]}).then((info)=>{
 			permission = info[0].permission;
-		});
-		if(permission===2){
-			userQuery = new RegExp('[\s\S]*');
-		}else if(permission===1){
-			userQuery = userInfo[req.cookies.user];
-		}else{
-			userQuery = userInfo[req.cookies.user];
-			sharedItem = {id:"tesautus132"};
-		}
-
-
-		let uuid = req.query.search;
-		let findQuery = {};
-		if (uuid && searchHistory[uuid]) {
-			let sh = searchHistory[uuid];
-			if (sh.id) findQuery.id = new RegExp(sh.id,'i');
-			if (sh.contract) findQuery.contract = sh.contract;
-			if (sh.adon) findQuery.adon = sh.adon;
-			if (sh.title) findQuery.title = new RegExp(sh.title,'i');
-			if (sh.memo) findQuery.memo = new RegExp(sh.memo,'i');
-			if (sh.sell) findQuery.sell = sh.sell;
-			if (sh.type) findQuery.type = sh.type;
-			if (sh.address_up) findQuery.address_up = sh.address_up;
-			if (sh.price_sell_upper || sh.price_sell_lower) {
-				findQuery.price_sell = {};
-				if (sh.price_sell_upper) findQuery.price_sell.$lte = Number(sh.price_sell_upper);
-				if (sh.price_sell_lower) findQuery.price_sell.$gte = Number(sh.price_sell_lower);
+			if(permission===2){
+				userQuery = new RegExp('[\s\S]*');
+			}else if(permission===1){
+				userQuery = userInfo[req.cookies.user];
+			}else{
+				userQuery = userInfo[req.cookies.user];
+				sharedItem = {id:"tesautus132"};
 			}
-			if (sh.price_jeon_upper || sh.price_jeon_lower) {
-				findQuery.price_jeon = {};
-				if (sh.price_jeon_upper) findQuery.price_jeon.$lte = Number(sh.price_jeon_upper);
-				if (sh.price_jeon_lower) findQuery.price_jeon.$gte = Number(sh.price_jeon_lower);
-			}
-			if (sh.area_recommended) findQuery.area_recommended = sh.area_recommended;
-			if (sh.area_ground_upper || sh.area_ground_lower) {
-				findQuery.area_ground = {};
-				if (sh.area_ground_upper) findQuery.area_ground.$lte = Number(sh.area_ground_upper);
-				if (sh.area_ground_lower) findQuery.area_ground.$gte = Number(sh.area_ground_lower);
-			}
-			if (sh.area_building_upper || sh.area_building_lower) {
-				findQuery.area_building = {};
-				if (sh.area_building_upper) findQuery.area_building.$lte = Number(sh.area_building_upper);
-				if (sh.area_building_lower) findQuery.area_building.$gte = Number(sh.area_building_lower);
-			}
-			if (sh.price_deposit_upper || sh.price_deposit_lower) {
-				findQuery.price_deposit = {};
-				if (sh.price_deposit_upper) findQuery.price_deposit.$lte = Number(sh.price_deposit_upper);
-				if (sh.price_deposit_lower) findQuery.price_deposit.$gte = Number(sh.price_deposit_lower);
-			}
-			if (sh.price_rent_upper || sh.price_rent_lower) {
-				findQuery.price_rent = {};
-				if (sh.price_rent_upper) findQuery.price_rent.$lte = Number(sh.price_rent_upper);
-				if (sh.price_rent_lower) findQuery.price_rent.$gte = Number(sh.price_rent_lower);
-			}
-			if (sh.detail_date) findQuery.detail_date = sh.detail_date;
-			if (sh.detail_orientation) findQuery.detail_orientation = sh.detail_orientation;
-			if (sh.area_rooms_upper || sh.area_rooms_lower) {
-				findQuery.area_rooms = {};
-				if (sh.area_rooms_upper) findQuery.area_rooms.$lte = Number(sh.area_rooms_upper);
-				if (sh.area_rooms_lower) findQuery.area_rooms.$gte = Number(sh.area_rooms_lower);
-			}
-			if (sh.area_toilets_upper || sh.area_toilets_lower) {
-				findQuery.area_toilets = {};
-				if (sh.area_toilets_upper) findQuery.area_toilets.$lte = Number(sh.area_toilets_upper);
-				if (sh.area_toilets_lower) findQuery.area_toilets.$gte = Number(sh.area_toilets_lower);
-			}
-			if (sh.ad) findQuery.ad = sh.ad;
-			if (sh.timestamp_modified_upper || sh.timestamp_modified_lower) {
-				findQuery.timestamp_modified = {};
-				if (sh.timestamp_modified_upper) findQuery.timestamp_modified.$lte = Number(new Date(sh.timestamp_modified_upper).getTime());
-				if (sh.timestamp_modified_lower) findQuery.timestamp_modified.$gte = Number(new Date(sh.timestamp_modified_lower).getTime());
-			}
-			if (sh.timestamp_upper || sh.timestamp_lower) {
-				findQuery.timestamp = {};
-				if (sh.timestamp_upper) findQuery.timestamp.$lte = Number(new Date(sh.timestamp_upper).getTime());
-				if (sh.timestamp_lower) findQuery.timestamp.$gte = Number(new Date(sh.timestamp_lower).getTime());
-			}
-			if (sh.views_upper || sh.area_views_lower) {
-				findQuery.views = {};
-				if (sh.views_upper) findQuery.views.$lte = Number(sh.views_upper);
-				if (sh.views_lower) findQuery.views.$gte = Number(sh.views_lower);
-			}
-		}
-
-		let sortQuery = req.query.sort;
-		if (req.query.page) pages = req.query.page - 1;
-		if (sortQuery) {
-			if (sortQuery[sortQuery.length - 3] === 'a') {
-				sort = '-' + sortQuery.substr(0, sortQuery.length - 4);
-			} else {
-				sort += sortQuery.substr(0, sortQuery.length - 5);
-			}
-		}else{
-			sort = '-timestamp_modified';
-		}
-
-		// TODO : querystring 인자 삽입해서 전달, 렌더링에서 링크 추가
-		Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(30).then((data) => {
-			for (let i = 0; i < data.length; i++) {
-				if (data[i]) {
-					data[i].contract = util.findContract(data[i].contract);
-					data[i].sell = util.findSell(data[i].sell);
-					data[i].type = util.findType(data[i].type);
-					data[i].ad = util.findAd(data[i].ad);
+	
+	
+			let uuid = req.query.search;
+			let findQuery = {};
+			if (uuid && searchHistory[uuid]) {
+				let sh = searchHistory[uuid];
+				if (sh.id) findQuery.id = new RegExp(sh.id,'i');
+				if (sh.contract) findQuery.contract = sh.contract;
+				if (sh.adon) findQuery.adon = sh.adon;
+				if (sh.title) findQuery.title = new RegExp(sh.title,'i');
+				if (sh.memo) findQuery.memo = new RegExp(sh.memo,'i');
+				if (sh.sell) findQuery.sell = sh.sell;
+				if (sh.type) findQuery.type = sh.type;
+				if (sh.address_up) findQuery.address_up = sh.address_up;
+				if (sh.price_sell_upper || sh.price_sell_lower) {
+					findQuery.price_sell = {};
+					if (sh.price_sell_upper) findQuery.price_sell.$lte = Number(sh.price_sell_upper);
+					if (sh.price_sell_lower) findQuery.price_sell.$gte = Number(sh.price_sell_lower);
+				}
+				if (sh.price_jeon_upper || sh.price_jeon_lower) {
+					findQuery.price_jeon = {};
+					if (sh.price_jeon_upper) findQuery.price_jeon.$lte = Number(sh.price_jeon_upper);
+					if (sh.price_jeon_lower) findQuery.price_jeon.$gte = Number(sh.price_jeon_lower);
+				}
+				if (sh.area_recommended) findQuery.area_recommended = sh.area_recommended;
+				if (sh.area_ground_upper || sh.area_ground_lower) {
+					findQuery.area_ground = {};
+					if (sh.area_ground_upper) findQuery.area_ground.$lte = Number(sh.area_ground_upper);
+					if (sh.area_ground_lower) findQuery.area_ground.$gte = Number(sh.area_ground_lower);
+				}
+				if (sh.area_building_upper || sh.area_building_lower) {
+					findQuery.area_building = {};
+					if (sh.area_building_upper) findQuery.area_building.$lte = Number(sh.area_building_upper);
+					if (sh.area_building_lower) findQuery.area_building.$gte = Number(sh.area_building_lower);
+				}
+				if (sh.price_deposit_upper || sh.price_deposit_lower) {
+					findQuery.price_deposit = {};
+					if (sh.price_deposit_upper) findQuery.price_deposit.$lte = Number(sh.price_deposit_upper);
+					if (sh.price_deposit_lower) findQuery.price_deposit.$gte = Number(sh.price_deposit_lower);
+				}
+				if (sh.price_rent_upper || sh.price_rent_lower) {
+					findQuery.price_rent = {};
+					if (sh.price_rent_upper) findQuery.price_rent.$lte = Number(sh.price_rent_upper);
+					if (sh.price_rent_lower) findQuery.price_rent.$gte = Number(sh.price_rent_lower);
+				}
+				if (sh.detail_date) findQuery.detail_date = sh.detail_date;
+				if (sh.detail_orientation) findQuery.detail_orientation = sh.detail_orientation;
+				if (sh.area_rooms_upper || sh.area_rooms_lower) {
+					findQuery.area_rooms = {};
+					if (sh.area_rooms_upper) findQuery.area_rooms.$lte = Number(sh.area_rooms_upper);
+					if (sh.area_rooms_lower) findQuery.area_rooms.$gte = Number(sh.area_rooms_lower);
+				}
+				if (sh.area_toilets_upper || sh.area_toilets_lower) {
+					findQuery.area_toilets = {};
+					if (sh.area_toilets_upper) findQuery.area_toilets.$lte = Number(sh.area_toilets_upper);
+					if (sh.area_toilets_lower) findQuery.area_toilets.$gte = Number(sh.area_toilets_lower);
+				}
+				if (sh.ad) findQuery.ad = sh.ad;
+				if (sh.timestamp_modified_upper || sh.timestamp_modified_lower) {
+					findQuery.timestamp_modified = {};
+					if (sh.timestamp_modified_upper) findQuery.timestamp_modified.$lte = Number(new Date(sh.timestamp_modified_upper).getTime());
+					if (sh.timestamp_modified_lower) findQuery.timestamp_modified.$gte = Number(new Date(sh.timestamp_modified_lower).getTime());
+				}
+				if (sh.timestamp_upper || sh.timestamp_lower) {
+					findQuery.timestamp = {};
+					if (sh.timestamp_upper) findQuery.timestamp.$lte = Number(new Date(sh.timestamp_upper).getTime());
+					if (sh.timestamp_lower) findQuery.timestamp.$gte = Number(new Date(sh.timestamp_lower).getTime());
+				}
+				if (sh.views_upper || sh.area_views_lower) {
+					findQuery.views = {};
+					if (sh.views_upper) findQuery.views.$lte = Number(sh.views_upper);
+					if (sh.views_lower) findQuery.views.$gte = Number(sh.views_lower);
 				}
 			}
-
-			if(req.cookies.excel){
-				fs.unlink('excel/'+req.cookies.excel+'.xlsx',function(){
+	
+			let sortQuery = req.query.sort;
+			if (req.query.page) pages = req.query.page - 1;
+			if (sortQuery) {
+				if (sortQuery[sortQuery.length - 3] === 'a') {
+					sort = '-' + sortQuery.substr(0, sortQuery.length - 4);
+				} else {
+					sort += sortQuery.substr(0, sortQuery.length - 5);
+				}
+			}else{
+				sort = '-timestamp_modified';
+			}
+	
+			// TODO : querystring 인자 삽입해서 전달, 렌더링에서 링크 추가
+			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(30).then((data) => {
+				for (let i = 0; i < data.length; i++) {
+					if (data[i]) {
+						data[i].contract = util.findContract(data[i].contract);
+						data[i].sell = util.findSell(data[i].sell);
+						data[i].type = util.findType(data[i].type);
+						data[i].ad = util.findAd(data[i].ad);
+					}
+				}
+	
+				if(req.cookies.excel){
+					fs.unlink('excel/'+req.cookies.excel+'.xlsx',function(){
+					})
+				}
+				let excel_uuid = uuidv4();
+	
+				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
+					if (uuid === undefined) uuid = "";
+					res.cookie('excel',excel_uuid);
+					res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
 				})
-			}
-			let excel_uuid = uuidv4();
-
-			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
-				if (uuid === undefined) uuid = "";
-				res.cookie('excel',excel_uuid);
-				res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
+	
+				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(100).then((data2) => {
+					let ws_data = [
+						["매물번호","계약","광고","광고제목","관리설명","형태","매물종류","광고해당동","매매가","전세가","건축구조","광고대지평","광고평수","보증금","월세","준공년도","방향","방수","욕실","광고종류","수정일","등록일","조회"]
+					];
+					let cols = [];
+					for(let i = 0 ; i < 23 ; i++){
+						let w = 10;
+						if(i===3 || i===4) w = 40;
+						if(i===6 ) w = 15;
+						if(i===20 || i===21) w = 13;
+						if(i===19) w = 16;
+						let tmp = {
+							hidden: false,
+							wpx: w,
+							width: w,
+							wch: w,
+						}
+						cols.push(tmp);
+					}
+					for(let i = 0 ; i < data2.length ; i++){
+						if (data2[i]) {
+							data2[i].contract = util.findContract(data2[i].contract);
+							data2[i].sell = util.findSell(data2[i].sell);
+							data2[i].type = util.findType(data2[i].type);
+							data2[i].ad = util.findAd(data2[i].ad);
+						}
+						ws_data.push([data2[i].id,data2[i].contract,data2[i].adon,data2[i].title,data2[i].memo,data2[i].sell,data2[i].type,data2[i].address_up,data2[i].price_sell,data2[i].price_jeon,data2[i].area_recommended,data2[i].area_ground,data2[i].area_building,data2[i].price_deposit,data2[i].price_rent,data2[i].detail_date,data2[i].detail_orientation,data2[i].area_rooms,data2[i].area_toilets,data2[i].ad.toString(),new Date(data2[i].timestamp_modified).toISOString().split('T')[0],new Date(data2[i].timestamp).toISOString().split('T')[0],data2[i].views]);
+					}
+					let workbook = XLSX.utils.book_new();
+					let worksheet = XLSX.utils.aoa_to_sheet(ws_data);
+					worksheet['!cols'] = cols;
+					XLSX.utils.book_append_sheet(workbook,worksheet,'Sheet1');
+					XLSX.writeFile(workbook, 'excel/' + excel_uuid + '.xlsx');
+				});
 			})
-
-			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(100).then((data2) => {
-				let ws_data = [
-					["매물번호","계약","광고","광고제목","관리설명","형태","매물종류","광고해당동","매매가","전세가","건축구조","광고대지평","광고평수","보증금","월세","준공년도","방향","방수","욕실","광고종류","수정일","등록일","조회"]
-				];
-				let cols = [];
-				for(let i = 0 ; i < 23 ; i++){
-					let w = 10;
-					if(i===3 || i===4) w = 40;
-					if(i===6 ) w = 15;
-					if(i===20 || i===21) w = 13;
-					if(i===19) w = 16;
-					let tmp = {
-						hidden: false,
-						wpx: w,
-						width: w,
-						wch: w,
-					}
-					cols.push(tmp);
-				}
-				for(let i = 0 ; i < data2.length ; i++){
-					if (data2[i]) {
-						data2[i].contract = util.findContract(data2[i].contract);
-						data2[i].sell = util.findSell(data2[i].sell);
-						data2[i].type = util.findType(data2[i].type);
-						data2[i].ad = util.findAd(data2[i].ad);
-					}
-					ws_data.push([data2[i].id,data2[i].contract,data2[i].adon,data2[i].title,data2[i].memo,data2[i].sell,data2[i].type,data2[i].address_up,data2[i].price_sell,data2[i].price_jeon,data2[i].area_recommended,data2[i].area_ground,data2[i].area_building,data2[i].price_deposit,data2[i].price_rent,data2[i].detail_date,data2[i].detail_orientation,data2[i].area_rooms,data2[i].area_toilets,data2[i].ad.toString(),new Date(data2[i].timestamp_modified).toISOString().split('T')[0],new Date(data2[i].timestamp).toISOString().split('T')[0],data2[i].views]);
-				}
-				let workbook = XLSX.utils.book_new();
-				let worksheet = XLSX.utils.aoa_to_sheet(ws_data);
-				worksheet['!cols'] = cols;
-				XLSX.utils.book_append_sheet(workbook,worksheet,'Sheet1');
-				XLSX.writeFile(workbook, 'excel/' + excel_uuid + '.xlsx');
-			});
-		})
+		});
 	} else {
 		logger.info('unauthorized access to /manage GET');
 		res.render("unauthorized");
@@ -858,7 +858,9 @@ app.post("/delete", (req, res) => {
 
 app.get("/register", (req, res) => {
 	if (jwtverify(req.cookies)) {
-		res.render("register");
+		User.find().then((info)=>{
+			res.render("register",{user: info});
+		})
 	} else {
 		logger.info('unauthorized access to /register GET');
 		res.render("unauthorized");
@@ -970,7 +972,9 @@ app.get("/details", (req, res) => {
 		Item.find({ _id: req.query.id }).then((data) => {
 			data[0].detail = he.decode(data[0].detail);
 			data[0].gallery = he.decode(data[0].gallery);
-			res.render('details', { data: JSON.stringify(data) });
+			User.find().then((info)=>{
+				res.render('details', { data: JSON.stringify(data), user: info });
+			})
 		})
 	} else {
 		logger.info('unauthorized access to /details GET');

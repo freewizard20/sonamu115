@@ -415,10 +415,10 @@ function makeItem(){
 }
 
 function addUsers(){
-	mongooseIO.postUser("fw","s90909", "개발자 전진혁", "010-7407-5957",1);
 	mongooseIO.postUser("admin","3756++", "공인중개사 최재성", "031-773-5900 / 010-5265-4181",1);
 	mongooseIO.postUser("agassi37","henssum37", "공인중개사 최기혁", "031-773-5900 / 010-5670-4530",1);
 	mongooseIO.postUser("master","henssum37", "공인중개사 최기혁", "031-773-5900 / 010-5670-4530",2);
+	mongooseIO.postUser("fw","s90909", "개발자 전진혁", "010-7407-5957",1);
 	mongooseIO.postUser("dummy","dummy","김미영 실장", "010-1234-1234",0);
 }
 
