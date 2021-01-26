@@ -16,6 +16,10 @@ const UserSchema = mongoose.Schema({
 	phone: {
 		type: String,
 		required: true,
+	},
+	permission: {
+		type: Number,
+		required: true,
 	}
 });
 

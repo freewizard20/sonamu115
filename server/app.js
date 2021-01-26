@@ -670,11 +670,21 @@ app.get("/manage", (req, res) => {
 
 		// build search query
 		let userQuery;
-		if(userInfo[req.cookies.user]==='master'){
+		let permission;
+		let sharedItem = {share:'Y'};
+		User.find({name:userInfo[req.cookies.user]}).then((info)=>{
+			permission = info[0].permission;
+		});
+		if(permission===2){
 			userQuery = new RegExp('[\s\S]*');
+		}else if(permission===1){
+			userQuery = userInfo[req.cookies.user];
 		}else{
 			userQuery = userInfo[req.cookies.user];
+			sharedItem = {id:"tesautus132"};
 		}
+
+
 		let uuid = req.query.search;
 		let findQuery = {};
 		if (uuid && searchHistory[uuid]) {
@@ -761,7 +771,7 @@ app.get("/manage", (req, res) => {
 		}
 
 		// TODO : querystring 인자 삽입해서 전달, 렌더링에서 링크 추가
-		Item.find(findQuery).or([{share:'Y'},{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(30).then((data) => {
+		Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(30).then((data) => {
 			for (let i = 0; i < data.length; i++) {
 				if (data[i]) {
 					data[i].contract = util.findContract(data[i].contract);
@@ -777,13 +787,13 @@ app.get("/manage", (req, res) => {
 			}
 			let excel_uuid = uuidv4();
 
-			Item.find(findQuery).or([{share:'Y'},{share:'N',user:userQuery}]).then((result) => {
+			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
 				if (uuid === undefined) uuid = "";
 				res.cookie('excel',excel_uuid);
 				res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
 			})
 
-			Item.find(findQuery).or([{share:'Y'},{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(100).then((data2) => {
+			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(100).then((data2) => {
 				let ws_data = [
 					["매물번호","계약","광고","광고제목","관리설명","형태","매물종류","광고해당동","매매가","전세가","건축구조","광고대지평","광고평수","보증금","월세","준공년도","방향","방수","욕실","광고종류","수정일","등록일","조회"]
 				];
@@ -1044,6 +1054,16 @@ app.get("/privacy",(req,res)=>{
 app.get("/responsibility",(req,res)=>{
 	res.render('responsibility');
 });
+
+app.get("/user",(req,res)=>{
+	if(jwtverify(req.cookies)&&userInfo[req.cookies.user]==='master'){
+		User.find().then((user)=>{
+			res.render('user',{user:user});
+		})
+	}else{
+		res.render('unauthorized');
+	}
+})
 
 app.post('/footer',(req,res)=>{
 	console.log(req.body);
