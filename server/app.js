@@ -1108,6 +1108,21 @@ app.post('/createuser',(req,res)=>{
 	})
 })
 
+app.post('/deleteuser',(req,res)=>{
+	if(jwtverify(req.cookies)){
+		let items = req.body.deleteitems.split(",");
+		for(let i of items){
+			User.deleteOne({_id:i}).then(()=>{logger.info('delete ID ' + i)});
+		}
+		setTimeout(()=>{
+			res.redirect('/user');
+		},500);
+	}else{
+		logger.info('unauthoried access to /deleteuser POST');
+		res.send('권한이 없습니다.');
+	}
+})
+
 app.get("/about",(req,res)=>{
 	res.render('about');
 });

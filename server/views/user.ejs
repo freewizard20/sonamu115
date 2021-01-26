@@ -46,7 +46,6 @@
 		<input type="submit" value="아이디 생성/변경">
 		</form>
 		<h2>계정현황/삭제</h2>
-		<form action="/deleteuser" method="POST">
 		<table>
 			<tr>
 				<td>
@@ -68,7 +67,8 @@
 			<% for(let i = 0 ; i < user.length ; i++) { %>
 				<tr>
 					<td>
-						<input type="checkbox" name="deleteThis">
+						<input type="checkbox" class="1" name="1">
+						<div style="display:none;" id="<%= i %>0"><%= user[i]._id %></div>
 					</td>
 					<td>
 						<%= user[i].name %>
@@ -85,8 +85,7 @@
 				</tr>
 			<% } %>
 		</table>
-		<input type="submit" class="deleteButton" value="계정삭제">
-		</form>
+		<button class="deleteButton" onclick="onClick()">계정삭제</button>
 		<form action="/moveuser" method="POST">
 		<h2>매물 계정 귀속</h2>
 		아이디 <input type="text" name="from"> 의 매물을 아이디 <input type="text" name="to"> 에게 소유권 귀속
@@ -103,5 +102,30 @@
 		<footer>
 			<%- include('parts/footer2') %>
 		</footer>
+		<script>
+		function onClick(){
+			var checkboxes = document.getElementsByClassName('1');
+			var selected = [];
+			for(var i = 0 ; i < checkboxes.length ; i++){
+				if(checkboxes[i].checked){
+					selected.push(document.getElementById(i+'0').innerHTML);
+				}
+			}
+			console.log(selected);
+
+			var form = document.createElement('form');
+			form.setAttribute('method','post');
+			form.setAttribute('action','/deleteuser');
+			document.charset = "utf-8";
+			var hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type','hidden');
+			hiddenField.setAttribute('name','deleteitems');
+			hiddenField.setAttribute('value',selected);
+			console.log(hiddenField.value);
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+			form.submit();
+		}
+		</script>
 	</body>
 </html>
