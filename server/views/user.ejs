@@ -16,10 +16,37 @@
 			.deleteButton {
 				margin-top: 5px;
 			}
+
+			input[type="text"] {
+				width: 150px;
+			}
 		</style>
 	</head>
 	<body>
 		<%- include('parts/adminnavbar') %>
+		<form action="/createuser" method="POST">
+			<h2>계정생성/정보변경(새로운 아이디인 경우 계정생성, 같은 아이디인 경우 정보변경)</h2>
+			아이디 : 
+		<input type="text" name="name">
+			비밀번호 : 
+		<input type="text" name="password">
+		<div style="margin:10px;"></div>
+			이름 : 
+		<input type="text" name="explanation">
+			전화번호 : 
+		<input type="text" name="phone">
+		<div style="margin:10px;"></div>
+			권한 : 
+		<select name="permission">
+			<option value="2">운영자(전체열람가능/아이디관리기능)</option>
+			<option value="1">직원(공유물건+자기물건열람가능)</option>
+			<option value="0">알바(자기물건열람가능)</option>
+		</select>
+		<div style="margin:10px;"></div>
+		<input type="submit" value="아이디 생성/변경">
+		</form>
+		<h2>계정정보/삭제</h2>
+		<form action="/deleteuser" method="POST">
 		<table>
 			<tr>
 				<td>
@@ -58,7 +85,20 @@
 				</tr>
 			<% } %>
 		</table>
-		<button class="deleteButton">계정삭제</button>
+		<input type="submit" class="deleteButton" value="계정삭제">
+		</form>
+		<form action="/moveuser" method="POST">
+		<h2>매물 계정 귀속</h2>
+		아이디 <input type="text" name="from"> 의 매물을 아이디 <input type="text" name="to"> 에게 소유권 귀속
+		<div style="margin:10px;"></div>
+		<input type="submit" value="계정귀속">
+		</form>
+		<h2 style="color:red">사용법</h2>
+		<h2>- 계정생성 : 모든 정보를 입력한 후에 계정을 생성한다.</h2>
+		<h2>- 계정정보 변경 : 같은 아이디로 변경사항을 입력하면 생성이 아닌 정보 변경이 이루어진다.</h2>
+		<h2>- 아이디 변경 방법 : 계정을 생성한 다음에, 매물 계정 귀속을 변경해 주고 나서 계정을 삭제한다.</h2>
+		<h2>- 계정삭제 방법 : 매물을 올바른 상대에게 귀속시킨 후에 삭제한다.</h2>
+		<h2>- 계정을 실수로 삭제한 경우 : 매물은 안전하니, 해당 계정을 다시 생성하면 된다.</h2>
 		<footer>
 			<%- include('parts/footer2') %>
 		</footer>
