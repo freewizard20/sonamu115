@@ -1043,7 +1043,7 @@ app.post("/details", upload.array('image', 100), (req, res) => {
 })
 
 app.post('/createuser',(req,res)=>{
-	console.log(req.body);
+	// console.log(req.body);
 	User.find({name:req.body.name}).then((info)=>{
 		if(info.length===0){
 			if(req.body.name.length===0) req.body.name = ' ';
@@ -1121,6 +1121,19 @@ app.post('/deleteuser',(req,res)=>{
 		logger.info('unauthoried access to /deleteuser POST');
 		res.send('권한이 없습니다.');
 	}
+})
+
+app.post('/moveuser',(req,res)=>{
+	console.log(req.body);
+	Item.find({user:req.body.from}).then((data)=>{
+		for(let i = 0 ; i < data.length ; i++){
+			data[i].user = req.body.to;
+			Item.updateOne({_id:data[i]._id},data[i]).then(()=>{}).catch((err)=>{logger.info(err)});
+		}
+	})
+	setTimeout(()=>{
+		res.redirect('/user')
+	},500);
 })
 
 app.get("/about",(req,res)=>{
