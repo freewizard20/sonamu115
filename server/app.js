@@ -1041,6 +1041,40 @@ app.post("/details", upload.array('image', 100), (req, res) => {
 	}
 })
 
+app.post('/createuser',(req,res)=>{
+	console.log(req.body);
+	User.find({name:req.body.name}).then((info)=>{
+		if(req.body.name.length===0) req.body.name = ' ';
+		if(req.body.explanation.length===0) req.body.explanation = ' ';
+		if(req.body.phone.length===0) req.body.phone = ' ';
+		if(info.length===0){
+			if(req.body.password.length===0){
+				req.body.password = '3756';
+			}
+				bcrypt.genSalt(10, function (err, salt) {
+					bcrypt.hash(req.body.password, salt, function (err, hash) {
+						const user = new User({
+							name: req.body.name,
+							password: hash,
+							explanation: req.body.explanation,
+							phone: req.body.phone,
+							permission: Number(req.body.permission),
+						});
+						user
+							.save()
+							.then(() => {logger.info("new user " + req.body.name + ' registered');console.log('new user...')})
+							.catch((err) => console.log("error : " + err));
+					});
+				});
+		}else{
+			console.log('existent');
+		}
+		setTimeout(()=>{
+			res.redirect('/user');
+		},1000);
+	})
+})
+
 app.get("/about",(req,res)=>{
 	res.render('about');
 });
@@ -1062,13 +1096,15 @@ app.get("/responsibility",(req,res)=>{
 });
 
 app.get("/user",(req,res)=>{
-	if(jwtverify(req.cookies)&&userInfo[req.cookies.user]==='master'){
-		User.find().then((user)=>{
-			res.render('user',{user:user});
-		})
-	}else{
-		res.render('unauthorized');
-	}
+	User.find({name:userInfo[req.cookies.user]}).then((info)=>{
+		if(jwtverify(req.cookies)&&info[0].permission===2){
+			User.find().then((user)=>{
+				res.render('user',{user:user});
+			})
+		}else{
+			res.render('unauthorized');
+		}
+	})
 })
 
 app.post('/footer',(req,res)=>{
