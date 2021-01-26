@@ -647,7 +647,8 @@ app.get("/admin", (req, res) => {
 	// check for valid token
 	if (jwtverify(req.cookies)) {	
 		User.find({name:userInfo[req.cookies.user]}).then((info)=>{
-			res.render("admin", { name: userInfo[req.cookies.user], permission: info[0].permission });
+			if(info.length===0) res.render("admin",{name:userInfo[req.cookies.user],permission:1});
+			else res.render("admin", { name: userInfo[req.cookies.user], permission: info[0].permission });
 		})	
 	} else {
 		logger.info('unauthorized accessto /admin GET');
@@ -1044,10 +1045,10 @@ app.post("/details", upload.array('image', 100), (req, res) => {
 app.post('/createuser',(req,res)=>{
 	console.log(req.body);
 	User.find({name:req.body.name}).then((info)=>{
-		if(req.body.name.length===0) req.body.name = ' ';
-		if(req.body.explanation.length===0) req.body.explanation = ' ';
-		if(req.body.phone.length===0) req.body.phone = ' ';
 		if(info.length===0){
+			if(req.body.name.length===0) req.body.name = ' ';
+			if(req.body.explanation.length===0) req.body.explanation = ' ';
+			if(req.body.phone.length===0) req.body.phone = ' ';
 			if(req.body.password.length===0){
 				req.body.password = '3756';
 			}
@@ -1067,7 +1068,39 @@ app.post('/createuser',(req,res)=>{
 					});
 				});
 		}else{
-			console.log('existent');
+			let u_explanation = info[0].explanation;
+			let u_password = info[0].password;
+			let u_phone = info[0].phone;
+			let u_permission = info[0].permission;
+			if(req.body.explanation.length!==0 && info[0].explanation!=req.body.explanation){
+				u_explanation = req.body.explanation;
+			}
+			if(req.body.phone.length!==0 && info[0].phone!=req.body.phone){
+				u_phone = req.body.phone;
+			}
+			if(Number(req.body.permission)!==info[0].permission){
+				u_permission = Number(req.body.permission);
+			}
+			if(req.body.password.length!==0){
+				bcrypt.compare(req.body.password, info[0].password, function(err,result){
+					if(!result){
+						bcrypt.genSalt(10,function(err,salt2){
+							bcrypt.hash(req.body.password,salt2,function(err,hash2){
+								u_password = hash2;
+							})
+						})
+					}
+				})
+			}
+			setTimeout(()=>{
+				info[0].password = u_password;
+				info[0].explanation = u_explanation;
+				info[0].phone = u_phone;
+				info[0].permission = u_permission;
+				User.updateOne({_id:info[0]._id},info[0]).then(()=>{
+					console.log('updated...');
+				}).catch((err)=>{console.log(err);})
+			},500);
 		}
 		setTimeout(()=>{
 			res.redirect('/user');
