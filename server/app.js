@@ -645,8 +645,10 @@ app.post("/login", (req, res) => {
 
 app.get("/admin", (req, res) => {
 	// check for valid token
-	if (jwtverify(req.cookies)) {		
-		res.render("admin", { data: userInfo[req.cookies.user] });
+	if (jwtverify(req.cookies)) {	
+		User.find({name:userInfo[req.cookies.user]}).then((info)=>{
+			res.render("admin", { name: userInfo[req.cookies.user], permission: info[0].permission });
+		})	
 	} else {
 		logger.info('unauthorized accessto /admin GET');
 		res.redirect("/login");
