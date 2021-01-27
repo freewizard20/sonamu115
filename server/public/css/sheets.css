@@ -837,3 +837,9 @@ a:active {
   border: 1px solid black;
   padding: 7px;
 }
+
+.uploadimage {
+  width: 120px;
+  height: 90px;
+  margin-bottom: 5px;
+}

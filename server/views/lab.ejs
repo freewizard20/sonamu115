@@ -10,9 +10,21 @@
 <button onclick="addElement()">추가</button>
 
 <script>
-    // document.getElementById('uploadBox').addEventListener('change',function(){
+    let imageCount = 0;
 
-    // });
+    document.getElementById('uploadBox').addEventListener('change',function(){
+        // extract files and make element, assign file to element input, assign picture to image
+        console.log(this.files);
+        if(this.files){
+            for(let i = 0 ; i < this.files.length ; i++){
+                addElement();
+                const reader = new FileReader();
+                var imageee = document.getElementById('preview'+(imageCount-1));
+                reader.onload = (function(aImg){ return function(e){aImg.src=e.target.result;};})(imageee);
+                reader.readAsDataURL(this.files[i]);
+            }
+        }
+    });
 
     function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -33,7 +45,6 @@
     //     console.log('hello');
     //     insertAfter(document.getElementsByClassName('upload')[0],document.getElementsByClassName('upload')[2]);
     // }
-    let imageCount = 0;
     function addElement(){
         var divv = document.createElement('div');
         divv.id='divv'+imageCount;
@@ -44,7 +55,7 @@
         divv.appendChild(div2);
         var imagee = document.createElement('img');
         imagee.src = '/assets/empty.gif';
-        imagee.classList.add('uploadImage');
+        imagee.classList.add('uploadimage');
         imagee.id = 'preview' + imageCount;
         divv.appendChild(imagee);
         divv.appendChild(document.createElement('br'));
