@@ -165,10 +165,16 @@ app.get('/gun',(req,res)=>{
 })
 
 app.get('/lab',(req,res)=>{
-	Item.find({id:'M041'}).then((data)=>{
-		res.render('lab',{data:data[0]});
-	})
-})
+	res.render('lab');
+});
+
+app.post('/lab', upload.array('image',100), (req,res)=>{
+	if(typeof req.files === 'undefined') req.files=[];
+	for(let i = 0 ; i < req.files.length ; i++) {
+		console.log(req.files[i].filename);
+	}
+	res.render('lab');
+});
 
 app.get('/m',(req,res)=>{
 	let skipQuery = 0;
@@ -869,6 +875,9 @@ app.get("/register", (req, res) => {
 });
 
 app.post("/register", upload.array('image', 100), (req, res) => {
+	if(!fs.existsSync('./public/images/thumbnail')){
+		fs.mkdirSync('./public/images/thumbnail');
+	}
 	if (jwtverify(req.cookies)) {
 		let filenames = [];
 		if(typeof req.files === 'undefined') req.files=[];
@@ -926,6 +935,7 @@ app.post("/register", upload.array('image', 100), (req, res) => {
 									fs.unlinkSync('./public/images'+filenames[x]+'2');
 									fs.rename('./public/images/temp','./public/images'+filenames[x],()=>{loopArray(x+1)});
 								}else{
+									fs.unlinkSync('./public/images'+filenames[x]+'2');
 									fs.unlink('./public/images/temp',()=>{loopArray(x+1)});
 								}
 							})
@@ -985,6 +995,9 @@ app.get("/details", (req, res) => {
 
 
 app.post("/details", upload.array('image', 100), (req, res) => {
+	if(!fs.existsSync('./public/images/thumbnail')){
+		fs.mkdirSync('./public/images/thumbnail');
+	}
 	if (jwtverify(req.cookies)) {
 		Item.find({_id:req.body.query_id}).then((data)=>{
 			let imageArray = req.body.imageArray.split(',');
