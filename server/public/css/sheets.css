@@ -831,3 +831,9 @@ a:active {
   position:relative;
   top:-1px;
 }
+
+.uploadDiv {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 7px;
+}
