@@ -28,7 +28,7 @@ const Location = require('./models/Location.js');
 const User = mongooseIO.User;
 const Item = mongooseIO.Item;
 const app = express();
-var upload = multer({ dest: 'public/images/' });
+const upload = multer({ dest: 'public/images/' });
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -163,18 +163,6 @@ app.get('/gun',(req,res)=>{
 		res.send(returnArray);
 	})
 })
-
-app.get('/lab',(req,res)=>{
-	res.render('lab');
-});
-
-app.post('/lab', upload.array('image',100), (req,res)=>{
-	if(typeof req.files === 'undefined') req.files=[];
-	for(let i = 0 ; i < req.files.length ; i++) {
-		console.log(req.files[i].filename);
-	}
-	res.render('lab');
-});
 
 app.get('/m',(req,res)=>{
 	let skipQuery = 0;
@@ -863,6 +851,20 @@ app.post("/delete", (req, res) => {
 	}
 })
 
+app.get('/lab',(req,res)=>{
+	res.render('lab');
+});
+
+app.post('/lab', upload.array('image'), (req,res)=>{
+	console.log('/lab POST');
+	console.log(req.files);
+	if(typeof req.files === 'undefined') req.files=[];
+	for(let i = 0 ; i < req.files.length ; i++) {
+		console.log(req.files[i].filename);
+	}
+	res.render('lab');
+});
+
 app.get("/register", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		User.find().then((info)=>{
@@ -879,6 +881,7 @@ app.post("/register", upload.array('image', 100), (req, res) => {
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
+		console.log(req.files);
 		let filenames = [];
 		if(typeof req.files === 'undefined') req.files=[];
 		for (let i = 0; i < req.files.length; i++) {
