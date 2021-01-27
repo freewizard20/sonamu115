@@ -1,21 +1,12 @@
 <%- include('parts/header') %>
 <form action="/lab" method="POST" enctype="multipart/form-data">
     <input type="file" id="uploadBox" name="uploadBox" multiple>
-    <div class="uploadDiv">
-        <div style="display:none;">0</div>
-        <img class="singleImage" src="assets/empty.gif">
-        <br />
-        <button onclick="leftHandler(0)"><</button>
-        <button onclick="rightHandler(0)">></button>
-        <button onclick="deleteHandler(0)">삭제</button>
-        <input type="file" style="display:none;" class="imageUpload" name="image">
-    </div>
+    
+    <div id="imagecontainer"></div>
+
     <input type="submit">
 </form>
 <button onclick="onClick()">왼쪽으로 이동</button>
-
-<div id="imagecontainer"></div>
-
 <button onclick="addElement()">추가</button>
 
 <script>
@@ -27,6 +18,17 @@
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
+    Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+    }
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+        for(var i = this.length - 1; i >= 0; i--) {
+            if(this[i] && this[i].parentElement) {
+                this[i].parentElement.removeChild(this[i]);
+            }
+        }
+    }
+
     // function onClick(){
     //     console.log('hello');
     //     insertAfter(document.getElementsByClassName('upload')[0],document.getElementsByClassName('upload')[2]);
@@ -34,6 +36,7 @@
     let imageCount = 0;
     function addElement(){
         var divv = document.createElement('div');
+        divv.id='divv'+imageCount;
         divv.classList.add('uploadDiv');
         var div2 = document.createElement('div');
         div2.innerHTML = imageCount;
@@ -54,7 +57,7 @@
         rightButton.style.marginRight = '5px';
         rightButton.innerHTML = '>';
         rightButton.type = 'button';
-        deleteButton.innerHTML = '삭제';
+        deleteButton.innerHTML = div2.innerHTML;
         deleteButton.type = 'button';
         leftButton.addEventListener('click',function(){
             leftHandler(div2.innerHTML);
@@ -84,10 +87,15 @@
 
     function rightHandler(index){
         console.log('rightHandler ' + index);
+        if(document.getElementById('divv'+index).nextSibling===null){
+            return;
+        }
+        insertAfter(document.getElementById('divv'+index).nextSibling,document.getElementById('divv'+index));
     }
 
     function deleteHandler(index){
         console.log('deleteHandler ' + index);
+        document.getElementById('divv'+index).remove();
     }
 </script>
 
