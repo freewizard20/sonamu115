@@ -96,12 +96,6 @@
         divv.appendChild(leftButton);
         divv.appendChild(rightButton);
         divv.appendChild(deleteButton);
-        var fileInput = document.createElement('input');
-		fileInput.type = 'file';
-		fileInput.name = 'image';
-		fileInput.id = 'file' + imageCount;
-        fileInput.style.display = 'none';
-        divv.appendChild(fileInput);
         document.getElementById('imagecontainer').appendChild(divv);
         imageCount++;
     }
