@@ -1006,7 +1006,7 @@ app.post("/stats", (req, res) => {
 app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
-		console.log(req.body);
+		// console.log(req.body);
 		let newFilelist = req.body.uploadFilelist.split(',');
 		//console.log(newFilelist);
 		let count = 0;
@@ -1016,9 +1016,9 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
-		console.log(newFilelist);
+		// console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
-			console.log(newFilelist);
+			// console.log(newFilelist);
 			let originalImage = [];
 			for(let i = 0 ; i < data[0].image.length ; i++){
 				originalImage.push(data[0].image[i]);
@@ -1029,11 +1029,11 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 					originalImage.splice(originalImage.indexOf(newImage[i]),1);
 				}
 			}
-			console.log(originalImage);
+			// console.log(originalImage);
 			for(let i = 0 ; i < originalImage.length ; i++){
 				fs.unlinkSync('./public/images' + originalImage[i]);
 			}
-			console.log(data[0].image[0] + ' ' + newFilelist[0]);
+			// console.log(data[0].image[0] + ' ' + newFilelist[0]);
 			if(data[0].image[0]!==newFilelist[0]){
 				fs.unlinkSync('./public/images/thumbnail'+data[0].image[0]);
 				setTimeout(()=>{
