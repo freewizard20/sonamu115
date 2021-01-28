@@ -148,14 +148,15 @@
         }
         uploadFilelist.splice(getCurrentIndex(index)+2,0,uploadFilelist[getCurrentIndex(index)]);
         uploadFilelist.splice(getCurrentIndex(index),1);
-        console.log(uploadFilelist);
+        // console.log(uploadFilelist);
         insertAfter(document.getElementById('divv'+index).nextSibling,document.getElementById('divv'+index))
     }
 
     function deleteHandler(index){
         // console.log('deleteHandler ' + index);
+        uploadFilelist.splice(getCurrentIndex(index),1);
         document.getElementById('divv'+index).remove();
-
+        console.log(uploadFilelist);
     }
 </script>
 
