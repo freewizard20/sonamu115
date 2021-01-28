@@ -876,78 +876,99 @@ app.get("/register", (req, res) => {
 	}
 });
 
-app.post("/register", upload.array('image', 100), (req, res) => {
+app.post("/registerimage",upload.array('image',100),(req,res)=>{
+	console.log('registerimage POST');
+	let thumbnailExists = false;
+	let fileInput = [];
+	if(typeof req.files==='undefined') req.files=[];
+		for(let i = 0 ; i < req.files.length ; i++){
+			fileInput.push('/'+req.files[i].filename);
+	}
+	setTimeout(()=>{
+		Item.find().sort('-timestamp').limit(1).then((data)=>{
+			data[0].image = fileInput;
+			data[0].thumbnail = fileInput.length===0? '' : '/thumbnail' + fileInput[0];
+			if(fileInput.length!==0) thumbnailExists = true;
+			Item.updateOne({_id:data[0]._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)})
+		})
+	},1000);
+	setTimeout(()=>{
+		if(thumbnailExists){
+			if(fs.existsSync('./public/images/thumbnailtemp')) fs.unlinkSync('./public/images/thumbnailtemp');
+			fs.copyFile('./public/images'+fileInput[0],'./public/images/thumbnailtemp',(e)=>{
+				sharp('./public/images'+fileInput[0]).resize({fit:'fill',width:233,height:165})
+				.toFile('./public/images/thumbnail'+fileInput[0],(err,info)=>{
+					if(err){
+						fs.unlink('./public/images'+fileInput[0],(b)=>{
+							fs.rename('./public/images/thumbnailtemp','./public/images'+fileInput[0],(a)=>{
+								if(fs.existsSync('./public/images/thumbnail'+fileInput[0])){
+									fs.unlink('./public/images/thumbnail'+fileInput[0],(d)=>{
+										fs.copyFile('./public/images'+fileInput[0],'./public/images/thumbnail'+fileInput[0],(z)=>{});
+									})
+								}
+							})
+						})							
+					}else{
+						fs.unlink('./public/images/thumbnailtemp',(a)=>{});
+					}
+				});
+			})				
+		}
+	},5000);
+	setTimeout(()=>{
+		let loopArray = function(x){
+			if(x===fileInput.length){
+				return;
+			}else{
+				if(fs.existsSync('./public/images/temp')){
+					fs.unlinkSync('./public/images/temp');
+				}
+				fs.copyFile('./public/images'+fileInput[x],'./public/images/temp',()=>{
+					fs.rename('./public/images'+fileInput[x],'./public/images'+fileInput[x]+'2',(err)=>{
+						sharp('./public/images'+fileInput[x]+'2').resize({fit:'fill',width:950,height:550})
+						.toFile('./public/images'+fileInput[x],(err,info)=>{
+							if(err){
+								logger.info(err);
+								if(fs.existsSync('./public/images'+fileInput[x])) fs.unlinkSync('./public/images'+fileInput[x]);
+								fs.unlinkSync('./public/images'+fileInput[x]+'2');
+								fs.rename('./public/images/temp','./public/images'+fileInput[x],()=>{loopArray(x+1)});
+							}else{
+								fs.unlinkSync('./public/images'+fileInput[x]+'2');
+								fs.unlink('./public/images/temp',()=>{loopArray(x+1)});
+							}
+						})
+					})						
+				})
+			}
+		}
+		loopArray(0);
+	},10000);
+});
+
+// upload.array('image', 100), 
+app.post("/register", (req, res) => {
 	if(!fs.existsSync('./public/images/thumbnail')){
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
-		console.log(req.files);
-		let filenames = [];
-		if(typeof req.files === 'undefined') req.files=[];
-		for (let i = 0; i < req.files.length; i++) {
-			if (req.files[i] !== undefined) filenames.push('/'+req.files[i].filename);
-		}
 		req.body.id = req.body.id_letter + req.body.id_number;
-		req.body.timestamp = new Date().getTime();
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
-		req.body.thumbnail = filenames.length===0? '' : '/thumbnail'+ filenames[0];
-		logger.info('added item ' + req.body.id);
-		mongooseIO.postItem(req.body, filenames);
+		if (req.body.icon === undefined) req.body.icon = "";
+		if (req.body.ad === undefined) req.body.ad = "";
+		if (req.body.theme === undefined) req.body.theme = "";
+		if (req.body.price_jeon === undefined) req.body.price_jeon = "";
+		if (req.body.price_unit === undefined) req.body.price_unit = "";
+		if (req.body.views === undefined) req.body.views = 0;
+		req.body.timestamp_modified = new Date().getTime();
+		req.body.timestamp = new Date().getTime();		
+		const item = new Item(req.body);
+		item.save().then(()=>{
+			logger.info('item saved!!');
+		}).catch((err)=>console.log(err));
 		setTimeout(()=>{
 			res.redirect("/manage");
-		},500);		
-		setTimeout(()=>{
-			if(req.body.thumbnail.length!=0){
-				if(fs.existsSync('./public/images/thumbnailtemp')) fs.unlinkSync('./public/images/thumbnailtemp');
-				fs.copyFile('./public/images'+filenames[0],'./public/images/thumbnailtemp',(e)=>{
-					sharp('./public/images'+filenames[0]).resize({fit:'fill',width:233,height:165})
-					.toFile('./public/images/thumbnail'+filenames[0],(err,info)=>{
-						if(err){
-							fs.unlink('./public/images'+filenames[0],(b)=>{
-								fs.rename('./public/images/thumbnailtemp','./public/images'+filenames[0],(a)=>{
-									if(fs.existsSync('./public/images/thumbnail'+filenames[0])){
-										fs.unlink('./public/images/thumbnail'+filenames[0],(d)=>{
-											fs.copyFile('./public/images'+filenames[0],'./public/images/thumbnail'+filenames[0],(z)=>{});
-										})
-									}
-								})
-							})							
-						}else{
-							fs.unlink('./public/images/thumbnailtemp',(a)=>{});
-						}
-					});
-				})				
-			}
-		},5000);
-		setTimeout(()=>{
-			let loopArray = function(x){
-				if(x===filenames.length){
-					return;
-				}else{
-					if(fs.existsSync('./public/images/temp')){
-						fs.unlinkSync('./public/images/temp');
-					}
-					fs.copyFile('./public/images'+filenames[x],'./public/images/temp',()=>{
-						fs.rename('./public/images'+filenames[x],'./public/images'+filenames[x]+'2',(err)=>{
-							sharp('./public/images'+filenames[x]+'2').resize({fit:'fill',width:950,height:550})
-							.toFile('./public/images'+filenames[x],(err,info)=>{
-								if(err){
-									logger.info(err);
-									if(fs.existsSync('./public/images'+filenames[x])) fs.unlinkSync('./public/images'+filenames[x]);
-									fs.unlinkSync('./public/images'+filenames[x]+'2');
-									fs.rename('./public/images/temp','./public/images'+filenames[x],()=>{loopArray(x+1)});
-								}else{
-									fs.unlinkSync('./public/images'+filenames[x]+'2');
-									fs.unlink('./public/images/temp',()=>{loopArray(x+1)});
-								}
-							})
-						})						
-					})
-				}
-			}
-			loopArray(0);
-		},10000);
+		},1500);		
 	} else {
 		logger.info('unauthorized access to /register');
 		res.render("unauthorized");

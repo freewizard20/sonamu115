@@ -1,7 +1,6 @@
 <%- include('parts/header') %>
 <form action="/lab" method="POST" enctype="multipart/form-data">
     <input type="file" id="uploadBox" name="uploadBox" multiple>
-    
     <div id="imagecontainer"></div>
 
 </form>
@@ -13,7 +12,7 @@
 
     document.getElementById('uploadBox').addEventListener('change',function(){
         // extract files and make element, assign file to element input, assign picture to image
-        console.log(this.files);
+        // console.log(this.files);
         if(this.files){
             for(var i = 0 ; i < this.files.length ; i++){
                 addElement();
@@ -23,7 +22,7 @@
                 reader.readAsDataURL(this.files[i]);
                 uploadFilelist.push(this.files[i]);
             }
-            console.log(uploadFilelist);
+            // console.log(uploadFilelist);
         }
     });
 
@@ -32,7 +31,7 @@
         xhr.open("POST",'/lab',true);
         var form_data = new FormData();
         for(let i = 0 ; i < uploadFilelist.length; i++){
-            form_data.append('images',uploadFilelist[i]);
+            form_data.append('image',uploadFilelist[i]);
         }
         form_data.append('name','hello');
         // console.log(form_data);
@@ -53,7 +52,7 @@
             }
         }
     }
-    
+
     function addElement(){
         var divv = document.createElement('div');
         divv.id='divv'+imageCount;
