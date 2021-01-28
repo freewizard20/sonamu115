@@ -1000,12 +1000,71 @@ app.get("/stats", (req, res) => {
 });
 
 app.post("/stats", (req, res) => {
+
 })
 
 app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	if(jwtverify(req.cookies)){
-		console.log(req.files);
+		//console.log(req.files);
 		console.log(req.body);
+		let newFilelist = req.body.uploadFilelist.split(',');
+		//console.log(newFilelist);
+		let count = 0;
+		for(let i = 0 ; i < newFilelist.length ; i++){
+			if(newFilelist[i].length===0){
+				newFilelist[i] = '/'+ req.files[count].filename;
+				count++;
+			}
+		}
+		console.log(newFilelist);
+		Item.find({_id:req.body._id}).then((data)=>{
+			console.log(newFilelist);
+			let originalImage = [];
+			for(let i = 0 ; i < data[0].image.length ; i++){
+				originalImage.push(data[0].image[i]);
+			}
+			let newImage = newFilelist;
+			for(let i = 0 ; i < newImage.length ; i++){
+				if(originalImage.indexOf(newImage[i])!==-1){
+					originalImage.splice(originalImage.indexOf(newImage[i]),1);
+				}
+			}
+			console.log(originalImage);
+			for(let i = 0 ; i < originalImage.length ; i++){
+				fs.unlinkSync('./public/images' + originalImage[i]);
+			}
+			console.log(data[0].image[0] + ' ' + newFilelist[0]);
+			if(data[0].image[0]!==newFilelist[0]){
+				fs.unlinkSync('./public/images/thumbnail'+data[0].image[0]);
+				setTimeout(()=>{
+					data[0].thumbnail = newFilelist[0];
+					if(fs.existsSync('./public/images/thumbnailtemp')) fs.unlinkSync('./public/images/thumbnailtemp');
+					fs.copyFile('./public/images'+newFilelist[0],'./public/images/thumbnailtemp',(e)=>{
+						sharp('./public/images'+newFilelist[0]).resize({fit:'fill',width:233,height:165})
+						.toFile('./public/images/thumbnail'+newFilelist[0],(err,info)=>{
+							if(err){
+								fs.unlink('./public/images'+newFilelist[0],(b)=>{
+									fs.rename('./public/images/thumbnailtemp','./public/images'+newFilelist[0],(a)=>{
+										if(fs.existsSync('./public/images/thumbnail'+newFilelist[0])){
+											fs.unlink('./public/images/thumbnail'+newFilelist[0],(d)=>{
+												fs.copyFile('./public/images'+newFilelist[0],'./public/images/thumbnail'+newFilelist[0],(z)=>{});
+											})
+										}
+									})
+								})							
+							}else{
+								fs.unlink('./public/images/thumbnailtemp',(a)=>{});
+							}
+						});
+					})
+					data[0].image = newFilelist;
+					Item.updateOne({_id:req.body._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+				},500);
+			}else{
+				data[0].image = newFilelist;
+				Item.updateOne({_id:req.body._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+			}
+		})
 	}else{
 		res.render('unauthorized');
 	}
@@ -1047,7 +1106,9 @@ app.post("/details", (req, res) => {
 				})
 				.catch((err) => { logger.info(err); });
 	
-			res.redirect('/manage');
+			setTimeout(()=>{
+				res.redirect('/manage');
+			},1000);
 			// setTimeout(()=>{
 			// 	if(deleteFile.length!=0){
 			// 		sharp('./public/images'+imageref[0])
