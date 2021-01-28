@@ -855,14 +855,14 @@ app.get('/lab',(req,res)=>{
 	res.render('lab');
 });
 
-app.post('/lab', upload.array('image'), (req,res)=>{
+app.post('/lab', upload.array('images'), (req,res)=>{
 	console.log('/lab POST');
-	console.log(req.files);
+	console.log(req.body);
 	if(typeof req.files === 'undefined') req.files=[];
 	for(let i = 0 ; i < req.files.length ; i++) {
 		console.log(req.files[i].filename);
 	}
-	res.render('lab');
+	res.redirect('/lab');
 });
 
 app.get("/register", (req, res) => {

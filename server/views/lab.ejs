@@ -4,27 +4,41 @@
     
     <div id="imagecontainer"></div>
 
-    <input type="submit">
 </form>
+<button onclick="submitHandler()">제출</button>
 <button onclick="onClick()">왼쪽으로 이동</button>
 <button onclick="addElement()">추가</button>
 
 <script>
     let imageCount = 0;
+    let uploadFilelist = [];
 
     document.getElementById('uploadBox').addEventListener('change',function(){
         // extract files and make element, assign file to element input, assign picture to image
         console.log(this.files);
         if(this.files){
-            for(let i = 0 ; i < this.files.length ; i++){
+            for(var i = 0 ; i < this.files.length ; i++){
                 addElement();
                 const reader = new FileReader();
                 var imageee = document.getElementById('preview'+(imageCount-1));
                 reader.onload = (function(aImg){ return function(e){aImg.src=e.target.result;};})(imageee);
                 reader.readAsDataURL(this.files[i]);
+                uploadFilelist.push(this.files[i]);
             }
         }
     });
+
+    function submitHandler(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST",'/lab',true);
+        var form_data = new FormData();
+        for(let i = 0 ; i < uploadFilelist.length; i++){
+            form_data.append('images',uploadFilelist[i]);
+        }
+        form_data.append('name','hello');
+        console.log(form_data);
+        xhr.send(form_data);
+    }
 
     function insertAfter(referenceNode, newNode) {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
