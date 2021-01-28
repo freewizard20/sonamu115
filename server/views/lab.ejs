@@ -6,8 +6,6 @@
 
 </form>
 <button onclick="submitHandler()">제출</button>
-<button onclick="onClick()">왼쪽으로 이동</button>
-<button onclick="addElement()">추가</button>
 
 <script>
     let imageCount = 0;
@@ -55,11 +53,7 @@
             }
         }
     }
-
-    // function onClick(){
-    //     console.log('hello');
-    //     insertAfter(document.getElementsByClassName('upload')[0],document.getElementsByClassName('upload')[2]);
-    // }
+    
     function addElement(){
         var divv = document.createElement('div');
         divv.id='divv'+imageCount;
@@ -156,7 +150,7 @@
         // console.log('deleteHandler ' + index);
         uploadFilelist.splice(getCurrentIndex(index),1);
         document.getElementById('divv'+index).remove();
-        console.log(uploadFilelist);
+        //console.log(uploadFilelist);
     }
 </script>
 
