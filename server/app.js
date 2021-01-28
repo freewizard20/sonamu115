@@ -1002,6 +1002,15 @@ app.get("/stats", (req, res) => {
 app.post("/stats", (req, res) => {
 })
 
+app.post('/detailsimage',upload.array('image',100),(req,res)=>{
+	if(jwtverify(req.cookies)){
+		console.log(req.files);
+		console.log(req.body);
+	}else{
+		res.render('unauthorized');
+	}
+});
+
 app.get("/details", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		Item.find({ _id: req.query.id }).then((data) => {
@@ -1018,45 +1027,18 @@ app.get("/details", (req, res) => {
 })
 
 
-app.post("/details", upload.array('image', 100), (req, res) => {
+app.post("/details", (req, res) => {
 	if(!fs.existsSync('./public/images/thumbnail')){
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
 		Item.find({_id:req.body.query_id}).then((data)=>{
-			let imageArray = req.body.imageArray.split(',');
 			let currentItem = req.body.query_id;
-			delete req.body.imageArray;		
 			delete req.body.query_id;
-			let imageref = [];
-			let count = 0;
-			for(let i = 0 ; i < imageArray.length ; i++){
-				if(imageArray[i]!==''){
-					if(imageArray[i]==='updated'){
-						imageref.push('/'+req.files[count].filename);
-						count++;
-					}else{
-						imageref.push(imageArray[i]);
-					}
-				}
-			}
-			let deleteFile = '';
-			try{
-				if(data[0].image[0]!=imageref[0]){
-					deleteFile = data[0].image[0];
-					fs.unlink('./public/images/thumbnail'+deleteFile,(err)=>{
-						if(err) logger.info(err);
-					})
-				}
-			}catch{
-	
-			}
 	
 			req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);
-			if(data[0].image[0]!=imageref[0]) req.body.thumbnail = '/thumbnail' + imageref[0];
-			req.body.image = imageref;
 			req.body.id = req.body.id_letter + req.body.id_number;
 	
 			Item.updateOne({ _id: currentItem }, req.body)
@@ -1066,12 +1048,12 @@ app.post("/details", upload.array('image', 100), (req, res) => {
 				.catch((err) => { logger.info(err); });
 	
 			res.redirect('/manage');
-			setTimeout(()=>{
-				if(deleteFile.length!=0){
-					sharp('./public/images'+imageref[0])
-					.resize(233,165).toFile('./public/images/thumbnail'+imageref[0],(err, info)=>{logger.info(err);});
-				}
-			},5000);
+			// setTimeout(()=>{
+			// 	if(deleteFile.length!=0){
+			// 		sharp('./public/images'+imageref[0])
+			// 		.resize(233,165).toFile('./public/images/thumbnail'+imageref[0],(err, info)=>{logger.info(err);});
+			// 	}
+			// },5000);
 		})
 	} else {
 		logger.info('unauthorized access to /details POST');
