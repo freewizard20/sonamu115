@@ -25,6 +25,7 @@
                 reader.readAsDataURL(this.files[i]);
                 uploadFilelist.push(this.files[i]);
             }
+            console.log(uploadFilelist);
         }
     });
 
@@ -36,7 +37,7 @@
             form_data.append('images',uploadFilelist[i]);
         }
         form_data.append('name','hello');
-        console.log(form_data);
+        // console.log(form_data);
         xhr.send(form_data);
     }
 
@@ -134,8 +135,10 @@
         if(document.getElementById('divv'+index).previousSibling===null){
             return;
         }
+        uploadFilelist.splice(getCurrentIndex(index)-1,0,uploadFilelist[getCurrentIndex(index)]);
+        uploadFilelist.splice(getCurrentIndex(index)+1,1);
         document.getElementById('imagecontainer').insertBefore(document.getElementById('divv'+index),document.getElementById('divv'+index).previousSibling);
-        console.log(getCurrentIndex(index));
+        // console.log(getCurrentIndex(index));
     }
 
     function rightHandler(index){
@@ -143,6 +146,7 @@
         if(document.getElementById('divv'+index).nextSibling===null){
             return;
         }
+        
         insertAfter(document.getElementById('divv'+index).nextSibling,document.getElementById('divv'+index))
     }
 
