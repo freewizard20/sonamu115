@@ -62,7 +62,7 @@
 					<td>
 						<input class="long" type="text" name="title">
 					</td>
-					<td>
+					<td width="175" style="word-break: break-all;table-layout: fixed;">
 						<input class="long" type="text" name="memo">
 					</td>
 					<td>
@@ -196,7 +196,7 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:110px;"></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
-					<td style="cursor:pointer;color:blue;width:175px;table-layout: fixed;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
+					<td style="cursor:pointer;color:blue;width:175px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
