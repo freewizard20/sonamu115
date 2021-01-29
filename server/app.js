@@ -891,7 +891,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			if(fileInput.length!==0) thumbnailExists = true;
 			Item.updateOne({_id:data[0]._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)})
 		})
-	},1000);
+	},500);
 	setTimeout(()=>{
 		if(thumbnailExists){
 			if(fs.existsSync('./public/images/thumbnailtemp')) fs.unlinkSync('./public/images/thumbnailtemp');
@@ -914,7 +914,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},500);
+	},800);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
