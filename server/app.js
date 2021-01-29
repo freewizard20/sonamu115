@@ -914,7 +914,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},5000);
+	},500);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
