@@ -25,7 +25,7 @@ setInterval(function(){
             carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
             return;
         }
-        carouselSlide.style.transition = "transform 0.2s ease-in-out";
+        carouselSlide.style.transition = "transform 0s ease-in-out";
         counter++;
         carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
     }
@@ -41,7 +41,7 @@ nextBtn.addEventListener("click", function(){
         carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
         return;
     }
-    carouselSlide.style.transition = "transform 0.2s ease-in-out";
+    carouselSlide.style.transition = "transform 0s ease-in-out";
     counter++;
     carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
 });
@@ -55,7 +55,7 @@ prevBtn.addEventListener("click", function() {
         carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
         return;        
     } 
-    carouselSlide.style.transition = "transform 0.2s ease-in-out";
+    carouselSlide.style.transition = "transform 0s ease-in-out";
     counter--;
     carouselSlide.style.transform = "translateX(" + (-size * counter) + "px)";
 });
