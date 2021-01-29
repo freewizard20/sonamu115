@@ -356,12 +356,12 @@ app.get("/", (req, res) => {
 		for(let i = 0 ; i < gallery.length ; i++){
 			gallery[i].detail = he.decode(gallery[i].detail);
 		}
-		Item.find({adon: 'Y', ad:'recommended'}).limit(10).then((recommended)=>{
-			Item.find({adon: 'Y', sell:'sell',type:'house',price_sell:{$gte : 100000}}).limit(10).then((luxury)=>{
-				Item.find({adon: 'Y', type:'land'}).limit(10).then((land)=>{
-					Item.find({adon: 'Y', sell:'sell',price_sell:{$lte:30000}}).limit(10).then((affordable)=>{
-						Item.find({adon: 'Y', type: {$in: ['consumer']}}).limit(5).then((commercial)=>{
-							Item.find({adon: 'Y', sell:{$in:['rent','jeon']}}).limit(5).then((rent)=>{
+		Item.find({adon: 'Y', ad:'recommended'}).sort('-timestamp_modified').limit(10).then((recommended)=>{
+			Item.find({adon: 'Y', sell:'sell',type:'house',price_sell:{$gte : 100000}}).sort('-timestamp_modified').limit(10).then((luxury)=>{
+				Item.find({adon: 'Y', type:'land'}).sort('-timestamp_modified').limit(10).then((land)=>{
+					Item.find({adon: 'Y', sell:'sell',price_sell:{$lte:30000}}).sort('-timestamp_modified').limit(10).then((affordable)=>{
+						Item.find({adon: 'Y', type: {$in: ['consumer']}}).sort('-timestamp_modified').limit(5).then((commercial)=>{
+							Item.find({adon: 'Y', sell:{$in:['rent','jeon']}}).sort('-timestamp_modified').limit(5).then((rent)=>{
 								res.render('home', {gallery: gallery, recommended: recommended, luxury:luxury,land:land,affordable:affordable,commercial:commercial,rent:rent});
 							})
 						})
