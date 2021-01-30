@@ -12,7 +12,7 @@
 			}
 
 			.short {
-				width: 60px;
+				width: 30px;
 			}
 
 			.medium {
@@ -40,17 +40,17 @@
 				<form id="searchForm" action="/search" method="POST">
 					<td style="background-color: #bbc8c0;">검색</td>
 					<td>xxx</td>
-					<td><input style="width:80px;" type="text" name="id"></td>
-					<td>
-						<select name="contract">
+					<td style="width:40px;table-layout: fixed;word-break:break-all;"><input style="width:40px;" type="text" name="id"></td>
+					<td style="width:30px;">
+						<select style="width:30px;" name="contract">
 							<option value="">전체</option>
 							<option value="on">진행</option>
 							<option value="pending">보류</option>
 							<option value="complete">완료</option>
 						</select>
 					</td>
-					<td>
-						<select name="adon">
+					<td style="width:30px;">
+						<select style="width:30px;" name="adon">
 							<option value="">전체</option>
 							<option value="Y">ON</option>
 							<option value="N">OFF</option>
@@ -59,22 +59,22 @@
 					<td>
 						xxx
 					</td>
-					<td>
-						<input class="long" type="text" name="title">
+					<td style="width:100px;">
+						<input style="width:100px;" type="text" name="title">
 					</td>
-					<td width="175" style="word-break: break-all;table-layout: fixed;">
-						<input class="long" type="text" name="memo">
+					<td width="120" style="word-break: break-all;table-layout: fixed;">
+						<input style="width:120px;" type="text" name="memo">
 					</td>
-					<td>
-						<select name="sell">
+					<td style="width:30px;">
+						<select style="width:30px;" name="sell">
 							<option value="">전체</option>
 							<option value="sell">매매</option>
 							<option value="jeon">전세</option>
 							<option value="rent">월세</option>
 						</select>
 					</td>
-					<td>
-						<select name="type">
+					<td style="width:60px;">
+						<select style="width:60px;" name="type">
 							<option value="">전체</option>
 							<option value="house">전원주택/별장</option>
 							<option value="farm">농가주택/구옥</option>
@@ -87,46 +87,46 @@
 					<td>
 						<input class="short" type="text" name="address_up">
 					</td>
-					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_sell_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short" type="text" name="price_sell_upper">이하</div>
+					<td style="width:65px;">
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="price_sell_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short" type="text" name="price_sell_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_jeon_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_jeon_upper">이하</div>
+						<div style="display:flex;width:65px;font-size:10px;"><input type="text" class="short" name="price_jeon_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_jeon_upper">이하</div>
 					</td>
-					<td>
+					<td style="width:40px;">
 						<input type="text" class="short" name="detail_structure">
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_ground_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_ground_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_ground_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_ground_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_building_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_building_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_building_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_building_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_deposit_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_deposit_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="price_deposit_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_deposit_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="price_rent_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_rent_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="price_rent_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_rent_upper">이하</div>
+					</td>
+					<td style="width:45px;">
+						<input type="text" style="width:45px;" name="detail_date">
+					</td>
+					<td style="width:30px;">
+						<input type="text" style="width:30px;" name="detail_orientation">
 					</td>
 					<td>
-						<input type="text" class="short" name="detail_date">
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_rooms_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_rooms_upper">이하</div>
 					</td>
 					<td>
-						<input type="text" class="short" name="detail_orientation">
-					</td>
-					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_rooms_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_rooms_upper">이하</div>
-					</td>
-					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="area_toilets_lower">이상</div>
-						<div style="position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_toilets_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_toilets_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_toilets_upper">이하</div>
 					</td>
 					<td>
 						<select name="ad">
@@ -149,8 +149,8 @@
 						<input type="text" class="medium" name="timestamp_lower">
 					</td>
 					<td>
-						<div style="display:flex;width:95px;"><input type="text" class="short" name="views_upper">이상</div>
-						<div style="position:relative;left:-2px;top:3px;"><input type="text" class="short" name="views_lower">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="views_upper">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;"><input type="text" class="short" name="views_lower">이하</div>
 					</td>
 					<input type="submit" style="display:none">
 				</form>
@@ -158,24 +158,24 @@
 			<tr style="background-color: #b1d0d3;font-weight:bolder;">
 				<td><input type="checkbox" name="1" id="checkAll"></td>
 				<td>매물상세</td>
-				<td><div style="display:flex">매물번호 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_asc&search=<%= uuid %>">🔺</span></a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_desc&search=<%= uuid %>">🔻</a></div></div></td>			
+				<td style="width:40px;table-layout: fixed;word-break:break-all;"><div style="display:flex">매물번호 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_asc&search=<%= uuid %>">🔺</span></a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=id_desc&search=<%= uuid %>">🔻</a></div></div></td>			
 				<td>계약</td>
 				<td>광고</td>
 				<td style="background-color: #F9EEEE;">광고사진</td>
 				<td style="background-color: #F9EEEE;">광고제목</td>
-				<td style="width:175px;table-layout: fixed;">관리설명</td>
+				<td style="width:120px;table-layout: fixed;">관리설명</td>
 				<td>형태</td>
 				<td>매물종류</td>
 				<td>광고해당동</td>
 				<td><div style="display:flex">매매가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td><div style="display:flex">전세가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_desc&search=<%= uuid %>">🔻</a></div></div></td>
-				<td>건축구조</td>
+				<td style="width:40px;">건축구조</td>
 				<td><div style="display:flex">광고대지평 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td><div style="display:flex">광고평수 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td>보증금</td>
 				<td>월세</td>
-				<td><div style="display:flex">준공년도 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_desc&search=<%= uuid %>">🔻</a></div></div></td>
-				<td>방향</td>
+				<td style="width:45px;"><div style="display:flex">준공년도 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=detail_date_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td style="width:30px;">방향</td>
 				<td><div style="display:flex">방수 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_rooms_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_rooms_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td><div style="display:flex">욕실 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_toilets_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_toilets_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td>광고종류</td>
@@ -191,24 +191,24 @@
 				<tr style="background-color:<%= index%2===1?'#FEF4C9':'white' %>">					
 					<td><input type="checkbox" class="1" name="1"></td>
 					<td><a href="/item?id=<%= d._id %>">LINK</a></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
+					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break:break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.contract %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:110px;"></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
-					<td style="cursor:pointer;color:blue;width:175px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
+					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
+					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_sell %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_jeon %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_structure %></td>
+					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_structure %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_ground %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_building %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_deposit %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_rent %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_date %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_orientation %></td>
+					<td style="cursor:pointer;width:45px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_date %></td>
+					<td style="cursor:pointer;width:30px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_orientation %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_rooms %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_toilets %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.ad %></td>
