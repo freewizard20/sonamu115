@@ -167,10 +167,9 @@ app.get('/si',(req,res)=>{
 })
 
 app.get('/gun',(req,res)=>{
-	console.log(req.header('User-Agent'));
 	let query;
 	if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-		query = iconv.decode(req.query.name,'euc-kr');
+		query = querystring.unescape(req.query.name)
 	}else{
 		query = req.query.name;
 	}

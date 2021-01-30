@@ -297,7 +297,13 @@
 
 				}
 				else{
-					$.get('/si?name='+document.getElementById('si').value,function(data){
+          let query;
+          if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+            query = querystring.unescape(req.query.name)
+          }else{
+            query = req.query.name;
+          }
+					$.get('/si?name='+query,function(data){
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
 							opt.value = data[i];
@@ -313,7 +319,13 @@
 				if(document.getElementById('gun').value===''){
 					
 				}else{
-					$.get('/gun?name='+document.getElementById('gun').value,function(data){
+          let query;
+          if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+            query = querystring.unescape(req.query.name)
+          }else{
+            query = req.query.name;
+          }
+					$.get('/gun?name='+query,function(data){
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
 							opt.value = data[i];
