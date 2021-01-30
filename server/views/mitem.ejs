@@ -13,91 +13,141 @@
 			<% } %>
 		</div>
 		<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
-		<table class="item_table">
-			<tr>
-				<td class="item_label2">가격</td>
-				<td class="item_value2 red bold">
-					<% if(data.price_sell !=0) { %>
-						매매가 :
-						<% if(data.price_sell>=10000) { %>
-							<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+		<% if(data.type!=='land') { %>
+			<table class="item_table">
+				<tr>
+					<td class="item_label">가격</td>
+					<td class="item_value red bold" colspan="3">
+						<% if(data.price_sell !=0) { %>
+							매매가 :
+							<% if(data.price_sell>=10000) { %>
+								<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+							<% } else { %>
+								<%= data.price_sell %>만
+							<% } %>
+						<% } else if (data.price_jeondeposit != 0) { %>
+							전세보증금 :
+							<% if(data.price_jeondeposit>=10000) { %>
+								<%= Math.floor(data.price_jeondeposit/10000)%>억<% if(data.price_jeondeposit%10000!=0) { %><%= data.price_jeondeposit%10000 %>만<% } %>
+							<% } else { %>
+								<%= data.price_jeondeposit %>만
+							<% } %>
+							<% if(data.price_borrow != 0) { %>
+							/ 융자가 :
+							<% if(data.price_borrow>=10000) { %>
+								<%= Math.floor(data.price_borrow/10000)%>억<% if(data.price_borrow%10000!=0) { %><%= data.price_borrow%10000 %>만<% } %>
+							<% } else { %>
+								<%= data.price_borrow %>만
+							<% } %>
+							<% } %>
 						<% } else { %>
-							<%= data.price_sell %>만
+							보증금 :
+							<% if(data.price_rentdeposit>=10000) { %>
+								<%= Math.floor(data.price_rentdeposit/10000)%>억<% if(data.price_rentdeposit%10000!=0) { %><%= data.price_rentdeposit%10000 %>만<% } %>
+							<% } else { %>
+								<%= data.price_rentdeposit %>만
+							<% } %>
+							/ 월세 : <%= data.price_rent %>만
 						<% } %>
-					<% } else if (data.price_jeondeposit != 0) { %>
-						전세보증금 :
-						<% if(data.price_jeondeposit>=10000) { %>
-							<%= Math.floor(data.price_jeondeposit/10000)%>억<% if(data.price_jeondeposit%10000!=0) { %><%= data.price_jeondeposit%10000 %>만<% } %>
+					</td>
+				</tr>
+				<tr>
+					<td class="item_label">진행사항</td>
+					<td class="item_value bold">
+						<% if(data.contract === 'on') { %>
+							<span style="color:green;">계약가능</span>
+						<% } else if(data.contract ==='pending') { %>
+							<span style="color:black;">계약보류</span>
 						<% } else { %>
-							<%= data.price_jeondeposit %>만
+							<span style="color: red;">계약완료</span>
 						<% } %>
-						<% if(data.price_borrow != 0) { %>
-						/ 융자가 :
-						<% if(data.price_borrow>=10000) { %>
-							<%= Math.floor(data.price_borrow/10000)%>억<% if(data.price_borrow%10000!=0) { %><%= data.price_borrow%10000 %>만<% } %>
-						<% } else { %>
-							<%= data.price_borrow %>만
-						<% } %>
-						<% } %>
-					<% } else { %>
-						보증금 :
-						<% if(data.price_rentdeposit>=10000) { %>
-							<%= Math.floor(data.price_rentdeposit/10000)%>억<% if(data.price_rentdeposit%10000!=0) { %><%= data.price_rentdeposit%10000 %>만<% } %>
-						<% } else { %>
-							<%= data.price_rentdeposit %>만
-						<% } %>
-						/ 월세 : <%= data.price_rent %>만
+					</td>
+					<td class="item_label">매물번호</td>
+					<td class="item_value"><span style="color:red;font-weight:bold;"><%= data.id %></span></td>
+				</tr>
+				<tr>
+					<td class="item_label">면적</td>
+					<td class="item_value">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+					<% if(data.area_building != 0) { %>
+					 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
 					<% } %>
-				</td>
-			</tr>
-			<tr>
-				<td class="item_label2">진행사항</td>
-				<td class="item_value2 bold">
-					<% if(data.contract === 'on') { %>
-						<span style="color:green;">계약가능</span>
-					<% } else if(data.contract ==='pending') { %>
-						<span style="color:black;">계약보류</span>
-					<% } else { %>
-						<span style="color: red;">계약완료</span>
-					<% } %>
-				</td>
-				</tr><tr>
-				<td class="item_label2">매물번호</td>
-				<td class="item_value2"><span style="color:red;font-weight:bold;"><%= data.id %></span></td>
-			</tr>
-			<tr>
-				<td class="item_label2">면적</td>
-				<td class="item_value2">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
-				<% if(data.area_building != 0) { %>
-				 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
-				<% } %>
-				</td>
-			</tr><tr>
-				<td class="item_label2">방/욕실</td>
-				<td class="item_value2"><%= data.area_rooms %> / <%= data.area_toilets %></td>
-			</tr>
-			<tr>
-				<td class="item_label2">건축구조</td>
-				<td class="item_value2"><%= data.area_recommended %></td>
-			</tr><tr>
-				<td class="item_label2">난방</td>
-				<td class="item_value2"><%= data.detail_temperature %></td>
-			</tr>
-			<tr>
-				<td class="item_label2">준공년도</td>
-				<td class="item_value2"><%= data.detail_date %></td>
-			</tr><tr>
-				<td class="item_label2">방향</td>
-				<td class="item_value2"><%= data.detail_orientation %></td>
-			</tr>
-			<tr>
-				<td class="item_label2">담당자</td>
-				<td class="item_value2 bold" id="user_name"><%= user.explanation %></td>
-			</tr><tr>
-				<td class="item_label2">연락처</td>
-				<td class="item_value2 bold" id="user_contact"><%= user.phone %></td>
-			</tr>
-		</table>
+					</td>
+					<td class="item_label">방/욕실</td>
+					<td class="item_value"><%= data.area_rooms %> / <%= data.area_toilets %></td>
+				</tr>
+				<tr>
+					<td class="item_label">건축구조</td>
+					<td class="item_value"><%= data.detail_structure %></td>
+					<td class="item_label">난방</td>
+					<td class="item_value"><%= data.detail_temperature %></td>
+				</tr>
+				<tr>
+					<td class="item_label">준공년도</td>
+					<td class="item_value"><%= data.detail_date %></td>
+					<td class="item_label">방향</td>
+					<td class="item_value"><%= data.detail_orientation %></td>
+				</tr>
+				<tr>
+					<td class="item_label">담당자</td>
+					<td class="item_value bold" id="user_name"><%= user.explanation %></td>
+					<td class="item_label">연락처</td>
+					<td class="item_value bold" id="user_contact"><%= user.phone %></td>
+				</tr>
+			</table>
+			<% } else { %>
+				<table class="item_table">
+					<tr>
+						<td class="item_label">가격</td>
+						<td class="item_value red bold" colspan="3">
+								매매가 :
+								<% if(data.price_sell>=10000) { %>
+									<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+								<% } else { %>
+									<%= data.price_sell %>만
+								<% } %>
+								 / 평당가: <%= data.price_unit %>만
+						</td>
+					</tr>
+					<tr>
+						<td class="item_label">진행사항</td>
+						<td class="item_value bold">
+							<% if(data.contract === 'on') { %>
+								<span style="color:green;">계약가능</span>
+							<% } else if(data.contract ==='pending') { %>
+								<span style="color:black;">계약보류</span>
+							<% } else { %>
+								<span style="color: red;">계약완료</span>
+							<% } %>
+						</td>
+						<td class="item_label">매물번호</td>
+						<td class="item_value"><span style="color:red;font-weight:bold;"><%= data.id %></span></td>
+					</tr>
+					<tr>
+						<td class="item_label">면적</td>
+						<td class="item_value" colspan="3">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+						<% if(data.area_building != 0) { %>
+						 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+						<% } %>
+						</td>
+					</tr>
+					<tr>
+						<td class="item_label">추천용도</td>
+						<td class="item_value"><%= data.area_recommended %></td>
+						<td class="item_label">용도지역</td>
+						<td class="item_value"><%= data.area_use %></td>
+					</tr>
+					<tr>
+						<td class="item_label">지목</td>
+						<td class="item_value" colspan="3"><%= data.area_using %></td>
+					</tr>
+					<tr>
+						<td class="item_label">담당자</td>
+						<td class="item_value bold" id="user_name"><%= user.explanation %></td>
+						<td class="item_label">연락처</td>
+						<td class="item_value bold" id="user_contact"><%= user.phone %></td>
+					</tr>
+				</table>
+			<% } %>
 		<div class="mobile_titlebar">
 			상세정보
 		</div>
