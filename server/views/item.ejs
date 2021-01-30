@@ -43,6 +43,7 @@
 					<span class="section_big"><%= data.title %></span>
 				</div>
 				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
+				<% if(data.type!=='land') { %>
 				<table class="item_table">
 					<tr>
 						<td class="item_label">가격</td>
@@ -106,7 +107,7 @@
 					</tr>
 					<tr>
 						<td class="item_label">건축구조</td>
-						<td class="item_value"><%= data.area_recommended %></td>
+						<td class="item_value"><%= data.detail_structure %></td>
 						<td class="item_label">난방</td>
 						<td class="item_value"><%= data.detail_temperature %></td>
 					</tr>
@@ -123,6 +124,60 @@
 						<td class="item_value bold" id="user_contact"><%= user.phone %></td>
 					</tr>
 				</table>
+				<% } else { %>
+					<table class="item_table">
+						<tr>
+							<td class="item_label">가격</td>
+							<td class="item_value red bold" colspan="3">
+									매매가 :
+									<% if(data.price_sell>=10000) { %>
+										<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
+									<% } else { %>
+										<%= data.price_sell %>만
+									<% } %>
+									 / 평당가: <%= data.price_unit %>만
+							</td>
+						</tr>
+						<tr>
+							<td class="item_label">진행사항</td>
+							<td class="item_value bold">
+								<% if(data.contract === 'on') { %>
+									<span style="color:green;">계약가능</span>
+								<% } else if(data.contract ==='pending') { %>
+									<span style="color:black;">계약보류</span>
+								<% } else { %>
+									<span style="color: red;">계약완료</span>
+								<% } %>
+							</td>
+							<td class="item_label">매물번호</td>
+							<td class="item_value"><span style="color:red;font-weight:bold;"><%= data.id %></span></td>
+						</tr>
+						<tr>
+							<td class="item_label">면적</td>
+							<td class="item_value" colspan="3">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+							<% if(data.area_building != 0) { %>
+							 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+							<% } %>
+							</td>
+						</tr>
+						<tr>
+							<td class="item_label">추천용도</td>
+							<td class="item_value"><%= data.area_recommended %></td>
+							<td class="item_label">용도지역</td>
+							<td class="item_value"><%= data.area_use %></td>
+						</tr>
+						<tr>
+							<td class="item_label">지목</td>
+							<td class="item_value" colspan="3"><%= data.area_using %></td>
+						</tr>
+						<tr>
+							<td class="item_label">담당자</td>
+							<td class="item_value bold" id="user_name"><%= user.explanation %></td>
+							<td class="item_label">연락처</td>
+							<td class="item_value bold" id="user_contact"><%= user.phone %></td>
+						</tr>
+					</table>
+				<% } %>
 				</div>
 				<div class="item_detail_info">
 					<div class="section_name item_title">
