@@ -270,7 +270,11 @@
 
 				}
 				else{
-					$.get('/si?name='+encodeURI(encodeURIComponent(document.getElementById('si').value)),function(data){
+					var test = document.getElementById('si').value;
+					if(window.navigator.userAgent.match(/(MSIE|Trident)/)){
+						test = encodeURI(encodeURIComponent(document.getElementById('si').value));
+					}
+					$.get('/si?name='+ test,function(data){
 						// console.log(data);
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');

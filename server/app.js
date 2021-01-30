@@ -146,14 +146,14 @@ app.get('/si',(req,res)=>{
 	// console.log('/si GET');
 	// console.log(req.query);
 	// console.log(req.header('User-Agent'));
-	console.log(req.query.name);
+	// console.log(req.query.name);
 	let query;
 	if(req.header('User-Agent').match(/(MSIE|Trident)/)){
 		query = querystring.unescape(req.query.name)
 	}else{
-		query = querystring.unescape(req.query.name);
+		query = req.query.name;
 	}
-	console.log(query);
+	// console.log(query);
 	// console.log(iconv.decode(req.query.name,'euc-kr'));
 	Location.find({si: query}).then((data)=>{
 		let returnArray = [];
