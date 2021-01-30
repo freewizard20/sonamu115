@@ -133,7 +133,8 @@ a:active {
 }
 
 .search_submit {
-  margin-top: 6px;
+  cursor: pointer;
+  margin-top: 11px;
   margin-left: 10px;
   background-color: #012023;
   border: none;
@@ -144,7 +145,8 @@ a:active {
 }
 
 .search_youtube {
-  margin-top: 6px;
+  cursor: pointer;
+  margin-top: 11px;
   margin-left: 10px;
   background-color: red;
   border: none;
@@ -815,6 +817,7 @@ a:active {
 }
 
 .locationSelect{
+  margin-top:5px;
   font-size:14px;
   border:1px solid #666;
   padding: 1px 11px;
