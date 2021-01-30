@@ -297,13 +297,11 @@
 
 				}
 				else{
-          let query;
-          if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-            query = querystring.unescape(req.query.name)
-          }else{
-            query = req.query.name;
-          }
-					$.get('/si?name='+query,function(data){
+          var test = document.getElementById('si').value;
+					if(window.navigator.userAgent.match(/(MSIE|Trident)/)){
+						test = encodeURI(encodeURIComponent(document.getElementById('si').value));
+					}
+					$.get('/si?name='+test,function(data){
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
 							opt.value = data[i];
@@ -319,13 +317,11 @@
 				if(document.getElementById('gun').value===''){
 					
 				}else{
-          let query;
-          if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-            query = querystring.unescape(req.query.name)
-          }else{
-            query = req.query.name;
-          }
-					$.get('/gun?name='+query,function(data){
+          var test = document.getElementById('gun').value;
+					if(window.navigator.userAgent.match(/(MSIE|Trident)/)){
+						test = encodeURI(encodeURIComponent(document.getElementById('gun').value));
+					}
+					$.get('/gun?name='+test,function(data){
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
 							opt.value = data[i];

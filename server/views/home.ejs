@@ -291,9 +291,9 @@
 				if(document.getElementById('gun').value===''){
 					
 				}else{
-					var test = document.getElementById('si').value;
+					var test = document.getElementById('gun').value;
 					if(window.navigator.userAgent.match(/(MSIE|Trident)/)){
-						test = encodeURI(encodeURIComponent(document.getElementById('si').value));
+						test = encodeURI(encodeURIComponent(document.getElementById('gun').value));
 					}
 					$.get('/gun?name='+test,function(data){
 						for(var i = 0 ; i < data.length ; i++){
