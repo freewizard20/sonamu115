@@ -519,7 +519,7 @@ app.get("/list",(req,res)=>{
 				if(sh.recommended){
 					if(sh.recommended.includes('전체선택')){
 
-					}else{
+					}else {
 						findQuery.detail_structure = {};
 						if(sh.recommended.includes('기타')){
 							if(Array.isArray(sh.recommended)){
@@ -530,13 +530,27 @@ app.get("/list",(req,res)=>{
 							}
 							let regexBuilder = '';
 							for(let i = 0 ; i  < sh.recommended.length ; i++){
-								regexBuilder = regexBuilder.concat(sh.recommended[i]+'|');
+								if(sh.recommended[i]==='조적조'){
+									regexBuilder = regexBuilder.concat('조적조|연와조|시멘트벽돌조|벽돌구조|')
+								}else{
+									regexBuilder = regexBuilder.concat(sh.recommended[i]+'|');
+								}
 							}
 							regexBuilder = regexBuilder.concat('[^철근콘크리트|일반목구조|조적조|경량철골조]');
 							//console.log(regexBuilder);
 							findQuery.detail_structure = new RegExp(regexBuilder);
 						}else{
-							findQuery.detail_structure.$in = sh.recommended;
+							if(typeof sh.recommended === 'string'){
+								findQuery.detail_structure.$in = [];
+								findQuery.detail_structure.$in.push(sh.recommneded);
+							}else{
+								findQuery.detail_structure.$in = sh.recommended;
+							}
+							if(sh.recommended.includes('조적조')){
+								findQuery.detail_structure.$in.push('연와조');
+								findQuery.detail_structure.$in.push('시멘트벽돌조');
+								findQuery.detail_structure.$in.push('벽돌구조');
+							}
 						}
 					}
 				}
