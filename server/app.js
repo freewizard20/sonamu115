@@ -10,6 +10,7 @@ const sharp = require('sharp');
 const logger  = require('./config/winston');
 const helmet = require('helmet');
 const he = require('he');
+const iconv = require('iconv-lite');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -141,7 +142,17 @@ function jwtverify(cookie) {
 }
 
 app.get('/si',(req,res)=>{
-	Location.find({si:req.query.name}).then((data)=>{
+	// console.log('/si GET');
+	// console.log(req.query);
+	// console.log(req.header('User-Agent'));
+	let query;
+	if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+		query = iconv.decode(req.query.name,'euc-kr');
+	}else{
+		query = req.query.name;
+	}
+	// console.log(iconv.decode(req.query.name,'euc-kr'));
+	Location.find({si: query}).then((data)=>{
 		let returnArray = [];
 		for(let i = 0 ; i < data.length ; i++){
 			if(!returnArray.includes(data[i].gun)){
@@ -153,7 +164,14 @@ app.get('/si',(req,res)=>{
 })
 
 app.get('/gun',(req,res)=>{
-	Location.find({gun:req.query.name}).then((data)=>{
+	console.log(req.header('User-Agent'));
+	let query;
+	if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+		query = iconv.decode(req.query.name,'euc-kr');
+	}else{
+		query = req.query.name;
+	}
+	Location.find({gun:query}).then((data)=>{
 		let returnArray = [];
 		for(let i = 0 ; i < data.length ; i++){
 			if(!returnArray.includes(data[i].up)){
@@ -521,13 +539,31 @@ app.get("/list",(req,res)=>{
 					}
 				}
 				if(sh.si){
-					findQuery.address_si = new RegExp(sh.si);
+					let query;
+					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+						query = iconv.decode(sh.si,'euc-kr');
+					}else{
+						query = sh.si;
+					}
+					findQuery.address_si = new RegExp(query);
 				}
 				if(sh.gun){
-					findQuery.address_gun = new RegExp(sh.gun);
+					let query;
+					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+						query = iconv.decode(sh.gun,'euc-kr');
+					}else{
+						query = sh.gun;
+					}
+					findQuery.address_gun = new RegExp(query);
 				}
 				if(sh.up){
-					findQuery.address_up = new RegExp(sh.up);
+					let query;
+					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
+						query = iconv.decode(sh.up,'euc-kr');
+					}else{
+						query = sh.up;
+					}
+					findQuery.address_up = new RegExp(query);
 				}
 				if(sh.location){
 					if(sh.location.includes('기타지역')){

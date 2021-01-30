@@ -289,6 +289,7 @@
     <footer><%- include('parts/footer') %></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        $.ajaxSetup({cache:false});
     		var si = document.getElementById('si').addEventListener('change',function(){
 				document.getElementById('gun').options.length = 1;
 				document.getElementById('up').options.length = 1;

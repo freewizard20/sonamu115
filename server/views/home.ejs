@@ -256,6 +256,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="js/carousel.js"></script>
 		<script>
+			$.ajaxSetup({cache:false});
 			var c = document.getElementsByClassName('gallery_content');
 			var d = document.getElementsByClassName('gallery_content_tmp');
 			for(var i = 0 ; i < c.length ; i++){
@@ -270,6 +271,7 @@
 				}
 				else{
 					$.get('/si?name='+document.getElementById('si').value,function(data){
+						// console.log(data);
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
 							opt.value = data[i];
