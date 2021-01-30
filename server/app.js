@@ -11,6 +11,7 @@ const logger  = require('./config/winston');
 const helmet = require('helmet');
 const he = require('he');
 const iconv = require('iconv-lite');
+const querystring = require('querystring');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -145,12 +146,14 @@ app.get('/si',(req,res)=>{
 	// console.log('/si GET');
 	// console.log(req.query);
 	// console.log(req.header('User-Agent'));
+	console.log(req.query.name);
 	let query;
 	if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-		query = iconv.decode(req.query.name,'euc-kr');
+		query = querystring.unescape(req.query.name)
 	}else{
 		query = req.query.name;
 	}
+	console.log(query);
 	// console.log(iconv.decode(req.query.name,'euc-kr'));
 	Location.find({si: query}).then((data)=>{
 		let returnArray = [];
