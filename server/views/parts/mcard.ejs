@@ -201,7 +201,7 @@
             <div class="card_code_info"><span style="color:red;font-weight:bold;font-size:13px;position:relative;top:1px;"><%= data.id %></span></div>
         </div>
         <div class="card_title mobile_title">
-            <%= data.title %>
+            <%= data.title.length>=17? data.title.slice(0,17) + '...' : data.title %>
         </div>
         <div class="card_price">
             <% if(data.price_sell != 0 || (data.price_jeondeposit===0 && data.price_rentdeposit===0)) { %>
