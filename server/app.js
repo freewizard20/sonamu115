@@ -541,31 +541,13 @@ app.get("/list",(req,res)=>{
 					}
 				}
 				if(sh.si){
-					let query;
-					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-						query = iconv.decode(sh.si,'euc-kr');
-					}else{
-						query = sh.si;
-					}
-					findQuery.address_si = new RegExp(query);
+					findQuery.address_si = new RegExp(sh.si);
 				}
 				if(sh.gun){
-					let query;
-					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-						query = iconv.decode(sh.gun,'euc-kr');
-					}else{
-						query = sh.gun;
-					}
-					findQuery.address_gun = new RegExp(query);
+					findQuery.address_gun = new RegExp(sh.gun);
 				}
 				if(sh.up){
-					let query;
-					if(req.header('User-Agent').match(/(MSIE|Trident)/)){
-						query = iconv.decode(sh.up,'euc-kr');
-					}else{
-						query = sh.up;
-					}
-					findQuery.address_up = new RegExp(query);
+					findQuery.address_up = new RegExp(sh.up);
 				}
 				if(sh.location){
 					if(sh.location.includes('기타지역')){
