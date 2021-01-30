@@ -270,7 +270,7 @@
 
 				}
 				else{
-					$.get('/si?name='+document.getElementById('si').value,function(data){
+					$.get('/si?name='+encodeURI(encodeURIComponent(document.getElementById('si').value)),function(data){
 						// console.log(data);
 						for(var i = 0 ; i < data.length ; i++){
 							var opt = document.createElement('option');
