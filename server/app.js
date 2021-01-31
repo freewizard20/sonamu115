@@ -551,6 +551,10 @@ app.get("/list",(req,res)=>{
 								findQuery.detail_structure.$in.push('시멘트벽돌조');
 								findQuery.detail_structure.$in.push('벽돌구조');
 							}
+							if(sh.recommended.includes('일반목구조')){
+								findQuery.detail_structure.$in.push('목조');
+								findQuery.detail_structure.$in.push('목구조');
+							}
 						}
 					}
 				}
