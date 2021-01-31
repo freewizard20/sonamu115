@@ -253,6 +253,7 @@
 		}  
 
 		function onClick(){
+			if(confirm('정말로 삭제하시겠습니까?')){
 			var checkboxes = document.getElementsByClassName('1');
 			var selected = [];
 			for(var i = 0 ; i < checkboxes.length ; i++){
@@ -273,6 +274,9 @@
 			form.appendChild(hiddenField);
 			document.body.appendChild(form);
 			form.submit();
+		}else{
+			
+		}
 		}
 
 		function onClickDuplicate(){
