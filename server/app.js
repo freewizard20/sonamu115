@@ -542,7 +542,7 @@ app.get("/list",(req,res)=>{
 						}else{
 							if(typeof sh.recommended === 'string'){
 								findQuery.detail_structure.$in = [];
-								findQuery.detail_structure.$in.push(sh.recommneded);
+								findQuery.detail_structure.$in.push(sh.recommended);
 							}else{
 								findQuery.detail_structure.$in = sh.recommended;
 							}
