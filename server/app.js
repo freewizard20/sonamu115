@@ -539,6 +539,7 @@ app.get("/list",(req,res)=>{
 							regexBuilder = regexBuilder.concat('[^철근콘크리트|일반목구조|조적조|경량철골조]');
 							//console.log(regexBuilder);
 							findQuery.detail_structure = new RegExp(regexBuilder);
+							findQuery.type="house";
 						}else{
 							if(typeof sh.recommended === 'string'){
 								findQuery.detail_structure.$in = [];
