@@ -422,6 +422,7 @@ app.get("/list",(req,res)=>{
 	}
 	let findQuery = {adon:'Y'};
 	let listType = 'search';
+	let fillSearchBox = JSON.stringify({});
 	if(req.query.category){
 		if(req.query.category === 'recommended'){
 			findQuery.ad = 'recommended';
@@ -510,6 +511,7 @@ app.get("/list",(req,res)=>{
 		}
 		else{
 			// uuid query
+			fillSearchBox = JSON.stringify(searchHistoryClient[req.query.category]);
 			if(req.query.category && searchHistoryClient[req.query.category]){
 				let sh = searchHistoryClient[req.query.category];
 				if(sh.type){
@@ -630,7 +632,7 @@ app.get("/list",(req,res)=>{
 
 	let limitQuery = skipQuery===0? 24 : 12;
 	Item.find(findQuery).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
-		if(skipQuery===0) res.render('list',{data:data, listType: listType});
+		if(skipQuery===0) res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox});
 		else res.render('skip',{data:data});
 	});
 });
