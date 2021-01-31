@@ -885,6 +885,35 @@ app.post("/delete", (req, res) => {
 	}
 })
 
+app.post('/duplicate',(req,res)=>{
+	if(jwtverify(req.cookies)){
+		let items = req.body.duplicateitems.split(",");
+		for(let i of items){
+			Item.find({_id:i}).lean().then((data)=>{
+				delete data[0]._id;
+				let newimage = [];
+				for(let j = 0 ; j < data[0].image.length ; j++){
+					newimage.push(data[0].image[j]+'d');
+					fs.copyFileSync('./public/images'+data[0].image[j],'./public/images'+data[0].image[j]+'d');
+				}
+				if(newimage.length!==0){
+					fs.copyFileSync('./public/images'+data[0].thumbnail,'./public/images/thumbnail'+newimage[0]);
+					delete data[0].thumbnail;
+					data[0].thumbnail = '/thumbnail' + newimage[0];
+				}
+				delete data[0].image;
+				data[0].image = newimage;
+				const item = new Item(data[0]);
+				item.save().then(()=>{logger.info('duplicate ' + i)}).catch((err)=>{console.log(err)});
+			})
+		}
+		setTimeout(()=>{res.redirect('/manage');},1000)
+	}else{
+		logger.info('unauthorized access to /duplicate POST');
+		res.send('권한이 없습니다.');
+	}
+})
+
 app.get('/lab',(req,res)=>{
 	res.render('lab');
 });

@@ -33,7 +33,8 @@
 		<button id="deleteItem" onclick="onClick()">매물삭제</button>
 		<button id="searchItem">매물검색</button>
 		<button id="resetItem" onclick='window.location.href="/manage"'>검색초기화</button>
-		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>		
+		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>	
+		<button id="duplicateItem" onclick="onClickDuplicate()">매물복사</button>	
 		<div style="margin:5px;"></div>
 		<table border="1">
 			<tr>
@@ -259,7 +260,7 @@
 					selected.push(document.getElementById(i+'0').innerHTML);
 				}
 			}
-			console.log(selected);
+			// console.log(selected);
 
 			var form = document.createElement('form');
 			form.setAttribute('method','post');
@@ -268,6 +269,28 @@
 			var hiddenField = document.createElement('input');
 			hiddenField.setAttribute('type','hidden');
 			hiddenField.setAttribute('name','deleteitems');
+			hiddenField.setAttribute('value',selected);
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+			form.submit();
+		}
+
+		function onClickDuplicate(){
+			var checkboxes = document.getElementsByClassName('1');
+			var selected = [];
+			for(var i = 0 ; i < checkboxes.length ; i++){
+				if(checkboxes[i].checked){
+					selected.push(document.getElementById(i+'0').innerHTML);
+				}
+			}
+
+			var form = document.createElement('form');
+			form.setAttribute('method','post');
+			form.setAttribute('action','/duplicate');
+			document.charset = "utf-8";
+			var hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type','hidden');
+			hiddenField.setAttribute('name','duplicateitems');
 			hiddenField.setAttribute('value',selected);
 			form.appendChild(hiddenField);
 			document.body.appendChild(form);
