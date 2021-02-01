@@ -201,7 +201,7 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_sell %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_jeon %></td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_structure %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_ground %></td>
