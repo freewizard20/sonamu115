@@ -108,6 +108,7 @@
               <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" id="else2" value="기타">기타</div>
             </div>				
             <input type="submit" value="매물검색" class="search_submit">
+            <button type="button" onclick="reset()" class="search_reset">초기화</button>
             </form>
           </div>
         </div>
@@ -280,6 +281,20 @@
     <footer><%- include('parts/footer') %></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+      function reset(){
+        var checkboxes = document.getElementsByClassName('locationCheckbox');
+        for(var i = 0 ; i < checkboxes.length ; i++){
+          checkboxes[i].checked = false;
+        }
+        document.getElementById('id').value = '';
+        document.getElementById('price_low').value = '';
+        document.getElementById('price_high').value = '';
+        document.getElementById('area_ground_low').value = '';
+        document.getElementById('area_ground_high').value = '';
+        document.getElementById('area_building_low').value = '';
+        document.getElementById('area_building_high').value = '';
+      }
+
         function findMatch(change, input){
           for(var i = 0 ; i < change.length ; i++){
             if(change[i][0]===input){

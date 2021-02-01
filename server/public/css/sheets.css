@@ -157,6 +157,19 @@ a:active {
   font-weight: bolder;
 }
 
+.search_reset {
+  cursor: pointer;
+  margin-top: 11px;
+  margin-left: 10px;
+  background-color: #999;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 12px 35px;
+  font-size: 14px;
+  font-weight: bolder;
+}
+
 .yt {
   font-size: 18px;
   position: relative;
