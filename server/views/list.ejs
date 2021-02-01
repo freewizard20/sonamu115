@@ -305,7 +305,7 @@
         }
 
         var preData = JSON.parse(document.getElementById('preData').innerHTML);
-        document.getElementById('id').value = preData.id;
+        if(preData.id) document.getElementById('id').value = preData.id;
         document.getElementById('price_low').value = preData.price_low;
         document.getElementById('price_high').value = preData.price_high;
         document.getElementById('area_ground_low').value = preData.area_ground_low;
