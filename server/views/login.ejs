@@ -34,7 +34,7 @@
 	<body>
 		<div style="display:flex;justify-content:center;position:relative;top:35vh;min-height:100%">
 		<div class="card2">
-			<form action="/login" method="POST">					
+			<form id="loginForm" action="/login" method="POST">					
 				<h2>소나무부동산 관리자페이지 로그인</h2>
 				<h4 style="display:inline-block;">아이디 : </h4>
 				<input type="text" name="name"/>
@@ -44,10 +44,23 @@
 				<div style="margin:10px;"></div>
 				<input type="submit" value="로그인"/>				
 			</form>
+			<div id="downloadChrome" style="display:none;">
+				<h2>크롬(Chrome) 브라우저를 사용해 주세요.</h2>
+				<h4><a href="https://www.google.com/chrome/">크롬 다운로드</a></h4>
+			</div>
 		</div>
 		</div>
 		<footer>
 			<% include('parts/footer') %>
 		</footer>
+		<script>
+			var ua = window.navigator.userAgent;
+			var isIE = /MSIE|Trident/.test(ua);
+			// console.log(isIE);
+			if(isIE){
+				document.getElementById('loginForm').style.display = 'none';
+				document.getElementById('downloadChrome').style.display = 'block';
+			}
+		</script>
 	</body>
 </html>
