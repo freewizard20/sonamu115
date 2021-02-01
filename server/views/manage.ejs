@@ -42,10 +42,10 @@
 		<%- include('parts/adminnavbar') %>
 		관리 페이지입니다(매물수 : <%= count %>).
 		<button id="deleteItem" onclick="onClick()">매물삭제</button>
-		<button id="searchItem">매물검색</button>
+		<button id="duplicateItem" onclick="onClickDuplicate()">매물복사</button>
 		<button id="resetItem" onclick='window.location.href="/manage"'>검색초기화</button>
 		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>	
-		<button id="duplicateItem" onclick="onClickDuplicate()">매물복사</button>	
+		<button id="searchItem">매물검색</button>
 		<div style="margin:5px;"></div>
 		<table border="1">
 			<tr>
