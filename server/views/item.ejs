@@ -42,7 +42,7 @@
 				<div class="section_name item_title">
 					<span class="section_big"><%= data.title %></span>
 				</div>
-				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
+				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %><button style="margin-left:10px;" onclick="print()">인쇄하기</button></div>
 				<% if(data.type!=='land') { %>
 				<table class="item_table">
 					<tr>

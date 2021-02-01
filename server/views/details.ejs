@@ -50,6 +50,7 @@
 			<option id="jeon" value="jeon">전세</option>
 			<option id="rent" value="rent">월세</option>
 		</select>
+		<button type="button" style="position:relative;top:1px;left:5px;" onclick="openPrint()">인쇄하기</button>
 		<div class="seperator"></div>
 		<table class="table_normal">
 			<tr>
@@ -419,6 +420,10 @@
 	var preData = JSON.parse(document.getElementById('preData').innerHTML);
 	let imageCount = 0;
     let uploadFilelist = [];
+
+	function openPrint(){
+		window.open('/item?id='+preData[0]._id,"myWindow",'width=1000,height=1000');
+	}
 
 	for(let i = 0 ; i < preData[0].image.length ; i++){
 		if(preData[0]['image'][i]!==undefined) {

@@ -925,6 +925,8 @@ app.post('/duplicate',(req,res)=>{
 		let items = req.body.duplicateitems.split(",");
 		for(let i of items){
 			Item.find({_id:i}).lean().then((data)=>{
+				delete data[0].id;
+				data[0].id = makeLetter(1) + Math.floor(Math.random()*10000);
 				delete data[0]._id;
 				let newimage = [];
 				for(let j = 0 ; j < data[0].image.length ; j++){
@@ -1043,6 +1045,16 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},10000);
 });
 
+function makeLetter(length) {
+	var result           = '';
+	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var charactersLength = characters.length;
+	for ( var i = 0; i < length; i++ ) {
+	   result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+ }
+
 // upload.array('image', 100), 
 app.post("/register", (req, res) => {
 	if(!fs.existsSync('./public/images/thumbnail')){
@@ -1050,6 +1062,9 @@ app.post("/register", (req, res) => {
 	}
 	if (jwtverify(req.cookies)) {
 		req.body.id = req.body.id_letter + req.body.id_number;
+		if(req.body.randomId){
+			req.body.id = makeLetter(1) + Math.floor(Math.random()*10000);
+		}
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
 		if (req.body.icon === undefined) req.body.icon = "";
