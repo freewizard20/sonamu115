@@ -191,6 +191,7 @@ app.get('/m',(req,res)=>{
 	}
 	let findQuery = {adon:'Y'};
 	let listType = '추천매물';
+	let fillSearchBox = JSON.stringify({});
 	if(req.query.category){
 		if(req.query.category === 'recommended'){
 			findQuery.ad = 'recommended';
@@ -259,6 +260,7 @@ app.get('/m',(req,res)=>{
 			listType = '5억 이상 토지';
 		}else{
 			listType = "검색결과";
+			fillSearchBox = JSON.stringify(searchHistoryClient[req.query.category]);
 			// uuid query
 			if(req.query.category && searchHistoryClient[req.query.category]){
 				let sh = searchHistoryClient[req.query.category];
@@ -359,7 +361,7 @@ app.get('/m',(req,res)=>{
 	}
 	let limitQuery = skipQuery===0? 24 : 4;
 	Item.find(findQuery).sort('-timestamp_modified').skip(skipQuery).limit(limitQuery).then((data)=>{
-		if(skipQuery===0) res.render('mobile',{data:data, listType: listType});
+		if(skipQuery===0) res.render('mobile',{data:data, listType: listType, fillSearchBox:fillSearchBox});
 		else res.render('mskip',{data:data});
 	});	
 });
