@@ -59,6 +59,13 @@ let searchHistory = {};
 let searchHistoryClient = {};
 let userInfo = {};
 
+if(!fs.existsSync('./public/images/thumbnail')){
+	fs.mkdirSync('./public/images/thumbnail');
+}
+if(!fs.existsSync('./public/images/thumbnail/old')){
+	fs.mkdirSync('./public/images/thumbnail/old');
+}
+
 app.all('*', flushSearchHistory);
 
 cron.schedule('0 0 4 * * *',()=>{
