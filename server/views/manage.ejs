@@ -197,7 +197,7 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
 					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
-					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo %></td>
+					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo.length >= 30? d.memo.slice(0,30) + '...' : d.memo %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
