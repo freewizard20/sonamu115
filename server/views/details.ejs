@@ -548,7 +548,9 @@
 		form_data.append('uploadFilelist', uploadFilelist);
         // form_data.append('name','hello');
         // console.log(form_data);
-		xhr.send(form_data);
+		window.setTimeout(()=>{
+			xhr.send(form_data);
+		},500);
 
 		var xhr2 = new XMLHttpRequest();
 		xhr2.open("POST",'/detailsimage2',true);
@@ -562,9 +564,13 @@
 				uploadFilelist2[i] = uploadFilelist2[i].filename;
 			}
 		}
-		form_data2.append('uploadFilelist', uploadFilelist2);
-		xhr2.send(form_data2);
+		form_data2.append('uploadFilelist2', uploadFilelist2);
+		
+		window.setTimeout(()=>{
+			xhr2.send(form_data2);
+		}, 1500);
 
+		
 		document.getElementById('mainForm').submit();
     }
 

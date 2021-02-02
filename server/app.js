@@ -1080,7 +1080,9 @@ app.post("/register", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
-			req.body.id = makeLetter(1) + Math.floor(Math.random()*10000);
+			req.body.id_letter = makeLetter(1);
+			req.body.id_number = Math.floor(Math.random()*10000);
+			req.body.id = req.body.id_letter + req.body.id_number;
 		}
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
@@ -1134,9 +1136,9 @@ app.post("/stats", (req, res) => {
 })
 
 app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
-	console.log(3);
+	console.log('/detailsimage2');
 	if(jwtverify(req.cookies)){
-		let newFilelist = req.body.uploadFilelist.split(',');
+		let newFilelist = req.body.uploadFilelist2.split(',');
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
@@ -1161,7 +1163,8 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 			}
 			setTimeout(()=>{
 				data[0].image2 = newFilelist;
-				Item.updateOne({_id: req.body._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+				console.log('/detailsimage2 before updateOne')
+				Item.updateOne({_id: req.body._id},data[0]).then(()=>{console.log('/detailsimage2 after updateOne')}).catch((err)=>{console.log(err)});
 			},1000);
 		});
 	}else{
@@ -1170,7 +1173,7 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 });
 
 app.post('/detailsimage',upload.array('image',100),(req,res)=>{
-	console.log(2);
+	console.log('/detailsimage');
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
 		// console.log(req.body);
@@ -1183,7 +1186,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
-		console.log(newFilelist);
+		// console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			// console.log(newFilelist);
 			let originalImage = [];
@@ -1225,18 +1228,15 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 							}
 						});
 					})
-					console.log('before');
-					console.log(newFilelist);
 					data[0].image = newFilelist;
-					console.log('after');
-					console.log(data[0].image);
-					Item.updateOne({_id:req.body._id},data[0]).then(()=>{console.log('updated..')}).catch((err)=>{console.log(err)});
+					console.log('/detailsimage updateOne');
+					Item.updateOne({_id:req.body._id},data[0]).then(()=>{console.log('/detailsImage updateOne done')}).catch((err)=>{console.log(err)});
 				},500);
 			}else{
 				setTimeout(()=>{
 					data[0].image = newFilelist;
-					console.log(data[0].image);
-					Item.updateOne({_id:req.body._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+					console.log('/detailsimage updateOne');
+					Item.updateOne({_id:req.body._id},data[0]).then(()=>{console.log('/detailsImage updateOne done')}).catch((err)=>{console.log(err)});
 				},500);
 			}
 		})
@@ -1262,7 +1262,7 @@ app.get("/details", (req, res) => {
 
 
 app.post("/details", (req, res) => {
-	console.log(1);
+	console.log('/details');
 	if(!fs.existsSync('./public/images/thumbnail')){
 		fs.mkdirSync('./public/images/thumbnail');
 	}
@@ -1275,16 +1275,18 @@ app.post("/details", (req, res) => {
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);
 			req.body.id = req.body.id_letter + req.body.id_number;
-	
+			
+			console.log('/details before updateOne');
 			Item.updateOne({ _id: currentItem }, req.body)
 				.then(() => { 
 					logger.info('updated ' + req.body.id);
+					console.log('/details after updateOne');
 				})
 				.catch((err) => { logger.info(err); });
 	
 			setTimeout(()=>{
 				res.redirect('/manage');
-			},1500);
+			},2000);
 			// setTimeout(()=>{
 			// 	if(deleteFile.length!=0){
 			// 		sharp('./public/images'+imageref[0])
