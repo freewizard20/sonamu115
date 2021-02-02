@@ -855,12 +855,6 @@ app.get("/manage", (req, res) => {
 				}
 				let excel_uuid = uuidv4();
 	
-				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
-					if (uuid === undefined) uuid = "";
-					res.cookie('excel',excel_uuid);
-					res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
-				})
-	
 				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(itemsNumber * pages).limit(itemsNumber).then((data2) => {
 					let ws_data = [
 						["매물번호","계약","광고","광고제목","관리설명","형태","매물종류","광고해당동","매매가","전세가","건축구조","광고대지평","광고평수","보증금","월세","준공년도","방향","방수","욕실","광고종류","수정일","등록일","조회"]
@@ -894,6 +888,12 @@ app.get("/manage", (req, res) => {
 					worksheet['!cols'] = cols;
 					XLSX.utils.book_append_sheet(workbook,worksheet,'Sheet1');
 					XLSX.writeFile(workbook, 'excel/' + excel_uuid + '.xlsx');
+				
+					Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
+						if (uuid === undefined) uuid = "";
+						res.cookie('excel',excel_uuid);
+						res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
+					})
 				});
 			})
 		});
