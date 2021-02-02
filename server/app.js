@@ -1186,8 +1186,8 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 app.get("/details", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		Item.find({ _id: req.query.id }).then((data) => {
-			data[0].detail = he.decode(data[0].detail);
-			data[0].gallery = he.decode(data[0].gallery);
+			data[0].detail = he.decode(data[0].detail).replace(/&nbsp;/gi,'');
+			data[0].gallery = he.decode(data[0].gallery).replace(/&nbsp;/gi,'');
 			User.find().then((info)=>{
 				res.render('details', { data: JSON.stringify(data), user: info });
 			})
