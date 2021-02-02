@@ -409,8 +409,15 @@
 			</div>
 			<textarea name="memo" id="memo" style="width:600px;height:180px;"></textarea>
 		</div>
+		<div style="margin-top:5px;">
+			<div style="background-color: brown;color:white;padding:5px; margin-bottom:5px;">
+				<h4 style="margin:0px;">관리자이미지</h4>
+			</div>
+			<input type="file" id="uploadBox2" name="uploadBox2" multiple>
+    		<div id="imagecontainer2"></div>
+		</div>
 	</form>
-	<button onclick="submitHandler()">제출</button>
+	<button style="margin-top:10px;" onclick="submitHandler()">제출</button>
 	<footer>
 		<%- include('parts/footer2') %>
 	</footer>
@@ -419,7 +426,9 @@
 
 	var preData = JSON.parse(document.getElementById('preData').innerHTML);
 	let imageCount = 0;
-    let uploadFilelist = [];
+	let uploadFilelist = [];
+	let imageCount2 = 0;
+	let uploadFilelist2 = [];
 
 	function openPrint(){
 		window.open('/item?id='+preData[0]._id,"myWindow",'width=1000,height=1000');
@@ -434,8 +443,21 @@
 	}
 	updateUploadFilelist();
 
+	for(let i = 0 ; i < preData[0].image2.length ; i++){
+		if(preData[0]['image2'][i]!==undefined) {
+			addElement2();
+			uploadFilelist2[i] = preData[0]['image2'][i];
+			document.getElementById('2preview'+i).src = '/images/' + preData[0].image2[i];
+		}
+	}
+	updateUploadFilelist();
+
 	function updateUploadFilelist(){
 		document.getElementById('uploadFilelist').value = uploadFilelist;
+	}
+
+	function updateUploadFilelist2(){
+		document.getElementById('uploadFilelist2').value = uploadFilelist2;
 	}
 
 	function x(given) {
@@ -483,6 +505,22 @@
             }
             // console.log(uploadFilelist);
         }
+	});
+	
+	document.getElementById('uploadBox2').addEventListener('change',function(){
+        // extract files and make element, assign file to element input, assign picture to image
+        // console.log(this.files);
+        if(this.files){
+            for(var i = 0 ; i < this.files.length ; i++){
+                addElement2();
+                const reader = new FileReader();
+                var imageee = document.getElementById('2preview'+(imageCount2-1));
+                reader.onload = (function(aImg){ return function(e){aImg.src=e.target.result;};})(imageee);
+                reader.readAsDataURL(this.files[i]);
+                uploadFilelist2.push(this.files[i]);
+            }
+            // console.log(uploadFilelist);
+        }
     });
 
     function submitHandler(){
@@ -502,6 +540,22 @@
         // form_data.append('name','hello');
         // console.log(form_data);
 		xhr.send(form_data);
+
+		var xhr2 = new XMLHttpRequest();
+		xhr2.open("POST",'/detailsimage2',true);
+		var form_data2 = new FormData();
+		for(let i = 0 ; i < uploadFilelist2.length ; i++){
+			form_data2.append('image',uploadFilelist2[i]);
+		}
+		form_data2.append('_id',preData[0]._id);
+		for(let i = 0; i < uploadFilelist2.length ; i++){
+			if(typeof uploadFilelist2[i] !== 'string'){
+				uploadFilelist2[i] = uploadFilelist2[i].filename;
+			}
+		}
+		form_data2.append('uploadFilelist', uploadFilelist2);
+		xhr2.send(form_data2);
+
 		document.getElementById('mainForm').submit();
     }
 
@@ -559,6 +613,47 @@
         divv.appendChild(deleteButton);
         document.getElementById('imagecontainer').appendChild(divv);
         imageCount++;
+	}
+	
+	function addElement2(){
+        var divv = document.createElement('div');
+        divv.id='2divv'+imageCount2;
+        divv.classList.add('uploadDiv');
+        var div2 = document.createElement('div');
+        div2.innerHTML = imageCount2;
+        div2.style.display = 'none';
+        divv.appendChild(div2);
+        var imagee = document.createElement('img');
+        imagee.src = '/assets/empty.gif';
+        imagee.classList.add('uploadimage');
+        imagee.id = '2preview' + imageCount2;
+        divv.appendChild(imagee);
+        divv.appendChild(document.createElement('br'));
+        var leftButton = document.createElement('button');
+        var rightButton = document.createElement('button');
+        var deleteButton = document.createElement('button');
+        leftButton.innerHTML = '<';
+        leftButton.type = 'button';
+        leftButton.style.marginRight = '5px';
+        rightButton.style.marginRight = '5px';
+        rightButton.innerHTML = '>';
+        rightButton.type = 'button';
+        deleteButton.innerHTML = '삭제';
+        deleteButton.type = 'button';
+        leftButton.addEventListener('click',function(){
+            leftHandler2(div2.innerHTML);
+        });
+        rightButton.addEventListener('click',function(){
+            rightHandler2(div2.innerHTML);
+        })
+        deleteButton.addEventListener('click',function(){
+            deleteHandler2(div2.innerHTML);
+        })
+        divv.appendChild(leftButton);
+        divv.appendChild(rightButton);
+        divv.appendChild(deleteButton);
+        document.getElementById('imagecontainer2').appendChild(divv);
+        imageCount2++;
     }
 
     var getSiblings = function (elem) {
@@ -588,6 +683,17 @@
             }
         }
         return -1; 
+	}
+	
+	function getCurrentIndex2(index){
+        var result = 0;
+        var siblings = getSiblings(document.getElementById('imagecontainer2'));
+        for(var i = 0 ; i < siblings.length ; i++){
+            if(siblings[i].id==='2divv'+index){
+                return i;
+            }
+        }
+        return -1; 
     }
 
     function leftHandler(index){
@@ -598,6 +704,17 @@
         uploadFilelist.splice(getCurrentIndex(index)-1,0,uploadFilelist[getCurrentIndex(index)]);
         uploadFilelist.splice(getCurrentIndex(index)+1,1);
         document.getElementById('imagecontainer').insertBefore(document.getElementById('divv'+index),document.getElementById('divv'+index).previousSibling);
+        // console.log(getCurrentIndex(index));
+	}
+	
+	function leftHandler2(index){
+        // console.log('leftHandler ' + index);
+        if(document.getElementById('2divv'+index).previousSibling===null){
+            return;
+        }
+        uploadFilelist2.splice(getCurrentIndex2(index)-1,0,uploadFilelist2[getCurrentIndex2(index)]);
+        uploadFilelist2.splice(getCurrentIndex2(index)+1,1);
+        document.getElementById('imagecontainer2').insertBefore(document.getElementById('2divv'+index),document.getElementById('2divv'+index).previousSibling);
         // console.log(getCurrentIndex(index));
     }
 
@@ -610,12 +727,30 @@
         uploadFilelist.splice(getCurrentIndex(index),1);
         // console.log(uploadFilelist);
         insertAfter(document.getElementById('divv'+index).nextSibling,document.getElementById('divv'+index))
+	}
+	
+	function rightHandler2(index){
+        // console.log('rightHandler ' + index);
+        if(document.getElementById('2divv'+index).nextSibling===null){
+            return;
+        }
+        uploadFilelist2.splice(getCurrentIndex2(index)+2,0,uploadFilelist2[getCurrentIndex2(index)]);
+        uploadFilelist2.splice(getCurrentIndex2(index),1);
+        // console.log(uploadFilelist);
+        insertAfter(document.getElementById('2divv'+index).nextSibling,document.getElementById('2divv'+index))
     }
 
     function deleteHandler(index){
         // console.log('deleteHandler ' + index);
         uploadFilelist.splice(getCurrentIndex(index),1);
         document.getElementById('divv'+index).remove();
+        //console.log(uploadFilelist);
+	}
+	
+	function deleteHandler2(index){
+        // console.log('deleteHandler ' + index);
+        uploadFilelist2.splice(getCurrentIndex2(index),1);
+        document.getElementById('2divv'+index).remove();
         //console.log(uploadFilelist);
     }
 

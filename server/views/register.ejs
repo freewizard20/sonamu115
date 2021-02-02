@@ -414,7 +414,7 @@
     		<div id="imagecontainer2"></div>
 		</div>
 	</form>
-	<button onclick="submitHandler()">제출</button>
+	<button style="margin-top:10px;" onclick="submitHandler()">제출</button>
 	<footer>
 		<%- include('parts/footer2') %>
 	</footer>
@@ -614,7 +614,7 @@
         return -1; 
     }
 
-    function leftHandler2(index){
+    function leftHandler(index){
         // console.log('leftHandler ' + index);
         if(document.getElementById('divv'+index).previousSibling===null){
             return;
@@ -667,7 +667,7 @@
 	
 	function deleteHandler2(index){
         // console.log('deleteHandler ' + index);
-        uploadFilelist.splice(getCurrentIndex2(index),1);
+        uploadFilelist2.splice(getCurrentIndex2(index),1);
         document.getElementById('2divv'+index).remove();
         //console.log(uploadFilelist);
     }

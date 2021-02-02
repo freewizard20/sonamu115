@@ -1059,7 +1059,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			}
 		}
 		loopArray(0);
-	},10000);
+	},2000);
 });
 
 function makeLetter(length) {
@@ -1133,6 +1133,39 @@ app.post("/stats", (req, res) => {
 
 })
 
+app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
+	if(jwtverify(req.cookies)){
+		let newFilelist = req.body.uploadFilelist.split(',');
+		let count = 0;
+		for(let i = 0 ; i < newFilelist.length ; i++){
+			if(newFilelist[i].length===0){
+				newFilelist[i] = '/' + req.files[count].filename;
+				count++;
+			}
+		}
+
+		Item.find({_id:req.body._id}).then((data)=>{
+			let originalImage = [];
+			for(let i = 0 ; i < data[0].image2.length ; i++){
+				originalImage.push(data[0].image2[i]);
+			}
+			let newImage = newFilelist;
+			for(let i = 0 ; i < newImage.length ; i++){
+				if(originalImage.indexOf(newImage[i])!==-1){
+					originalImage.splice(originalImage.indexOf(newImage[i]),1);
+				}
+			}
+			for(let i = 0 ; i < originalImage.length ; i++){
+				if(fs.existsSync('./public/images' + originalImage[i])) fs.unlinkSync('./public/images'+originalImage[i]);
+			}
+			data[0].image2 = newFilelist;
+			Item.updateOne({_id: req.body._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+		});
+	}else{
+		res.send('unauthorized');
+	}
+});
+
 app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
@@ -1161,7 +1194,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 			}
 			// console.log(originalImage);
 			for(let i = 0 ; i < originalImage.length ; i++){
-				fs.unlinkSync('./public/images' + originalImage[i]);
+				if(fs.existsSync('./public/images'+originalImage[i])) fs.unlinkSync('./public/images' + originalImage[i]);
 			}
 			// console.log(data[0].image[0] + ' ' + newFilelist[0]);
 			if(data[0].image[0]!==newFilelist[0]){
