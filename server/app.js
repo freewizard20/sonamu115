@@ -1211,7 +1211,7 @@ app.post("/details", (req, res) => {
 			let currentItem = req.body.query_id;
 			delete req.body.query_id;
 	
-			req.body.timestamp_modified = new Date().getTime();
+			// req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);
 			req.body.id = req.body.id_letter + req.body.id_number;
@@ -1303,6 +1303,23 @@ app.post('/createuser',(req,res)=>{
 		},1000);
 	})
 })
+
+app.post('/changedate',(req,res)=>{
+	if(jwtverify(req.cookies)){
+		let items = req.body.changedate.split(',');
+		for(let i of items){
+			Item.find({_id: i}).then((data)=>{
+				data[0].timestamp_modified = new Date().getTime();
+				Item.updateOne({_id: i},data[0]).then(()=>{'change date : ' + i});
+			})
+		}
+		setTimeout(()=>{
+			res.redirect('/manage');
+		},500);
+	}else{
+
+	}
+});
 
 app.post('/deleteuser',(req,res)=>{
 	if(jwtverify(req.cookies)){

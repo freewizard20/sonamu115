@@ -301,6 +301,33 @@
 		}
 		}
 
+		function changeDate(){
+			if(confirm('날짜를 바꾸시겠습니까?')){
+			var checkboxes = document.getElementsByClassName('1');
+			var selected = [];
+			for(var i = 0 ; i < checkboxes.length ; i++){
+				if(checkboxes[i].checked){
+					selected.push(document.getElementById(i+'0').innerHTML);
+				}
+			}
+			// console.log(selected);
+
+			var form = document.createElement('form');
+			form.setAttribute('method','post');
+			form.setAttribute('action','/changedate');
+			document.charset = "utf-8";
+			var hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type','hidden');
+			hiddenField.setAttribute('name','changedate');
+			hiddenField.setAttribute('value',selected);
+			form.appendChild(hiddenField);
+			document.body.appendChild(form);
+			form.submit();
+		}else{
+			
+		}
+		}
+
 		function onClickDuplicate(){
 			var checkboxes = document.getElementsByClassName('1');
 			var selected = [];
