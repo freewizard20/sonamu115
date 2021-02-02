@@ -402,7 +402,7 @@ app.get('/mitem',(req,res)=>{
 app.get("/", (req, res) => {
 	Item.find({adon: 'Y', ad:'gallery'}).sort('-timestamp_modified').then((gallery)=>{
 		for(let i = 0 ; i < gallery.length ; i++){
-			gallery[i].detail = he.decode(gallery[i].detail);
+			gallery[i].detail = he.decode(gallery[i].detail).replace(/&nbsp;/gi,'');
 		}
 		Item.find({adon: 'Y', ad:'recommended'}).sort('-timestamp_modified').limit(10).then((recommended)=>{
 			Item.find({adon: 'Y', sell:'sell',type:'house',price_sell:{$gte : 100000}}).sort('-timestamp_modified').limit(10).then((luxury)=>{
@@ -733,7 +733,7 @@ app.get("/manage", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		let pages = 0;
 		let sort = "";
-
+		let itemsNumber = 30;
 		// build search query
 		let userQuery;
 		let permission;
@@ -822,7 +822,10 @@ app.get("/manage", (req, res) => {
 					if (sh.views_lower) findQuery.views.$gte = Number(sh.views_lower);
 				}
 			}
-	
+
+			if(req.query.number) {
+				itemsNumber = Number(req.query.number);
+			}
 			let sortQuery = req.query.sort;
 			if (req.query.page) pages = req.query.page - 1;
 			if (sortQuery) {
@@ -836,7 +839,7 @@ app.get("/manage", (req, res) => {
 			}
 	
 			// TODO : querystring 인자 삽입해서 전달, 렌더링에서 링크 추가
-			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(30).then((data) => {
+			Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(itemsNumber * pages).limit(itemsNumber).then((data) => {
 				for (let i = 0; i < data.length; i++) {
 					if (data[i]) {
 						data[i].contract = util.findContract(data[i].contract);
@@ -858,7 +861,7 @@ app.get("/manage", (req, res) => {
 					res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
 				})
 	
-				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(30 * pages).limit(100).then((data2) => {
+				Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).sort(sort).skip(itemsNumber * pages).limit(itemsNumber).then((data2) => {
 					let ws_data = [
 						["매물번호","계약","광고","광고제목","관리설명","형태","매물종류","광고해당동","매매가","전세가","건축구조","광고대지평","광고평수","보증금","월세","준공년도","방향","방수","욕실","광고종류","수정일","등록일","조회"]
 					];

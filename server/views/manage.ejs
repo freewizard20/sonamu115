@@ -44,8 +44,17 @@
 		<button id="deleteItem" onclick="onClick()">매물삭제</button>
 		<button id="duplicateItem" onclick="onClickDuplicate()">매물복사</button>
 		<button id="resetItem" onclick='window.location.href="/manage"'>검색초기화</button>
-		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>	
+		<button id="excelDownload" onclick='window.location.href="/excel"'>엑셀로 다운로드</button>
+		<button id="changeDate" onclick="changeDate()">금일수정일변경</button>	
 		<button id="searchItem">매물검색</button>
+		
+		<select style="margin-left:30px;" id="itemnumber" name="itemnumber">
+			<option value="30">30</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+			<option value="500">500</option>
+		</select>
+		페이지당 라인
 		<div style="margin:5px;"></div>
 		<table border="1">
 			<tr>
@@ -249,7 +258,7 @@
 
 		document.getElementById('searchItem').addEventListener('click',function(){
 			document.getElementById('searchForm').submit();
-		})
+		});
 
 		document.getElementById('checkAll').addEventListener('click',function(){
 			var box = document.getElementsByClassName('1');
@@ -262,6 +271,8 @@
 		function getQueryStringValue(key) {  
   			return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
 		}  
+
+		if(getQueryStringValue('number')!='') document.getElementById('itemnumber').value = getQueryStringValue('number');
 
 		function onClick(){
 			if(confirm('정말로 삭제하시겠습니까?')){
@@ -317,8 +328,10 @@
 		var searchKey = getQueryStringValue('search')===""?"":"&search="+getQueryStringValue('search');	
 		var current = Math.floor(document.getElementById('current').innerHTML/10);
 		var documentSize = document.getElementById('count').innerHTML;
-		if(documentSize<=300){
-			documentSize = Math.floor(documentSize / 30);
+		var itemsNumberQueryString = getQueryStringValue('number')===""?"":"&number="+getQueryStringValue('number');
+		var itemsNumber = getQueryStringValue('number')===""?30:Number(getQueryStringValue('number'));
+		if(documentSize<=itemsNumber*10){
+			documentSize = Math.floor(documentSize / itemsNumber);
 		}else{
 			documentSize = 9;
 		}
@@ -326,27 +339,33 @@
 		if(documentSize===1) documentSize++;
 
 		for(var i = current * 10 + 1; i < current * 10 + 1 + documentSize; i++){
-			if(document.getElementById('count').innerHTML >= 30 * (i-1) ) r += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+			if(document.getElementById('count').innerHTML >= itemsNumber * (i-1) ) r += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+i + '</a> ';
 		}
 		document.getElementById('s').innerHTML = r;
 		
+		document.getElementById('itemnumber').addEventListener('change',function(){
+				console.log(document.getElementById('itemnumber').value);
+				var current = '&number=' + document.getElementById('itemnumber').value;
+				window.location.href =  '/manage?page=' + getQueryStringValue('page') + sortKey + searchKey + current;
+		});
+
 		document.getElementById('left').addEventListener('click',function(){
 			current -= 1;
 			if(current===-1) current = 0;
 			var result = "";
 			var tmp = documentSize===2? 1 : documentSize;
 			for(var i = current * 10 + 1; i < current * 10 + 1 + tmp; i++){
-				result += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+				result += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+i + '</a> ';
 			}
 			document.getElementById('s').innerHTML = result;
 		});
 
 		document.getElementById('right').addEventListener('click',function(){
 			current += 1;
-			if(current * 300 > document.getElementById('count').innerHTML) current--;
+			if(current * itemsNumber * 10 > document.getElementById('count').innerHTML) current--;
 			var result = "";
 			for(var i = current * 10 + 1; i < current * 10 + 1 + documentSize; i++){
-				if(document.getElementById('count').innerHTML >= 30 * (i-1)) result += '<a href="/manage?page='+i+sortKey+searchKey+'">'+i + '</a> ';
+				if(document.getElementById('count').innerHTML >= itemsNumber * (i-1)) result += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+i + '</a> ';
 			}
 			document.getElementById('s').innerHTML = result;
 		});
