@@ -979,6 +979,20 @@ app.get("/register", (req, res) => {
 	}
 });
 
+app.post('/registerimage2',upload.array('image',100),(req,res)=>{
+	setTimeout(()=>{
+		let fileInput = [];
+		if(typeof req.files==='undefined') req.files=[];
+		for(let i = 0 ; i < req.files.length ; i++){
+			fileInput.push('/' + req.files[i].filename);
+		}
+		Item.find().sort('-timestamp').limit(1).then((data)=>{
+			data[0].image2 = fileInput;
+			Item.updateOne({_id:data[0]._id},data[0]).then(()=>{}).catch((err)=>{console.log(err)});
+		})
+	},800);
+});
+
 app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	console.log('registerimage POST');
 	let thumbnailExists = false;

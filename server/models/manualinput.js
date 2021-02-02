@@ -294,6 +294,7 @@ function uploadDatabase(){
 		body.gallery = words[i].lnd_txt_note2.replace(/&nbsp;/gi,'');
 		body.memo =	words[i].lnd_note;
 		body.image = [];
+		body.image2 = [];
 		body.thumbnail = "";			
 		items.push(body);
 	}

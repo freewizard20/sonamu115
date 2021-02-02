@@ -256,6 +256,10 @@ const ItemSchema = mongoose.Schema({
 	image: {
 		type: Array,
 		required: false,
+	},
+	image2: {
+		type: Array,
+		required: false,
 	}
 });
 
