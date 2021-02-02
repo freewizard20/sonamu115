@@ -37,6 +37,7 @@
 		▷ 매물수정 &nbsp;
 		<input type="text" name="query_id" id="query_id" style="display:none;">
 		<input type="text" name="uploadFilelist" id="uploadFilelist" style="display:none;">
+		<input type="text" name="uploadFilelist2" id="uploadFilelist2" style="display:none;">
 		<select id="type" name="type">
 			<option value="house">전원주택/별장/농가주택/펜션</option>
 			<option value="land">토지/농막</option>
@@ -448,9 +449,17 @@
 			addElement2();
 			uploadFilelist2[i] = preData[0]['image2'][i];
 			document.getElementById('2preview'+i).src = '/images/' + preData[0].image2[i];
+			document.getElementById('2preview'+i).addEventListener('click',function(){
+				var url = '/images'+preData[0]['image2'][i];
+				var img = '<img src="' + url + '">';
+				var popup = window.open();
+				popup.document.write(img);
+				// popup.print();
+				// window.open('/images'+preData[0]['image2'][i],"window",'width=1000,height=700');
+			})
 		}
 	}
-	updateUploadFilelist();
+	updateUploadFilelist2();
 
 	function updateUploadFilelist(){
 		document.getElementById('uploadFilelist').value = uploadFilelist;
@@ -626,7 +635,7 @@
         var imagee = document.createElement('img');
         imagee.src = '/assets/empty.gif';
         imagee.classList.add('uploadimage');
-        imagee.id = '2preview' + imageCount2;
+		imagee.id = '2preview' + imageCount2;
         divv.appendChild(imagee);
         divv.appendChild(document.createElement('br'));
         var leftButton = document.createElement('button');
