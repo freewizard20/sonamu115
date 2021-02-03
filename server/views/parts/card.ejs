@@ -171,6 +171,28 @@
     <div style="position:relative;">
         <% if(data.contract==='complete') { %>
         <img style="position:absolute;top:-14px;left:-5px;z-index:10;height:72px;" src="assets/contract.png">
+        <% } else if(data.icon==='recommend') { %>
+        <img style="position:absolute;top:0px;left:0px;z-index:10;height:60px;" src="assets/recommended.png">
+        <% } else if(data.icon==='valley') { %>
+        <img style="position:absolute;top:-2px;left:-2px;z-index:10;height:60px;" src="assets/valley.png">
+        <% } else if(data.icon==='garden') { %>
+        <img style="position:absolute;top:-2px;left:-2px;z-index:10;height:60px;" src="assets/garden.png">
+        <% } else if(data.icon==='urgent') { %>
+        <img style="position:absolute;top:0px;left:0px;z-index:10;height:60px;" src="assets/urgent.png">
+        <% } else if(data.icon==='national') { %>
+        <img style="position:absolute;top:-5px;left:-5px;z-index:10;height:65px;" src="assets/national.png">
+        <% } else if(data.icon==='best') { %>
+        <img style="position:absolute;top:0px;left:0px;z-index:10;height:60px;" src="assets/best.png">
+        <% } else if(data.icon==='remodel') { %>
+        <img style="position:absolute;top:-9px;left:-9px;z-index:10;height:70px;" src="assets/remodel.png">
+        <% } else if(data.icon==='outbuilding') { %>
+        <img style="position:absolute;top:0px;left:0px;z-index:10;height:60px;" src="assets/outbuilding.png">
+        <% } else if(data.icon==='interior') { %>
+        <img style="position:absolute;top:-9px;left:-10px;z-index:10;height:68px;" src="assets/interior.png">
+        <% } else if(data.icon==='luxury') { %>
+        <img style="position:absolute;top:-5px;left:-5px;z-index:10;height:60px;" src="assets/luxury.png">
+        <% } else if(data.icon==='new') { %>
+        <img style="position:absolute;top:0px;left:0px;z-index:10;height:60px;" src="assets/new.png">
         <% } %>
         <img class="card_image" src="images<%= data.thumbnail %>">
     </div>
