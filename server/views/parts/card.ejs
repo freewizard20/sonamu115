@@ -155,6 +155,11 @@
         display:inline-block;
         position:relative;
     }
+
+    .card_top{
+        display:flex;
+        justify-content: space-between;
+    }
 </style>
 
 <% if(data===undefined || Object.keys(data).length===0) { %>
@@ -203,10 +208,12 @@
     <% if(status === 0) { %>
         <div class="card_ready">매물이 준비중입니다.</div>
     <% } else { %>
-        <div class="card_location"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
+        <div class="card_top">
         <div class="card_code">
             <div class="card_code_breadcrum">매물번호</div>
             <div class="card_code_info"><span style="color:red;font-weight:bold;font-size:13px;position:relative;top:1px;"><%= data.id %></span></div>
+        </div>
+        <div class="card_location"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>
         </div>
         <div class="card_land">
             <div class="card_land_breadcrum">대지</div>
