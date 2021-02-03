@@ -210,8 +210,12 @@
     <% if(status === 0) { %>
         <div class="card_ready">매물이 준비중입니다.</div>
     <% } else { %>
-        <div class="card_title">
-            <%= data.title.length>=19? data.title.slice(0,19) + '...' : data.title %>
+        <div class="card_top">
+            <div class="card_code">
+                <div class="card_code_breadcrum">매물번호</div>
+                <div class="card_code_info"><span style="color:red;font-weight:bold;font-size:13px;position:relative;top:1px;"><%= data.id %></span></div>
+            </div>
+            <div class="card_location"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>    
         </div>
         <div class="card_land">
             <div class="card_land_breadcrum">대지</div>
@@ -221,12 +225,8 @@
             <div class="card_building_info card_info"><%= Math.floor(data.area_building) %>평<span style="font-size:12px;">(<span style="color:red;font-size:11px;"><%= Math.floor(data.area_building2) %></span>㎡)</span></div>
             <% } %>
         </div>
-        <div class="card_top">
-            <div class="card_code">
-                <div class="card_code_breadcrum">매물번호</div>
-                <div class="card_code_info"><span style="color:red;font-weight:bold;font-size:13px;position:relative;top:1px;"><%= data.id %></span></div>
-            </div>
-            <div class="card_location"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %></div>    
+        <div class="card_title">
+            <%= data.title.length>=19? data.title.slice(0,19) + '...' : data.title %>
         </div>
         <div class="card_price">
             <% if(data.price_sell != 0 || (data.price_jeondeposit===0 && data.price_rentdeposit===0)) { %>
