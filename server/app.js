@@ -402,7 +402,7 @@ app.get('/mitem',(req,res)=>{
 app.get("/", (req, res) => {
 	Item.find({adon: 'Y', ad:'gallery'}).sort('-timestamp_modified').then((gallery)=>{
 		for(let i = 0 ; i < gallery.length ; i++){
-			gallery[i].detail = he.decode(gallery[i].detail).replace(/&nbsp;/gi,'');
+			gallery[i].gallery = he.decode(gallery[i].gallery).replace(/&nbsp;/gi,'');
 		}
 		Item.find({adon: 'Y', ad:'recommended'}).sort('-timestamp_modified').limit(10).then((recommended)=>{
 			Item.find({adon: 'Y', sell:'sell',type:'house',price_sell:{$gte : 100000}}).sort('-timestamp_modified').limit(10).then((luxury)=>{
