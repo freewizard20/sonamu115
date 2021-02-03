@@ -772,7 +772,7 @@ app.get("/manage", (req, res) => {
 					if (sh.price_jeon_upper) findQuery.price_jeon.$lte = Number(sh.price_jeon_upper);
 					if (sh.price_jeon_lower) findQuery.price_jeon.$gte = Number(sh.price_jeon_lower);
 				}
-				if (sh.area_recommended) findQuery.detail_structure = new RegExp(sh.area_recommended,'i');
+				if (sh.detail_structure) findQuery.detail_structure = new RegExp(sh.detail_structure,'i');
 				if (sh.area_ground_upper || sh.area_ground_lower) {
 					findQuery.area_ground = {};
 					if (sh.area_ground_upper) findQuery.area_ground.$lte = Number(sh.area_ground_upper);
