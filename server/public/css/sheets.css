@@ -598,6 +598,10 @@ a:active {
   padding: 7px 10px 20px 5px;
 }
 
+.item_detail_text > p{
+  margin: 5px 0px;
+}
+
 .item_related {
   margin-top: 10px;
 }
