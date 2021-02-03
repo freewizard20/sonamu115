@@ -866,4 +866,5 @@ a:active {
   width: 120px;
   height: 90px;
   margin-bottom: 5px;
+  cursor: pointer;
 }

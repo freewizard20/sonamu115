@@ -440,6 +440,12 @@
 			addElement();
 			uploadFilelist[i] = preData[0]['image'][i];
 			document.getElementById('preview'+i).src = '/images/' + preData[0].image[i];
+			document.getElementById('preview'+i).addEventListener('click',function(){
+				var url = '/images' + preData[0]['image'][i];
+				var img = '<img src="' + url + '">';
+				var popup = window.open();
+				popup.document.write(img);
+			})
 		}
 	}
 	updateUploadFilelist();
@@ -598,8 +604,9 @@
         div2.style.display = 'none';
         divv.appendChild(div2);
         var imagee = document.createElement('img');
-        imagee.src = '/assets/empty.gif';
-        imagee.classList.add('uploadimage');
+		imagee.src = '/assets/empty.gif';
+		imagee.classList.add('uploadimage');
+		imagee.style.cursor = 'pointer;'
         imagee.id = 'preview' + imageCount;
         divv.appendChild(imagee);
         divv.appendChild(document.createElement('br'));
@@ -640,7 +647,8 @@
         divv.appendChild(div2);
         var imagee = document.createElement('img');
         imagee.src = '/assets/empty.gif';
-        imagee.classList.add('uploadimage');
+		imagee.classList.add('uploadimage');
+		imagee.style.cursor = 'pointer';
 		imagee.id = '2preview' + imageCount2;
         divv.appendChild(imagee);
         divv.appendChild(document.createElement('br'));
