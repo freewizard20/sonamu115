@@ -602,6 +602,10 @@ a:active {
   margin: 5px 0px;
 }
 
+.item_detail_text > br {
+  margin: 5px 0px;
+}
+
 .item_related {
   margin-top: 10px;
 }
