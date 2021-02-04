@@ -1086,7 +1086,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},2000);
 });
 
- function makeID(region){
+function makeID(region){
 	 let result = [];
 	 switch(region){
 		case '강하면':
@@ -1135,20 +1135,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			result.push('F');
 			break;
 	}
-	let loopArray = function(x){
-		if(x>=1000){
-			return Math.floor(Math.random()*10000);
-		}
-		let value = Math.floor(Math.random()*10000);
-		Item.find({id_letter: result[0], id_number: value}).then((data)=>{
-			if(data.length===0){
-				return value;
-			}else{
-				loopArray(x+1);
-			}
-		})
-	}
-	result.push(loopArray(0));
+	result.push(Math.floor(Math.random()*10000));
 	return result;
  }
 

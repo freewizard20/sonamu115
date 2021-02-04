@@ -40,7 +40,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body id="whole">
 		<div id="count" style="display:none;"><%= count %></div>
 		<div id="current" style="display:none"><%= current %></div>
 		<%- include('parts/adminnavbar') %>
@@ -218,7 +218,7 @@
 					<td><a href="/item?id=<%= d._id %>">LINK</a></td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break:break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.contract %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon === 'Y' ? 'ON' : 'OFF' %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
 					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
 					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo.length >= 30? d.memo.slice(0,30) + '...' : d.memo %></td>
@@ -254,6 +254,12 @@
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
+		document.getElementById('whole').addEventListener('keypress',function(e){
+			if(e.key === 'Enter'){
+				document.getElementById('searchForm').submit();
+			}
+		});
+
 		function excel(){
 			$.post('/excel',function(data){
 				console.log(data);
