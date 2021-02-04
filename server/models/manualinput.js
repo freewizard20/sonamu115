@@ -499,7 +499,7 @@ function makeThumbnails(){
 						loopArray(0);
 					}				
 				});
-				data[i].thumbnail = "/thumbnail/" + uuid + '.jpg';
+				data[i].thumbnail = "/thumbnail/" + uuid;
 			}else{
 				
 			}
