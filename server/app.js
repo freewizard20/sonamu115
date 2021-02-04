@@ -947,10 +947,10 @@ app.post('/duplicate',(req,res)=>{
 				let newimage2 = [];
 				for(let j = 0 ; j < data[0].image2.length ; j++){
 					if(path.parse(data[0].image2[j]).ext===''){
-						newimage.push(data[0].image2[j]+'d');
+						newimage2.push(data[0].image2[j]+'d');
 						fs.copyFileSync('./public/images'+data[0].image2[j],'./public/images'+data[0].image2[j]+'d');
 					}else{
-						newimage.push(path.parse(data[0].image2[j]).dir + '/' + path.parse(data[0].image2[j]).name+'d' + path.parse(data[0].image2[j]).ext);
+						newimage2.push(path.parse(data[0].image2[j]).dir + '/' + path.parse(data[0].image2[j]).name+'d' + path.parse(data[0].image2[j]).ext);
 						fs.copyFileSync('./public/images'+data[0].image2[j],'./public/images'+path.parse(data[0].image2[j]).dir + '/' + path.parse(data[0].image2[j]).name+'d' + path.parse(data[0].image2[j]).ext);
 					}
 				}
