@@ -1,3 +1,7 @@
 const xss = require('xss');
-const html = xss('<script>alert("xss");</script>');
-console.log(html);
+const path = require('path');
+const filename = 'old/123123123123';
+
+console.log(path.parse(filename).name);
+console.log(path.parse(filename).ext==='');
+console.log(path.parse(filename).dir);

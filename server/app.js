@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const he = require('he');
 const iconv = require('iconv-lite');
 const querystring = require('querystring');
+const path = require('path');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -923,6 +924,8 @@ app.post("/delete", (req, res) => {
 	}
 })
 
+
+
 app.post('/duplicate',(req,res)=>{
 	if(jwtverify(req.cookies)){
 		let items = req.body.duplicateitems.split(",");
@@ -933,16 +936,34 @@ app.post('/duplicate',(req,res)=>{
 				delete data[0]._id;
 				let newimage = [];
 				for(let j = 0 ; j < data[0].image.length ; j++){
-					newimage.push(data[0].image[j]+'d');
-					fs.copyFileSync('./public/images'+data[0].image[j],'./public/images'+data[0].image[j]+'d');
+					if(path.parse(data[0].image[j]).ext===''){
+						newimage.push(data[0].image[j]+'d');
+						fs.copyFileSync('./public/images'+data[0].image[j],'./public/images'+data[0].image[j]+'d');
+					}else{
+						newimage.push(path.parse(data[0].image[j]).dir + '/' + path.parse(data[0].image[j]).name+'d' + path.parse(data[0].image[j]).ext);
+						fs.copyFileSync('./public/images'+data[0].image[j],'./public/images'+path.parse(data[0].image[j]).dir + '/' + path.parse(data[0].image[j]).name+'d' + path.parse(data[0].image[j]).ext);
+					}
+				}
+				let newimage2 = [];
+				for(let j = 0 ; j < data[0].image2.length ; j++){
+					if(path.parse(data[0].image2[j]).ext===''){
+						newimage.push(data[0].image2[j]+'d');
+						fs.copyFileSync('./public/images'+data[0].image2[j],'./public/images'+data[0].image2[j]+'d');
+					}else{
+						newimage.push(path.parse(data[0].image2[j]).dir + '/' + path.parse(data[0].image2[j]).name+'d' + path.parse(data[0].image2[j]).ext);
+						fs.copyFileSync('./public/images'+data[0].image2[j],'./public/images'+path.parse(data[0].image2[j]).dir + '/' + path.parse(data[0].image2[j]).name+'d' + path.parse(data[0].image2[j]).ext);
+					}
 				}
 				if(newimage.length!==0){
-					fs.copyFileSync('./public/images'+data[0].thumbnail,'./public/images/thumbnail'+newimage[0]);
+					fs.copyFileSync('./public/images'+data[0].thumbnail,'./public/images'+ data[0].thumbnail+'d');
+					const tmp = data[0].thumbnail;
 					delete data[0].thumbnail;
-					data[0].thumbnail = '/thumbnail' + newimage[0];
+					data[0].thumbnail = tmp + 'd';
 				}
 				delete data[0].image;
 				data[0].image = newimage;
+				delete data[0].image2;
+				data[0].image2 = newimage2;
 				const item = new Item(data[0]);
 				item.save().then(()=>{logger.info('duplicate ' + i)}).catch((err)=>{console.log(err)});
 			})
