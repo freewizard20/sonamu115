@@ -478,7 +478,7 @@ function makeThumbnails(){
 				let uuid = uuidv4();
 				sharp('../public/images' + data[i].image[0]).resize({fit:'fill',width:233,height:165})
 				//.toFile('out.jpg');
-				.toFile('../public/images/thumbnail/' + uuid + '.jpg',(err,info)=>{
+				.toFile('../public/images/thumbnail/' + uuid,(err,info)=>{
 					if(i%1000===0) console.log('file creation ' + i);
 					if(i===last){
 						console.log('start db update');
