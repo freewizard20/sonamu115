@@ -926,13 +926,13 @@ app.post("/delete", (req, res) => {
 
 
 
-app.post('/duplicate',(req,res)=>{
+app.post('/duplicate', (req,res)=>{
 	if(jwtverify(req.cookies)){
 		let items = req.body.duplicateitems.split(",");
 		for(let i of items){
-			Item.find({_id:i}).lean().then((data)=>{
+			Item.find({_id:i}).lean().then( async (data)=>{
 				delete data[0].id;
-				const test = makeID(data[0].address_up);
+				const test = await makeID(data[0].address_up);
 				data[0].id_letter = test[0];
 				data[0].id_number = test[1];
 				data[0].id = data[0].id_letter + data[0].id_number;
@@ -1086,7 +1086,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},2000);
 });
 
-function makeID(region){
+async function makeID(region){
 	 let result = [];
 	 switch(region){
 		case '강하면':
@@ -1135,19 +1135,31 @@ function makeID(region){
 			result.push('F');
 			break;
 	}
-	result.push(Math.floor(Math.random()*10000));
+	let idNumber = Math.floor(Math.random()*10000);
+	let done = false;
+	for(let i = 0 ; i < 1000 ; i++){
+		await Item.find({id_letter : result[0], id_number: idNumber}).then((data)=>{
+			if(data.length===0){
+				done = true;				
+			}else{
+				idNumber = Math.floor(Math.random()*10000);
+			}
+		});
+		if(done) break;
+	}
+	result.push(idNumber);
 	return result;
  }
 
 // upload.array('image', 100), 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
 	if(!fs.existsSync('./public/images/thumbnail')){
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
-			let test = makeID(req.body.address_up);
+			let test = await makeID(req.body.address_up);
 			req.body.id_letter = test[0];
 			req.body.id_number = test[1];
 			req.body.id = req.body.id_letter + req.body.id_number;
