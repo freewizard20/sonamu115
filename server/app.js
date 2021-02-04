@@ -932,7 +932,9 @@ app.post('/duplicate',(req,res)=>{
 		for(let i of items){
 			Item.find({_id:i}).lean().then((data)=>{
 				delete data[0].id;
-				data[0].id = makeLetter(1) + Math.floor(Math.random()*10000);
+				data[0].id_letter = makeletter(1);
+				data[0].id_number = Math.floor(Math.random()*10000);
+				data[0].id = data[0].id_letter + data[0].id_number;
 				delete data[0]._id;
 				let newimage = [];
 				for(let j = 0 ; j < data[0].image.length ; j++){
