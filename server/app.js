@@ -932,8 +932,9 @@ app.post('/duplicate',(req,res)=>{
 		for(let i of items){
 			Item.find({_id:i}).lean().then((data)=>{
 				delete data[0].id;
-				data[0].id_letter = makeletter(1);
-				data[0].id_number = Math.floor(Math.random()*10000);
+				const test = makeID(data[0].address_up);
+				data[0].id_letter = test[0];
+				data[0].id_number = test[1];
 				data[0].id = data[0].id_letter + data[0].id_number;
 				delete data[0]._id;
 				let newimage = [];
@@ -1085,13 +1086,69 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},2000);
 });
 
-function makeLetter(length) {
-	var result           = '';
-	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	var charactersLength = characters.length;
-	for ( var i = 0; i < length; i++ ) {
-	   result += characters.charAt(Math.floor(Math.random() * charactersLength));
+ function makeID(region){
+	 let result = [];
+	 switch(region){
+		case '강하면':
+			result.push('A');
+			break;
+		case '강상면':
+			result.push('B');
+			break;
+		case '청운면':
+			result.push('C');
+			break;
+		case '용문면':
+			result.push('D');
+			break;
+		case '양동면':
+			result.push('E');
+			break;
+		case '양서면':
+			result.push('W');
+			break;
+		case '서종면':
+			result.push('S');
+			break;
+		case '단월면':
+			result.push('M');
+			break;
+		case '개군면':
+			result.push('K');
+			break;
+		case '양평읍':
+			result.push('Y');
+			break;
+		case '지평면':
+			result.push('J');
+			break;
+		case '옥천면':
+			result.push('O');
+			break;
+		case '퇴촌면':
+			result.push('T');
+			break;
+		case '남종면':
+			result.push('N');
+			break;
+		default:
+			result.push('F');
+			break;
 	}
+	let loopArray = function(x){
+		if(x>=1000){
+			return Math.floor(Math.random()*10000);
+		}
+		let value = Math.floor(Math.random()*10000);
+		Item.find({id_letter: result[0], id_number: value}).then((data)=>{
+			if(data.length===0){
+				return value;
+			}else{
+				loopArray(x+1);
+			}
+		})
+	}
+	result.push(loopArray(0));
 	return result;
  }
 
@@ -1103,8 +1160,9 @@ app.post("/register", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
-			req.body.id_letter = makeLetter(1);
-			req.body.id_number = Math.floor(Math.random()*10000);
+			let test = makeID(req.body.address_up);
+			req.body.id_letter = test[0];
+			req.body.id_number = test[1];
 			req.body.id = req.body.id_letter + req.body.id_number;
 		}
 		req.body.gallery = he.encode(req.body.gallery);
