@@ -764,6 +764,7 @@ function changeType(){
 			})
 		}
 	}
+	loopArray(0);
 }
 
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
