@@ -975,19 +975,13 @@ async function makeID2(region){
    }
    let done = false;
    let idNumber = -1;
-   for(let i = 10000 ; i >= 1 ; i++){
-	   await Item.find({id_letter : result[0], id_number: i}).then((data)=>{
-		   if(data.length===0){
-			   			
-		   }else{
-			   idNumber = i+1;
-			   done = true;
-		   }
-	   });
-	   if(done) break;
-   }
+	await Item.find({id_letter : result[0]}).then((data)=>{
+		for(let i = 0 ; i < data.length ; i++){
+			if(data[i].id_number > idNumber) idNumber = data[i].id_number;
+		}
+	});
    if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
-   result.push(idNumber);
+   result.push(idNumber+1);
    return result;
 }
 
