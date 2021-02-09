@@ -1157,6 +1157,7 @@ app.post("/register", async (req, res) => {
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
+		console.log(req.body);
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
 			let test = await makeID(req.body.address_up);
@@ -1179,6 +1180,9 @@ app.post("/register", async (req, res) => {
 		if(req.body.area_building2 && req.body.area_building === ''){
 			//console.log('hello4');
 			req.body.area_building = Math.round(req.body.area_building2 * 0.3025);
+		}
+		if(req.body.area_ground && req.body.price_sell){
+			req.body.price_unit = Math.round(req.body.price_sell/req.body.area_ground);
 		}
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
@@ -1388,7 +1392,9 @@ app.post("/details", (req, res) => {
 				//console.log('hello4');
 				req.body.area_building = Math.round(req.body.area_building2 * 0.3025);
 			}
-
+			if(req.body.area_ground && req.body.price_sell){
+				req.body.price_unit = Math.round(req.body.price_sell/req.body.area_ground);
+			}
 			// console.log('/details before updateOne');
 			Item.updateOne({ _id: currentItem }, req.body)
 				.then(() => { 
