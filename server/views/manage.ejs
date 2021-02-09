@@ -41,6 +41,7 @@
 		</style>
 	</head>
 	<body id="whole">
+		<div id="searchHistory" style="display:none;"><%= searchHistory %></div>
 		<div id="count" style="display:none;"><%= count %></div>
 		<div id="current" style="display:none"><%= current %></div>
 		<%- include('parts/adminnavbar') %>
@@ -65,9 +66,9 @@
 				<form id="searchForm" action="/search" method="POST">
 					<td style="background-color: #bbc8c0;">검색</td>
 					<td>xxx</td>
-					<td style="width:40px;table-layout: fixed;word-break:break-all;"><input style="width:40px;" type="text" name="id"></td>
+					<td style="width:40px;table-layout: fixed;word-break:break-all;"><input style="width:40px;" id="id" type="text" name="id"></td>
 					<td style="width:30px;">
-						<select style="width:30px;" name="contract">
+						<select style="width:30px;" id="contract" name="contract">
 							<option value="">전체</option>
 							<option value="on">진행</option>
 							<option value="pending">보류</option>
@@ -75,7 +76,7 @@
 						</select>
 					</td>
 					<td style="width:30px;">
-						<select style="width:30px;" name="adon">
+						<select style="width:30px;" id="adon" name="adon">
 							<option value="">전체</option>
 							<option value="Y">ON</option>
 							<option value="N">OFF</option>
@@ -85,13 +86,13 @@
 						xxx
 					</td>
 					<td style="width:140px;">
-						<input style="width:140px;" type="text" name="title">
+						<input style="width:140px;" type="text" id="title" name="title">
 					</td>
 					<td width="120" style="word-break: break-all;table-layout: fixed;">
-						<input style="width:120px;" type="text" name="memo">
+						<input style="width:120px;" type="text" id="memo" name="memo">
 					</td>
 					<td style="width:30px;">
-						<select style="width:30px;" name="sell">
+						<select style="width:30px;" id="sell" name="sell">
 							<option value="">전체</option>
 							<option value="sell">매매</option>
 							<option value="jeon">전세</option>
@@ -99,7 +100,7 @@
 						</select>
 					</td>
 					<td style="width:60px;">
-						<select style="width:60px;" name="type">
+						<select style="width:60px;" id="type" name="type">
 							<option value="">전체</option>
 							<option value="house">전원주택/별장</option>
 							<option value="land">토지/농막</option>
@@ -110,51 +111,51 @@
 						</select>
 					</td>
 					<td>
-						<input class="short" type="text" name="address_up">
+						<input class="short" type="text" id="address_up" name="address_up">
 					</td>
 					<td style="width:80px;">
-						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" name="price_sell_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short2" type="text" name="price_sell_upper">이하</div>
+						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" id="price_sell_lower" name="price_sell_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short2" type="text" id="price_sell_upper" name="price_sell_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" name="price_jeon_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short2" name="price_jeon_upper">이하</div>
+						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" id="price_jeon_lower" name="price_jeon_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short2" id="price_jeon_upper" name="price_jeon_upper">이하</div>
 					</td>
 					<td style="width:40px;">
 						<input type="text" class="short" name="detail_structure">
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_ground_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_ground_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="area_ground_lower" name="area_ground_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="area_ground_upper" name="area_ground_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_building_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_building_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="area_building_lower" name="area_building_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="area_building_upper" name="area_building_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="price_deposit_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_deposit_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="price_deposit_lower" name="price_deposit_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="price_deposit_upper" name="price_deposit_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="price_rent_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="price_rent_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="price_rent_lower" name="price_rent_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="price_rent_upper" name="price_rent_upper">이하</div>
 					</td>
 					<td style="width:45px;">
-						<input type="text" style="width:45px;" name="detail_date">
+						<input type="text" style="width:45px;" id="detail_date" name="detail_date">
 					</td>
 					<td style="width:30px;">
-						<input type="text" style="width:30px;" name="detail_orientation">
+						<input type="text" style="width:30px;" id="detail_orientation" name="detail_orientation">
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_rooms_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_rooms_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="area_rooms_lower" name="area_rooms_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="area_rooms_upper" name="area_rooms_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="area_toilets_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" name="area_toilets_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="area_toilets_lower" name="area_toilets_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="area_toilets_upper" name="area_toilets_upper">이하</div>
 					</td>
 					<td style="width:30px;">
-						<select style="width:30px;" name="ad">
+						<select style="width:30px;" id="ad" name="ad">
 							<option value="">전체</option>
 							<option value="gallery">갤러리매물</option>
 							<option value="recommended">추천매물</option>
@@ -166,16 +167,16 @@
 						</select>
 					</td>
 					<td>
-						<input type="text" class="medium" name="timestamp_modified_upper">
-						<input type="text" class="medium" name="timestamp_modified_lower">
+						<input type="text" class="medium" id="timestamp_modified_upper" name="timestamp_modified_upper">
+						<input type="text" class="medium" id="timestamp_modified_lower" name="timestamp_modified_lower">
 					</td>
 					<td>
-						<input type="text" class="medium" name="timestamp_upper">
-						<input type="text" class="medium" name="timestamp_lower">
+						<input type="text" class="medium" id="timestamp_upper" name="timestamp_upper">
+						<input type="text" class="medium" id="timestamp_lower" name="timestamp_lower">
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" name="views_upper">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;"><input type="text" class="short" name="views_lower">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="views_upper" name="views_upper">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;"><input type="text" class="short" id="views_lower" name="views_lower">이하</div>
 					</td>
 					<input type="submit" style="display:none">
 				</form>
@@ -254,6 +255,21 @@
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script>
+		if(document.getElementById('searchHistory').innerHTML){
+			var preData = JSON.parse(document.getElementById('searchHistory').innerHTML);
+		}else{
+			var preData = {};
+		}
+		const entries = Object.entries(preData);
+		for(const [keys, values] of entries){
+			if(document.getElementById(keys)){
+				// console.log('upper '+ keys);
+				document.getElementById(keys).value = values;
+			}else{
+				// console.log(keys);
+			}
+		}
+
 		document.getElementById('whole').addEventListener('keypress',function(e){
 			if(e.key === 'Enter'){
 				document.getElementById('searchForm').submit();

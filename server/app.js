@@ -893,7 +893,7 @@ app.get("/manage", (req, res) => {
 					Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
 						if (uuid === undefined) uuid = "";
 						res.cookie('excel',excel_uuid);
-						res.render("manage", { uuid: uuid, data: data, count: result.length, current: pages });
+						res.render("manage", { searchHistory: JSON.stringify(searchHistory[uuid]), uuid: uuid, data: data, count: result.length, current: pages });
 					})
 				});
 			})
