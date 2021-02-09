@@ -740,6 +740,32 @@ function addLocationSync(){
 	loopArray(0);
 }
 
+function changeType(){
+	let change = ['D3303','O554','D3467','D3460','C284','D3108','O618','M348','S612','S606','C259','D3405','O596','S602','D3402','S600','O034','S584','D3382','M333','D3383','J577','M326','S565','D004','C237','Z351','Z252','D3234','C230','D047','D15','B056','S339','S347','S357','O510','M304','M303','A108','S462','C051','C216','O468','Z157','B159','D075','O005','D343','C067','C062','A164','D205','A018','O169','D009','B134','M002','D098','O028','C003','D008','D007','S030','S029','S028','S027','M001','D006','D005','C002','A017','O004','D003','D002','B004','S026','S025','O003'];
+	let total = changel.length;
+	let loopArray = function(x){
+		if(x===total){
+			console.log('done..');
+			return;
+		}else{
+			Item.find({id:change[x]}).then((data)=>{
+				if(data.length===0){
+					console.log(change[x] + ' not found!!');
+				}else{
+					data[0].type = 'house';
+					Item.updateOne({id:change[x]},data[0]).then(()=>{
+						loopArray(x+1);
+					}).catch((err)=>{
+						console.log(err);
+						console.log(change[x] + ' error!!');
+						loopArray(x+1);
+					})
+				}
+			})
+		}
+	}
+}
+
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
 // images/thumbnail directory >> makeThumbnails(makeThumbnails) >> trimimages(trimImages)
 // addDummyDatabase();
@@ -750,4 +776,5 @@ addUsers();
 // countThumbnails();
 // trimImagesSync();
 // countMissingImages();
+// changeType();
 
