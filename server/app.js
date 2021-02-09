@@ -983,7 +983,6 @@ async function makeID2(region){
 		}
 	});
    if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
-   console.log(idNumber);
    result.push(idNumber+1);
    return result;
 }
@@ -1198,19 +1197,17 @@ async function makeID(region){
 			result.push('F');
 			break;
 	}
-	let idNumber = Math.floor(Math.random()*10000);
-	let done = false;
-	for(let i = 0 ; i < 1000 ; i++){
-		await Item.find({id_letter : result[0], id_number: idNumber}).then((data)=>{
-			if(data.length===0){
-				done = true;				
-			}else{
-				idNumber = Math.floor(Math.random()*10000);
-			}
-		});
-		if(done) break;
-	}
-	result.push(idNumber);
+	
+	let idNumber = -1;
+	 await Item.find({id_letter : result[0]}).then((data)=>{
+		 for(let i = 0 ; i < data.length ; i++){
+			 if(Number(data[i].id_number) > idNumber){
+				 idNumber = Number(data[i].id_number);
+			 }
+		 }
+	 });
+	if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
+	result.push(idNumber+1);
 	return result;
  }
 
