@@ -977,11 +977,14 @@ async function makeID2(region){
    let idNumber = -1;
 	await Item.find({id_letter : result[0]}).then((data)=>{
 		for(let i = 0 ; i < data.length ; i++){
-			if(Number(data[i].id_number) > idNumber) idNumber = Number(data[i].id_number);
+			if(Number(data[i].id_number) > idNumber){
+				idNumber = Number(data[i].id_number);
+			}
 		}
 	});
    if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
-   result.push(Number(idNumber)+1);
+   console.log(idNumber);
+   result.push(idNumber+1);
    return result;
 }
 
