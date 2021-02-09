@@ -37,7 +37,7 @@ a:active {
 .searchButton {
   border: 1px solid #bbb;
   padding: 9px 14px;
-  background-color: #666;
+  background-color: #999;
   color: white;
   border-radius: 4px;
   font-size: 15px;
@@ -45,6 +45,26 @@ a:active {
 }
 
 .searchButton:hover {
+  border: 1px solid #dd464d;
+  padding: 9px 14px;
+  background-color: #dd464d;
+  color: white;
+  border-radius: 4px;
+  font-size: 15px;
+  margin-left: 6px;
+}
+
+.searchButton2 {
+  border: 1px solid #bbb;
+  padding: 9px 14px;
+  background-color: #666;
+  color: white;
+  border-radius: 4px;
+  font-size: 15px;
+  margin-left: 6px;
+}
+
+.searchButton2:hover {
   border: 1px solid #dd464d;
   padding: 9px 14px;
   background-color: #dd464d;
@@ -66,7 +86,7 @@ a:active {
 }
 
 .locationButton {
-  padding: 6px 8px;
+  padding: 6px 4px;
   background-color: white;
   color: #444;
   border-radius: 3px;
