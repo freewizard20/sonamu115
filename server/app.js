@@ -924,7 +924,71 @@ app.post("/delete", (req, res) => {
 	}
 })
 
-
+async function makeID2(region){
+	let result = [];
+	switch(region){
+	   case '강하면':
+		   result.push('A');
+		   break;
+	   case '강상면':
+		   result.push('B');
+		   break;
+	   case '청운면':
+		   result.push('C');
+		   break;
+	   case '용문면':
+		   result.push('D');
+		   break;
+	   case '양동면':
+		   result.push('E');
+		   break;
+	   case '양서면':
+		   result.push('W');
+		   break;
+	   case '서종면':
+		   result.push('S');
+		   break;
+	   case '단월면':
+		   result.push('M');
+		   break;
+	   case '개군면':
+		   result.push('K');
+		   break;
+	   case '양평읍':
+		   result.push('Y');
+		   break;
+	   case '지평면':
+		   result.push('J');
+		   break;
+	   case '옥천면':
+		   result.push('O');
+		   break;
+	   case '퇴촌면':
+		   result.push('T');
+		   break;
+	   case '남종면':
+		   result.push('N');
+		   break;
+	   default:
+		   result.push('F');
+		   break;
+   }
+   let done = false;
+   let idNumber = -1;
+   for(let i = 10000 ; i >= 1 ; i++){
+	   await Item.find({id_letter : result[0], id_number: i}).then((data)=>{
+		   if(data.length===0){
+			   			
+		   }else{
+			   idNumber = i+1;
+			   break;
+		   }
+	   });
+   }
+   if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
+   result.push(idNumber);
+   return result;
+}
 
 app.post('/duplicate', (req,res)=>{
 	if(jwtverify(req.cookies)){
@@ -932,10 +996,11 @@ app.post('/duplicate', (req,res)=>{
 		for(let i of items){
 			Item.find({_id:i}).lean().then( async (data)=>{
 				delete data[0].id;
-				const test = await makeID(data[0].address_up);
+				const test = await makeID2(data[0].address_up);
 				data[0].id_letter = test[0];
 				data[0].id_number = test[1];
 				data[0].id = data[0].id_letter + data[0].id_number;
+				data[0].timestamp_modified = new Date().getTime();
 				delete data[0]._id;
 				let newimage = [];
 				for(let j = 0 ; j < data[0].image.length ; j++){
