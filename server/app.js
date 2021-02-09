@@ -762,7 +762,7 @@ app.get("/manage", (req, res) => {
 				if (sh.memo) findQuery.memo = new RegExp(sh.memo,'i');
 				if (sh.sell) findQuery.sell = sh.sell;
 				if (sh.type) findQuery.type = sh.type;
-				if (sh.address_up) findQuery.address_up = sh.address_up;
+				if (sh.address_up) findQuery.address_up = new RegExp(sh.address_up,'i');
 				if (sh.price_sell_upper || sh.price_sell_lower) {
 					findQuery.price_sell = {};
 					if (sh.price_sell_upper) findQuery.price_sell.$lte = Number(sh.price_sell_upper);
