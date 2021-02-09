@@ -88,9 +88,9 @@ a:active {
 .locationButton {
   padding: 6px 4px;
   background-color: white;
-  color: #444;
+  color: black;
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 14px;
   margin-left: 0px;
   display: inline-block;
 }
@@ -98,9 +98,9 @@ a:active {
 .location_Button {
   padding: 6px 10px 6px 5px;
   background-color: white;
-  color: #444;
+  color: black;
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 14px;
   margin-left: 15px;
   display: inline-block;
 }
@@ -118,7 +118,7 @@ a:active {
 .optionButton {
   padding: 0px 4px;
   background-color: white;
-  color: #444;
+  color: black;
   border-radius: 3px;
   font-size: 13px;
   margin-left: 0px;
@@ -128,7 +128,7 @@ a:active {
 .optionButton2 {
   padding: 0px 1px;
   background-color: white;
-  color: #444;
+  color: black;
   border-radius: 3px;
   font-size: 13px;
   margin-left: 0px;
