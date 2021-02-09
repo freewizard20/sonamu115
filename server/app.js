@@ -1157,7 +1157,7 @@ app.post("/register", async (req, res) => {
 		fs.mkdirSync('./public/images/thumbnail');
 	}
 	if (jwtverify(req.cookies)) {
-		console.log(req.body);
+		// console.log(req.body);
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
 			let test = await makeID(req.body.address_up);

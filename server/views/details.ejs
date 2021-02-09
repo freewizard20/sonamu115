@@ -196,16 +196,40 @@
 						<td>용도지역</td>
 						<td>
 							<input type="text" id="area_use" name="area_use" />
+							<select id="area_use2" class="selectDummy">
+								<option value="">선택</option>
+								<option value="계획관리지역">계획관리지역</option>
+								<option value="보전관리지역">보전관리지역</option>
+								<option value="생산관리지역">생산관리지역</option>
+								<option value="농업진흥구역">농업진흥구역</option>
+								<option value="농업보호구역">농업보호구역</option>
+								<option value="자연환경보전지역">자연환경보전지역</option>
+								<option value="도시지역">도시지역</option>
+								<option value="주거지역">주거지역</option>
+							</select>
 						</td>
 					</tr>
 					<tr id="5" style="display:none;">
 						<td>지목</td>
 						<td>
 							<input type="text" id="area_using" name="area_using" />
+							<select id="area_using2" class="selectDummy">
+								<option value="">선택</option>
+								<option value="대">대</option>
+								<option value="임야">임야</option>
+								<option value="전">전</option>
+								<option value="답">답</option>
+								<option value="과수원">과수원</option>
+								<option value="목장용지">목장용지</option>
+								<option value="잡종지">잡종지</option>
+								<option value="창고용지">창고용지</option>
+								<option value="도로">도로</option>
+							</select>
 						</td>
 						<td>방향</td>
 						<td>
-							<select id="area_orientation" name="area_orientation" />
+							<input id="area_orientation" type="text" name="area_orientation" />
+							<select id="area_orientation2" class="selectDummy" />
 							<option value="남향" />남향</option>
 							<option value="남동향" />남동향</option>
 							<option value="남서향" />남서향</option>
@@ -318,18 +342,52 @@
 							<td width="100px;">냉난방방식</td>
 							<td>
 								<input type="text" id="detail_temperature" name="detail_temperature" />
+								<select id="detail_temperature2" class="selectDummy">
+									<option value="">선택</option>
+									<option value="심야전기">심야전기</option>
+									<option value="기름">기름</option>
+									<option value="LPG가스">LPG가스</option>
+									<option value="지열보일러">지열보일러</option>
+									<option value="연탄">연탄</option>
+									<option value="화목">화목</option>
+									<option value="도시가스">도시가스</option>
+									<option value="전기필름">전기필름</option>
+								</select>
 							</td>
 						</tr>
 						<tr id="32">
 							<td>방향</td>
 							<td>
 								<input type="text" id="detail_orientation" name="detail_orientation" />
+								<select id="detail_orientation2" class="selectDummy">
+									<option value="">선택</option>
+									<option value="남향">남향</option>
+									<option value="남동향">남동향</option>
+									<option value="남서향">남서향</option>
+									<option value="정남향">정남향</option>
+									<option value="동향">동향</option>
+									<option value="북서향">북서향</option>
+									<option value="북동향">북동향</option>
+									<option value="북향">북향</option>
+									<option value="서향">서향</option>
+								</select>
 							</td>
 						</tr>
 						<tr id="33">
 							<td>건축구조</td>
 							<td>
 								<input type="text" id="detail_structure" name="detail_structure" />
+								<select id="detail_structure2" class="selectDummy">
+									<option value="">선택</option>
+									<option value="철근콘크리트">철근콘크리트</option>
+									<option value="경량철골조">경량철골조</option>
+									<option value="일반목구조">일반목구조</option>
+									<option value="목조">목조</option>
+									<option value="ALC블럭">ALC블럭</option>
+									<option value="조적조">조적조</option>
+									<option value="연와조">연와조</option>
+									<option value="시멘트블럭">시멘트블럭</option>
+								</select>
 							</td>
 						</tr>
 						<tr id="34">
@@ -424,6 +482,13 @@
 	</footer>
 </body>
 <script>
+
+	var classLength = document.getElementsByClassName('selectDummy').length;
+	for(let i = 0 ; i < classLength ; i++){
+		document.getElementsByClassName('selectDummy')[i].addEventListener('change',function(){
+			document.getElementById(document.getElementsByClassName('selectDummy')[i].id.slice(0,-1)).value = document.getElementsByClassName('selectDummy')[i].value;
+		});
+	}
 
 	var preData = JSON.parse(document.getElementById('preData').innerHTML);
 	let imageCount = 0;
