@@ -2,6 +2,11 @@
 <html>
 	<head>
 		<%- include('parts/header') %>
+		<style>
+			#id{
+			  background-color: lightgoldenrodyellow;
+			}
+		  </style>
 	</head>
 	<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 		<%- include('parts/notice') %>
@@ -58,10 +63,7 @@
 				<div style="width:100%;border-bottom-right-radius: 5px;">
 				<form action="/list" method="POST">
 					<div style="display:flex;height:42px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
-						<div style="width:50%;padding-bottom:5px;padding-top:5px;">
-							<div class="searchName">매물번호</div>
-							<div class="letters" style="display:inline-block;margin-left:10px;padding-right:100px;border-right:1px solid #aaa;"><input class="searchinput_text" type="text" name="id"></div>
-						</div>
+						
 						<div style="width:80%;padding-bottom:5px;padding-top:5px;">
 							<div class="searchName">지역검색</div>
 							<div class="letters" style="display:inline-block;margin-left:10px;">
@@ -196,7 +198,11 @@
 					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended"  id="recommended2" value="일반목구조"><label for="recommended2">목조(목구조)</div>
 					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended"  id="recommended3" value="조적조"><label for="recommended3">벽돌(조적조, 연와조, 벽돌구조, 시멘트벽돌 등)</div>
 					<div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended"  id="recommended4" value="기타"><label for="recommended4">기타</div>
-				</div>				
+				</div>	
+				<div style="padding-left:10px;padding-bottom:5px;padding-top:5px;display:inline-block;">
+					<div class="searchName">매물번호</div>
+					<div class="letters" style="display:inline-block;margin-left:10px;padding-right:10px;"><input class="searchinput_text" type="text" id="id" name="id"></div>
+				</div>			
 				<input type="submit" value="매물검색" class="search_submit">
 				<a href="https://www.youtube.com/user/7735900/featured"><button type="button" class="search_youtube"><i class="fab fa-youtube yt"></i> 유튜브</button></a>
 				</form>

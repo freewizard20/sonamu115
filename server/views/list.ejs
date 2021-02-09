@@ -2,6 +2,11 @@
 <html>
   <head>
     <%- include('parts/header') %>
+    <style>
+      #id{
+        background-color: lightgoldenrodyellow;
+      }
+    </style>
   </head>
   <body  oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
     <%- include('parts/notice') %> <%- include('parts/logoarea') %>
@@ -14,10 +19,6 @@
             <div class="list_search_title">상세검색</div>
             <form action="/list" method="POST">
               <div style="display:flex;height:42px;margin-left:10px;margin-right:10px;border-bottom:1px solid #e5e5e5;">
-                <div style="width:50%;padding-bottom:5px;padding-top:5px;">
-                  <div class="searchName">매물번호</div>
-                  <div class="letters" style="display:inline-block;margin-left:10px;padding-right:100px;border-right:1px solid #aaa;"><input class="searchinput_text" type="text" id="id" name="id"></div>
-                </div>
                 <div style="width:80%;padding-bottom:5px;padding-top:5px;">
                   <div class="searchName">지역검색</div>
                   <div class="letters" style="display:inline-block;margin-left:10px;">
@@ -152,7 +153,11 @@
               <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" id="mok" value="일반목구조"><label for="mok">목조(목구조)</label></div>
               <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" id="jo" value="조적조"><label for="jo">벽돌(조적조, 연와조, 벽돌구조, 시멘트벽돌 등)</label></div>
               <div class="optionButton"><input class="locationCheckbox" type="checkbox" name="recommended" id="else2" value="기타"><label for="else2">기타</label></div>
-            </div>				
+            </div>	
+            <div style="margin-left:10px;display:inline-block;padding-bottom:5px;">
+              <div class="searchName">매물번호</div>
+              <div class="letters" style="display:inline-block;margin-left:10px;padding-right:10px;"><input class="searchinput_text" type="text" id="id" name="id"></div>
+            </div>			
             <input type="submit" value="매물검색" class="search_submit">
             <button type="button" onclick="reset()" class="search_reset">초기화</button>
             </form>
