@@ -1164,6 +1164,22 @@ app.post("/register", async (req, res) => {
 			req.body.id_number = test[1];
 			req.body.id = req.body.id_letter + req.body.id_number;
 		}
+		if(req.body.area_ground && req.body.area_ground2 === ''){
+			//console.log('hello');
+			req.body.area_ground2 = Math.round(req.body.area_ground * 3.3058);
+		}
+		if(req.body.area_ground2 && req.body.area_ground === ''){
+			//console.log('hello2');
+			req.body.area_ground = Math.round(req.body.area_ground2 * 0.3025);
+		}
+		if(req.body.area_building && req.body.area_building2 === ''){
+			//console.log('hello3');
+			req.body.area_building2 = Math.round(req.body.area_building * 3.3058);
+		}
+		if(req.body.area_building2 && req.body.area_building === ''){
+			//console.log('hello4');
+			req.body.area_building = Math.round(req.body.area_building2 * 0.3025);
+		}
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
 		if (req.body.icon === undefined) req.body.icon = "";
@@ -1350,17 +1366,34 @@ app.post("/details", (req, res) => {
 		Item.find({_id:req.body.query_id}).then((data)=>{
 			let currentItem = req.body.query_id;
 			delete req.body.query_id;
-	
+			console.log(req.body);
 			// req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);
 			req.body.id = req.body.id_letter + req.body.id_number;
 			
-			console.log('/details before updateOne');
+			if(req.body.area_ground && req.body.area_ground2 === ''){
+				//console.log('hello');
+				req.body.area_ground2 = Math.round(req.body.area_ground * 3.3058);
+			}
+			if(req.body.area_ground2 && req.body.area_ground === ''){
+				//console.log('hello2');
+				req.body.area_ground = Math.round(req.body.area_ground2 * 0.3025);
+			}
+			if(req.body.area_building && req.body.area_building2 === ''){
+				//console.log('hello3');
+				req.body.area_building2 = Math.round(req.body.area_building * 3.3058);
+			}
+			if(req.body.area_building2 && req.body.area_building === ''){
+				//console.log('hello4');
+				req.body.area_building = Math.round(req.body.area_building2 * 0.3025);
+			}
+
+			// console.log('/details before updateOne');
 			Item.updateOne({ _id: currentItem }, req.body)
 				.then(() => { 
 					logger.info('updated ' + req.body.id);
-					console.log('/details after updateOne');
+					// console.log('/details after updateOne');
 				})
 				.catch((err) => { logger.info(err); });
 	
