@@ -618,14 +618,6 @@ a:active {
   padding: 7px 10px 20px 5px;
 }
 
-.item_detail_text > p{
-  margin: 5px 0px;
-}
-
-.item_detail_text > br {
-  margin: 5px 0px;
-}
-
 .item_related {
   margin-top: 10px;
 }
@@ -681,14 +673,6 @@ a:active {
   border: 1px solid #e5e5e5;
   width: 85%;
   margin: auto;
-}
-
-.item_detail_text > p {
-  margin: 10px 0px;
-}
-
-.item_detail_text {
-  
 }
 
 #price_sell_asc:hover {
