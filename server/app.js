@@ -981,9 +981,10 @@ async function makeID2(region){
 			   			
 		   }else{
 			   idNumber = i+1;
-			   break;
+			   done = true;
 		   }
 	   });
+	   id(done) break;
    }
    if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
    result.push(idNumber);
