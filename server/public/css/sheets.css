@@ -684,13 +684,11 @@ a:active {
 }
 
 .item_detail_text > p {
-  font-size: 18px;
-  font-weight: bold;
+  margin: 10px 0px;
 }
 
 .item_detail_text {
-  font-size: 18px;
-  font-weight: bold;
+  
 }
 
 #price_sell_asc:hover {
