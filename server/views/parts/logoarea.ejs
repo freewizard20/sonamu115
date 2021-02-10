@@ -33,7 +33,12 @@
 <script>
     var slider = document.getElementById('noticeSlider');
     var silderElements = document.getElementsByClassName('noticeContent');
-    var size2 = 27;
+    var size2 = 0;
+    if(window.navigator.userAgent.match(/(MSIE|Trident)/)){
+        size2 = 29;
+    }else{
+        size2 = 27;
+    }
     var counter2 = 0;
     setInterval(function(){
         console.log('hello');
