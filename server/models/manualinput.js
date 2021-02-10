@@ -428,6 +428,10 @@ function addDummyDatabase(){
 	makeItem();
 }
 
+function addNotification(){
+
+}
+
 function countThumbnails(){
 	let needThumbnails = 0;
 	Item.find().then((data)=>{
@@ -773,10 +777,11 @@ function changeType(){
 // addDummyDatabase();
 // addUsers();
 // addLocationSync();
+// addNotification();
 // uploadDatabase();
 // makeThumbnails();
 // countThumbnails();
 // trimImagesSync();
 // countMissingImages();
-changeType();
+// changeType();
 
