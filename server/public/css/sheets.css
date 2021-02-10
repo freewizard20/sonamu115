@@ -154,7 +154,19 @@ a:active {
 
 .search_submit {
   cursor: pointer;
-  margin-top: 11px;
+  margin-left: 10px;
+  background-color: #012023;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 12px 35px;
+  font-size: 14px;
+  position:relative;
+  top:-4px;
+}
+
+.search_submit2 {
+  cursor: pointer;
   margin-left: 10px;
   background-color: #012023;
   border: none;
