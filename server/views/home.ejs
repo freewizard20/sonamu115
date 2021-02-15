@@ -13,7 +13,7 @@
 			}
 		  </style>
 	</head>
-	<body>
+	<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 		<%- include('parts/notice') %>
 		<%- include('parts/logoarea') %>
 		<div style="width:1200px;margin:auto;margin-top:5px;">
@@ -161,7 +161,7 @@
 					<div class="searchName">매물종류</div>
 					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_1" value="house"><label for="type_1">전원주택/별장/농가주택/펜션</label></div>
 					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_2" value="land"><label for="type_2">토지/농막</label></div>
-					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_3" value="consumer"><label for="type_3">상가/모텔/빌딩</label></div>
+					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_3" value="consumer"><label for="type_3">상가/음식점/모텔</label></div>
 					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_4" value="rent"><label for="type_4">전월세</label></div>
 					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_5" value="factory"><label for="type_5">창고/공장</label></div>
 					<div class="location_Button"><input class="locationCheckbox" type="checkbox" name="type" id="type_6" value="villa"><label for="type_6">아파트/빌라</label></div>
@@ -208,8 +208,8 @@
 				</div>			
 				<input type="submit" value="매물검색" class="search_submit">
 				<div style="display: inline-block;margin-left:15px;position:relative;top:11px;">
-					<a href="https://blog.naver.com/rebchjs"><img style="width:42px;margin-right:3px;" src="assets/blog_logo.png"></a>
-					<a href="https://www.youtube.com/user/7735900?sub_confirmation=1"><img style="width:42px;margin-right:3px;" src="assets/youtube_logo.png"></a>
+					<a href="https://blog.naver.com/rebchjs"><img style="width:42px;margin-right:7px;" src="assets/blog_logo.png"></a>
+					<a href="https://www.youtube.com/user/7735900?sub_confirmation=1"><img style="width:42px;margin-right:7px;" src="assets/youtube_logo.png"></a>
 					<a href="https://cafe.naver.com/62food"><img style="width:42px;" src="assets/cafe_logo.png"></a>
 				</div>
 				</form>
@@ -247,7 +247,7 @@
 		<div class="section_div">
 			<a class="noline" href="/list?category=land">
 			<div class="section_name">				
-				<span class="section_big">LAND</span>&nbsp;&nbsp;<span class="section_little">전원주택 및 상가부지 등의 토지(농막 등)매물입니다.</span>
+				<span class="section_big">LAND</span>&nbsp;&nbsp;<span class="section_little">전원주택 및 상가부지 등의 토지(농막 등) 매물입니다.</span>
 				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
 			</div>
 			</a>
@@ -260,7 +260,7 @@
 		<div class="section_div">
 			<a class="noline" href="/list?category=affordable">
 			<div class="section_name">
-				<span class="section_big">AFFORDABLE</span>&nbsp;&nbsp;<span class="section_little">매매가 3억 미만의 전원주택(농가주택 등) 매물입니다..</span>
+				<span class="section_big">AFFORDABLE</span>&nbsp;&nbsp;<span class="section_little">매매가 3억 미만의 전원주택(농가주택 등) 매물입니다.</span>
 				<div class="section_button">더보기 <i class="fas fa-plus"></i></div>
 			</div>
 		</a>

@@ -35,9 +35,9 @@ a:active {
 }
 
 .searchButton {
-  border: 1px solid #bbb;
+  border: 1px solid #dd464d;
   padding: 9px 24px 7px 24px;
-  background-color: #999;
+  background-color: #dd464d;
   color: white;
   border-radius: 4px;
   font-size: 16px;
@@ -46,9 +46,9 @@ a:active {
 }
 
 .searchButton2 {
-  border: 1px solid #dd464d;
+  border: 1px solid #77dd77;
   padding: 9px 24px 7px 24px;
-  background-color: #dd464d;
+  background-color: #77dd77;
   color: white;
   border-radius: 4px;
   font-size: 16px;
@@ -503,6 +503,7 @@ a:active {
 
 .item_maincontent {
   width: 78%;
+  margin-top:5px;
 }
 
 .item_gallery_main {
@@ -627,6 +628,7 @@ a:active {
   border: 1px solid #aaa;
   border-radius: 15px;
   text-align: center;
+  margin-top:15px;
 }
 
 .sidebar_qrcode_name {
