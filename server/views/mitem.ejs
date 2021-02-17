@@ -95,9 +95,9 @@
 					<td class="item_value"><%= data.detail_orientation %></td>
 				</tr>
 				<tr>
-					<td class="item_label">담당자</td>
+					<td class="item_label" style="font-size:11px;font-weight: bold;">담당자</td>
 					<td class="item_value bold" id="user_name"><%= user.explanation %></td>
-					<td class="item_label">연락처</td>
+					<td class="item_label" style="font-size:11px;font-weight:bold;">연락처</td>
 					<td class="item_value bold" id="user_contact"><%= user.phone %></td>
 				</tr>
 			</table>
@@ -167,7 +167,7 @@
 			<% } %>
 		</div>
 		<footer>
-			<%- include('parts/footer_item',{id: data._id }) %>
+			<%- include('parts/footer_mobile',{id: data._id }) %>
 		</footer>
 		<script>
 			let target = document.getElementById('target');
