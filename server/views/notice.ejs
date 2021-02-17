@@ -4,7 +4,9 @@
     <%- include('parts/header') %>
 </head>
 <body>
-    <%- include('parts/adminnavbar) %>
-    
+    <%- include('parts/adminnavbar') %>
+    <% for(let i = 0 ; i < notice.length ; i++) { %>
+        <h5><%= notice[i].content %></h5>
+    <% } %>
 </body>
 </html>
