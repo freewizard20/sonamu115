@@ -488,6 +488,17 @@
 	var b1 = document.getElementById('area_building');
 	var	b2 = document.getElementById('area_building2');
 
+	var p1 = document.getElementById('price_sell');
+	var p2 = document.getElementById('price_unit')
+	
+	p1.addEventListener('change',function(){
+		if(g1.value===''){
+
+		}else{
+			p2.value = Math.round(p1.value/g1.value);
+		}
+	})
+
 	g1.addEventListener('change',function(){
 		g2.value = Math.round(g1.value * 3.3058);
 	});
