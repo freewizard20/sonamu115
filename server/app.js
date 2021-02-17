@@ -891,10 +891,10 @@ app.get("/manage", (req, res) => {
 					XLSX.utils.book_append_sheet(workbook,worksheet,'Sheet1');
 					XLSX.writeFile(workbook, 'excel/' + excel_uuid + '.xlsx');
 				
-					Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).then((result) => {
+					Item.find(findQuery).or([sharedItem,{share:'N',user:userQuery}]).count((err, result) => {
 						if (uuid === undefined) uuid = "";
 						res.cookie('excel',excel_uuid);
-						res.render("manage", { searchHistory: JSON.stringify(searchHistory[uuid]), uuid: uuid, data: data, count: result.length, current: pages });
+						res.render("manage", { searchHistory: JSON.stringify(searchHistory[uuid]), uuid: uuid, data: data, count: result, current: pages });
 					})
 				});
 			})

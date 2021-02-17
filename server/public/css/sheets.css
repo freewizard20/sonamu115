@@ -35,43 +35,25 @@ a:active {
 }
 
 .searchButton {
-  border: 1px solid #bbb;
-  padding: 9px 14px;
-  background-color: #999;
-  color: white;
-  border-radius: 4px;
-  font-size: 15px;
-  margin-left: 6px;
-}
-
-.searchButton:hover {
   border: 1px solid #dd464d;
-  padding: 9px 14px;
+  padding: 8px 21px 7px 21px;
   background-color: #dd464d;
   color: white;
   border-radius: 4px;
-  font-size: 15px;
-  margin-left: 6px;
+  font-size: 16px;
+  margin-left: 16px;
+  cursor: pointer;
 }
 
 .searchButton2 {
-  border: 1px solid #bbb;
-  padding: 9px 14px;
-  background-color: #666;
+  border: 1px solid #77dd77;
+  padding: 8px 21px 7px 21px;
+  background-color: #77dd77;
   color: white;
   border-radius: 4px;
-  font-size: 15px;
-  margin-left: 6px;
-}
-
-.searchButton2:hover {
-  border: 1px solid #dd464d;
-  padding: 9px 14px;
-  background-color: #dd464d;
-  color: white;
-  border-radius: 4px;
-  font-size: 15px;
-  margin-left: 6px;
+  font-size: 16px;
+  margin-left: 16px;
+  cursor: pointer;
 }
 
 .detail_search {
@@ -416,7 +398,6 @@ a:active {
   font-weight: bold;
   color: black;
   background-color: #e5e5e5;
-
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -426,7 +407,7 @@ a:active {
   width: 80%;
   text-align: center;
   padding: 16px 0px;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
   color: black;
   border-bottom: 2px dotted #e5e5e5;
@@ -521,6 +502,7 @@ a:active {
 
 .item_maincontent {
   width: 78%;
+  margin-top:5px;
 }
 
 .item_gallery_main {
@@ -645,6 +627,7 @@ a:active {
   border: 1px solid #aaa;
   border-radius: 15px;
   text-align: center;
+  margin-top:15px;
 }
 
 .sidebar_qrcode_name {

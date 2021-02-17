@@ -424,8 +424,9 @@ function addUsers(){
 }
 
 function addDummyDatabase(){
-	console.log(i);
-	makeItem();
+	for(let i = 0 ; i < 5000 ; i++){
+		makeItem();
+	}
 }
 
 function addNotification(){
