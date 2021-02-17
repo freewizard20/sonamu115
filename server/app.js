@@ -1566,6 +1566,16 @@ app.get('/notice',(req,res)=>{
 	})
 })
 
+app.post('/renewnotice',(req,res)=>{
+	let newItem = req.body.content.split(',');
+	Notice.remove().then(()=>{
+		for(let i = 0 ; i < newItem.length ; i++){
+			mongooseIO.postNotification(newItem[i]);
+		}
+		res.redirect('/admin');
+	})
+})
+
 app.post('/changedate',(req,res)=>{
 	if(jwtverify(req.cookies)){
 		let items = req.body.changedate.split(',');

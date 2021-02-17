@@ -8,10 +8,54 @@
     <% for(let i = 0 ; i < notice.length ; i++) { %>
         <div class="originalInfo" style="display:none;"><%= notice[i].content %></div>
     <% } %>
+    <h2>공지사항 수정/변경</h2>
+    <div id="registercontent">
 
-
+    </div>
+    <button onclick="addElement()">공지사항 추가</button>
+    <button onclick="deleteElement()">마지막 공지사항 제거</button>
+    <button onclick="submitElement()">제출</button>
+    <form id="mainForm" action="/renewnotice" method="POST">
+    <input style="display:none" id="content" name="content" type="text">
+    </form>
     <footer>
 		<%- include('parts/footer2') %>
 	</footer>
 </body>
+<script>
+function newElement(x){
+    var div = document.createElement('div');
+    var test = document.createElement('input');
+    test.classList.add('noticeElements');
+    test.value = x;
+    test.style.width = '400px';
+    div.appendChild(test);
+    document.getElementById('registercontent').appendChild(div);
+}
+
+var initial = document.getElementsByClassName('originalInfo');
+for(var i = 0 ; i < initial.length ; i++){
+    newElement(initial[i].innerHTML);
+}
+
+function addElement(){
+    newElement('');
+ }
+
+ function deleteElement(){
+    document.getElementById('registercontent').lastChild.remove();
+ }
+
+ function submitElement(){
+    var test = [];
+    var toSend = document.getElementsByClassName('noticeElements');
+    for(var i = 0 ; i < toSend.length ; i++){
+        test.push(toSend[i].value);
+    }
+    
+    document.getElementById('content').value = test;
+    document.getElementById('mainForm').submit();
+
+ }
+</script>
 </html>
