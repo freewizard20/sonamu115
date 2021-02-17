@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const User = require("./User");
 const Item = require("./Item");
+const Notice = require('./Notice');
 
 async function getItemNumber(findQuery){	
 	return new Promise(function(resolve,reject){
@@ -35,6 +36,16 @@ function postUser(name, password, explanation, phone, permission) {
 				.catch(() => console.log("error"));
 		});
 	});
+}
+
+function postNotification(content){
+	const notification = new Notification({
+		content: content,
+	});
+	notification
+		.save()
+		.then(()=>{console.log('notification saved..')})
+		.catch((err)=>{console.log(err)});
 }
 
 function deleteItem(givenId){
@@ -80,7 +91,9 @@ module.exports = {
 	getAll: getAll,
 	postUser: postUser,
 	postItem: postItem,
+	postNotification: postNotification,
 	User: User,
 	Item: Item,
+	Notice: Notice,
 	deleteItem,
 }

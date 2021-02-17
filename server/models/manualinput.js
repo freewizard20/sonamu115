@@ -429,7 +429,11 @@ function addDummyDatabase(){
 }
 
 function addNotification(){
-
+	mongooseIO.postNotification('양평전원주택 고급별장 토지 전문 소나무부동산입니다.');
+	mongooseIO.postNotification('경쟁력 있는 비공개 매물도 많사오니 부담없이 전화주십시오.');
+	mongooseIO.postNotification('매수 및 매도 의뢰 언제든 환영합니다.');
+	mongooseIO.postNotification('전문성을 갖춘 공인중개사가 직접 운영합니다.');
+	mongooseIO.postNotification('저희 소나무부동산은 영중무휴로 365일 운영합니다.')
 }
 
 function countThumbnails(){

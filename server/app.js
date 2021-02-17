@@ -30,6 +30,7 @@ const Location = require('./models/Location.js');
 
 const User = mongooseIO.User;
 const Item = mongooseIO.Item;
+const Notice = mongooseIO.Notice;
 const app = express();
 const upload = multer({ dest: 'public/images/' });
 
@@ -1542,6 +1543,18 @@ app.post('/createuser',(req,res)=>{
 		setTimeout(()=>{
 			res.redirect('/user');
 		},1000);
+	})
+})
+
+app.get('/notice',(req,res)=>{
+	User.find({name:userInfo[req.cookies.user]}).then((info)=>{
+		if(jwtverify(req.cookies)&&info[0].permission===2){
+			Notice.find().then((notice)=>{
+				res.render('notice',{notice:notice});
+			})
+		}else{
+			res.render('unauthorized');
+		}
 	})
 })
 

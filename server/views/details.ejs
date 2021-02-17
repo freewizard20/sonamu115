@@ -483,6 +483,27 @@
 </body>
 <script>
 
+	var g1 = document.getElementById('area_ground');
+	var g2 = document.getElementById('area_ground2');
+	var b1 = document.getElementById('area_building');
+	var	b2 = document.getElementById('area_building2');
+
+	g1.addEventListener('change',function(){
+		g2.value = Math.round(g1.value * 3.3058);
+	});
+
+	g2.addEventListener('change',function(){
+		g1.value = Math.round(g2.value * 0.3025);
+	})
+
+	b1.addEventListener('change',function(){
+		b2.value = Math.round(b1.value * 3.3058);
+	});
+
+	b2.addEventListener('change',function(){
+		b1.value = Math.round(b2.value * 0.3025);
+	})
+
 	var classLength = document.getElementsByClassName('selectDummy').length;
 	for(let i = 0 ; i < classLength ; i++){
 		document.getElementsByClassName('selectDummy')[i].addEventListener('change',function(){

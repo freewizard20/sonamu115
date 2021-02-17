@@ -163,15 +163,15 @@
 			<tr id="1">
 				<td>대지면적</td>
 				<td colspan="3">
-					<input type="number" step="0.001" name="area_ground" /> py (
-					<input type="number" step="0.001" name="area_ground2" />m2 )
+					<input type="number" step="0.001" id="area_ground" name="area_ground" /> py (
+					<input type="number" step="0.001" id="area_ground2" name="area_ground2" />m2 )
 				</td>
 			</tr>
 			<tr id="2">
 				<td>건물연면적</td>
 				<td colspan="3">
-					<input type="number" step="0.001" name="area_building" /> py (
-					<input type="number" step="0.001" name="area_building2" />m2 )
+					<input type="number" step="0.001" id="area_building" name="area_building" /> py (
+					<input type="number" step="0.001" id="area_building2" name="area_building2" />m2 )
 				</td>
 			</tr>
 			<tr id="3">
@@ -479,9 +479,29 @@
 	</footer>
 </body>
 <script>
+	var g1 = document.getElementById('area_ground');
+	var g2 = document.getElementById('area_ground2');
+	var b1 = document.getElementById('area_building');
+	var	b2 = document.getElementById('area_building2');
+
+	g1.addEventListener('change',function(){
+		g2.value = Math.round(g1.value * 3.3058);
+	});
+
+	g2.addEventListener('change',function(){
+		g1.value = Math.round(g2.value * 0.3025);
+	})
+
+	b1.addEventListener('change',function(){
+		b2.value = Math.round(b1.value * 3.3058);
+	});
+
+	b2.addEventListener('change',function(){
+		b1.value = Math.round(b2.value * 0.3025);
+	})
 
 	var classLength = document.getElementsByClassName('selectDummy').length;
-	for(let i = 0 ; i < classLength ; i++){
+	for(var i = 0 ; i < classLength ; i++){
 		document.getElementsByClassName('selectDummy')[i].addEventListener('change',function(){
 			document.getElementById(document.getElementsByClassName('selectDummy')[i].id+'2').value = document.getElementsByClassName('selectDummy')[i].value;
 		});
