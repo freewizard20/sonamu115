@@ -23,7 +23,7 @@ function findSell(given){
 }
 
 function findType(given){
-	let matrix = [['house','전원주택/별장'],['consumer','상가/모텔/빌딩'],['land','토지/농막'],['rent','전월세'],['villa','아파트/빌라'],['factory','창고/공장']];
+	let matrix = [['house','전원주택/별장'],['consumer','상가/음식점/빌딩'],['land','토지/농막'],['rent','전월세'],['villa','아파트/빌라'],['factory','창고/공장']];
 	for(m of matrix){
 		if(given===m[0]) return m[1];
 	}
