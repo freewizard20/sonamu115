@@ -6,7 +6,7 @@
 <body>
     <%- include('parts/adminnavbar') %>
     <% for(let i = 0 ; i < notice.length ; i++) { %>
-        <h5><%= notice[i].content %></h5>
+        <div class="originalInfo" style="display:none;"><%= notice[i].content %></div>
     <% } %>
 </body>
 </html>
