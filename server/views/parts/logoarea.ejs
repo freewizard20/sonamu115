@@ -16,11 +16,9 @@
     <img style="width:100%;" src="assets/notice.png">
     <div style="overflow:hidden;height:69px;border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;">
         <div id="noticeSlider">
-        <h5 class="noticeContent">▷ 전문성을 갖춘 공인중개사가 직접 운영합니다.</h5>
-        <h5 class="noticeContent">▷ 매도 및 매수 의뢰 언제든 환영합니다.</h5>
-        <h5 class="noticeContent">▷ 전화예약 후 방문 부탁드립니다.</h5>
-        <h5 class="noticeContent">▷ 비공개 매물도 있사오니 전화 문의주십시오.</h5>
-        <h5 class="noticeContent">▷ 외국어 상담 가능합니다.</h5>
+        <% for(let i = 0 ; i < notice.length ; i++)  { %>
+            <h5 class="noticeContent">▷ <%= notice[i].content %></h5>
+        <% } %>
         </div>
     </div>
 </div>

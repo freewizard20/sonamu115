@@ -39,7 +39,7 @@ function postUser(name, password, explanation, phone, permission) {
 }
 
 function postNotification(content){
-	const notification = new Notification({
+	const notification = new Notice({
 		content: content,
 	});
 	notification

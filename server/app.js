@@ -412,7 +412,9 @@ app.get("/", (req, res) => {
 					Item.find({adon: 'Y', sell:'sell',price_sell:{$lte:30000}}).sort('-timestamp_modified').limit(10).then((affordable)=>{
 						Item.find({adon: 'Y', type: {$in: ['consumer']}}).sort('-timestamp_modified').limit(5).then((commercial)=>{
 							Item.find({adon: 'Y', sell:{$in:['rent','jeon']}}).sort('-timestamp_modified').limit(5).then((rent)=>{
-								res.render('home', {gallery: gallery, recommended: recommended, luxury:luxury,land:land,affordable:affordable,commercial:commercial,rent:rent});
+								Notice.find().then((notice)=>{
+									res.render('home', {gallery: gallery, recommended: recommended, luxury:luxury,land:land,affordable:affordable,commercial:commercial,rent:rent,notice:notice});
+								})
 							})
 						})
 					})
@@ -643,7 +645,11 @@ app.get("/list",(req,res)=>{
 
 	let limitQuery = skipQuery===0? 24 : 12;
 	Item.find(findQuery).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
-		if(skipQuery===0) res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox});
+		if(skipQuery===0){
+			Notice.find().then((notice)=>{
+				res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox, notice: notice});
+			});
+		} 
 		else res.render('skip',{data:data});
 	});
 });
@@ -670,7 +676,9 @@ app.get("/item",(req,res)=>{
 		Item.updateOne({_id: query}, data[0]).then(()=>{});
 		Item.find({sell:data[0].sell, type: data[0].type}).limit(20).then((similar)=>{
 			User.find({name:data[0].user}).then((user)=>{
-				res.render('item',{data:data[0], similar: similar, user:user[0]});
+				Notice.find().then((notice)=>{
+					res.render('item',{data:data[0], similar: similar, user:user[0],notice:notice});
+				})
 			})
 		})	
 	}	

@@ -15,7 +15,7 @@
 	</head>
 	<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 		<%- include('parts/notice') %>
-		<%- include('parts/logoarea') %>
+		<%- include('parts/logoarea',{notice:notice}) %>
 		<div style="width:1200px;margin:auto;margin-top:5px;">
 		<div class="main_gallery">
 			<div class="gallery_button gallery_button_left" id="prevBtn"><i class="fas fa-chevron-left"></i></div>

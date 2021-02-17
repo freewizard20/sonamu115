@@ -9,7 +9,7 @@
     </style>
   </head>
   <body  oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
-    <%- include('parts/notice') %> <%- include('parts/logoarea') %>
+    <%- include('parts/notice') %> <%- include('parts/logoarea', {notice:notice}) %>
     <div style="display: none;" id="preData"><%= fillSearchBox %></div>
     <div class="container">
       <div class="sidebar"><%- include('parts/sidebar') %></div>
