@@ -42,7 +42,7 @@
 			<option value="villa">아파트/빌라</option>
 		</select>
 		<select id="sell" name="sell">
-			<option id="sell" value="sell">매매</option>
+			<option id="sell2" value="sell">매매</option>
 			<option id="jeon" value="jeon">전세</option>
 			<option id="rent" value="rent">월세</option>
 		</select>
@@ -774,7 +774,7 @@
 	var selectSell = document.getElementById('sell');
 
 	function changes() {
-		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa') {
+		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent') {
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
 				document.getElementById('22').style.display = "none";
@@ -869,19 +869,26 @@
 		changes();
 	});
 
-	selectType.addEventListener('change', function (e) {
-		changes();
-		selectSell.value = 'sell';
+	selectType.addEventListener('change', function (e) {		
 		if (this.value === 'land') {
+			selectSell.value = 'sell';
+			document.getElementById('sell2').style.display = "block";
 			document.getElementById('jeon').style.display = "none";
 			document.getElementById('rent').style.display = "none";
+		} else if(this.value==='rent'){
+			document.getElementById('sell').value = 'jeon';
+			document.getElementById('sell2').style.display = "none";
+			document.getElementById('jeon').style.display = "block";
+			document.getElementById('rent').style.display = "block";
 		} else {
+			selectSell.value = 'sell';
+			document.getElementById('sell2').style.display = "block";
 			document.getElementById('jeon').style.display = "block";
 			document.getElementById('rent').style.display = "block";
 		}
+		changes();
 
-
-		if (this.value === 'house' || this.value === "factory" || this.value === "villa") {
+		if (this.value === 'house' || this.value === "factory" || this.value === "villa" || this.value==='rent') {
 			document.getElementById('1').style.display = "";
 			document.getElementById('2').style.display = "";
 			document.getElementById('3').style.display = "";
