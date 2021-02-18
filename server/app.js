@@ -13,6 +13,7 @@ const he = require('he');
 const iconv = require('iconv-lite');
 const querystring = require('querystring');
 const path = require('path');
+const cors = require('cors');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -37,6 +38,7 @@ const upload = multer({ dest: 'public/images/' });
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -50,7 +52,7 @@ app.use(
 
 app.use(
 	helmet.permittedCrossDomainPolicies({
-		permittedPolicied: "none",
+		permittedPolicies: "none",
 	})
 );
 
