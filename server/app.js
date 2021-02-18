@@ -514,6 +514,8 @@ app.get("/list",(req,res)=>{
 			listType = 'sidebar_consumer';
 		}else if(req.query.category==='sidebar_rent'){
 			findQuery.type='rent';
+			findQuery.sell = {};
+			findQuery.sell.$in = ['rent','jeon'];
 			listType='sidebar_rent';
 		}else if(req.query.category==='sidebar_factory'){
 			findQuery.type='factory';
@@ -1655,7 +1657,7 @@ app.get("/user",(req,res)=>{
 
 app.post('/footer',(req,res)=>{
 	console.log(req.body);
-	if(req.body.password==='3756'){
+	if(req.body.password==='26980'){
 		Item.find({_id:req.body.item}).then((data)=>{
 			res.send(data[0].memo);
 		})

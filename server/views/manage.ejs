@@ -218,7 +218,13 @@
 					<td><input type="checkbox" class="1" name="1"></td>
 					<td><a href="/item?id=<%= d._id %>">LINK</a></td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break:break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.contract %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'">
+						<% if(d.contract==='완료') { %>
+							<span style="color:red;">완료</span>
+						<% } else { %>
+							<%= d.contract %>
+						<% } %>
+					</td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon === 'Y' ? 'ON' : 'OFF' %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
 					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
