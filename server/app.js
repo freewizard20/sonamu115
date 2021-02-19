@@ -704,7 +704,7 @@ app.post("/login", (req, res) => {
 					},
 					secretObj.secret,
 					{
-						expiresIn: "30m"
+						expiresIn: "300m"
 					});
 					res.cookie("user", token);
 					userInfo[token] = req.body.name;
