@@ -1157,7 +1157,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			}
 		}
 		loopArray(0);
-	},10000);
+	},20000);
 });
 
 async function makeID(region){
