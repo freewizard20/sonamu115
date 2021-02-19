@@ -1625,23 +1625,33 @@ app.post('/moveuser',(req,res)=>{
 })
 
 app.get("/about",(req,res)=>{
-	res.render('about');
+	Notice.find().then((notice)=>{
+		res.render('about',{notice:notice});
+	})	
 });
 
 app.get("/location",(req,res)=>{
-	res.render('location');
+	Notice.find().then((notice)=>{
+		res.render('location',{notice:notice});
+	})	
 });
 
 app.get("/tos",(req,res)=>{
-	res.render('tos');
+	Notice.find().then((notice)=>{
+		res.render('tos',{notice:notice});
+	})	
 });
 
 app.get("/privacy",(req,res)=>{
-	res.render('privacy');
+	Notice.find().then((notice)=>{
+		res.render('privacy',{notice:notice});
+	})	
 });
 
 app.get("/responsibility",(req,res)=>{
-	res.render('responsibility');
+	Notice.find().then((notice)=>{
+		res.render('responsibility',{notice:notice});
+	})	
 });
 
 app.get("/user",(req,res)=>{
