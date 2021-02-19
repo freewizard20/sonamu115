@@ -1133,6 +1133,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 		}
 	},3000);
 	setTimeout(()=>{
+		console.log('resize started..');
 		let loopArray = function(x){
 			if(x===fileInput.length){
 				return;
@@ -1273,6 +1274,7 @@ app.post("/register", async (req, res) => {
 			logger.info('item saved!!');
 		}).catch((err)=>console.log(err));
 		setTimeout(()=>{
+			console.log('redirect to manage..');
 			res.redirect("/manage");
 		},10000);		
 	} else {
