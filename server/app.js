@@ -1129,7 +1129,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},9000);
+	},8000);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
