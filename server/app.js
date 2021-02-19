@@ -1129,7 +1129,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},1000);
+	},10000);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
@@ -1157,7 +1157,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			}
 		}
 		loopArray(0);
-	},5000);
+	},1000);
 });
 
 async function makeID(region){
