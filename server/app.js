@@ -1477,7 +1477,7 @@ app.post("/details", (req, res) => {
 	
 			setTimeout(()=>{
 				res.redirect('/manage');
-			},4000);
+			},6000);
 			// setTimeout(()=>{
 			// 	if(deleteFile.length!=0){
 			// 		sharp('./public/images'+imageref[0])
