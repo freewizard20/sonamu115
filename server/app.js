@@ -1272,7 +1272,7 @@ app.post("/register", async (req, res) => {
 		}).catch((err)=>console.log(err));
 		setTimeout(()=>{
 			res.redirect("/manage");
-		},5500);		
+		},10000);		
 	} else {
 		logger.info('unauthorized access to /register');
 		res.render("unauthorized");
