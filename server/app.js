@@ -1109,11 +1109,13 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},500);
 	setTimeout(()=>{
 		if(thumbnailExists){
+			console.log('thumbnail creation');
 			if(fs.existsSync('./public/images/thumbnailtemp')) fs.unlinkSync('./public/images/thumbnailtemp');
 			fs.copyFile('./public/images'+fileInput[0],'./public/images/thumbnailtemp',(e)=>{
 				sharp('./public/images'+fileInput[0]).resize({fit:'fill',width:233,height:165})
 				.toFile('./public/images/thumbnail'+fileInput[0],(err,info)=>{
 					if(err){
+						console.log(err);
 						fs.unlink('./public/images'+fileInput[0],(b)=>{
 							fs.rename('./public/images/thumbnailtemp','./public/images'+fileInput[0],(a)=>{
 								if(fs.existsSync('./public/images/thumbnail'+fileInput[0])){
@@ -1129,7 +1131,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},8000);
+	},3000);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
