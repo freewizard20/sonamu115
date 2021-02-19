@@ -512,9 +512,11 @@
 	})
 
 	var classLength = document.getElementsByClassName('selectDummy').length;
-	for(var i = 0 ; i < classLength ; i++){
-		document.getElementsByClassName('selectDummy')[i].addEventListener('change',function(){
-			document.getElementById(document.getElementsByClassName('selectDummy')[i].id+'2').value = document.getElementsByClassName('selectDummy')[i].value;
+	console.log(classLength);
+	for(let j = 0 ; j < classLength ; j++){
+		document.getElementsByClassName('selectDummy')[j].addEventListener('change',function(){
+			console.log(document.getElementsByClassName('selectDummy')[j].value);
+			document.getElementById(document.getElementsByClassName('selectDummy')[j].id+'2').value = document.getElementsByClassName('selectDummy')[j].value;
 		});
 	}
 
