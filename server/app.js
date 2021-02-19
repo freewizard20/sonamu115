@@ -1082,7 +1082,7 @@ app.post('/registerimage2',upload.array('image',100),(req,res)=>{
 		let fileInput = [];
 		if(typeof req.files==='undefined') req.files=[];
 		for(let i = 0 ; i < req.files.length ; i++){
-			fileInput.push('/' + req.files[i].filename);
+			if(req.files[i].filename) fileInput.push('/' + req.files[i].filename);
 		}
 		Item.find().sort('-timestamp').limit(1).then((data)=>{
 			data[0].image2 = fileInput;
@@ -1096,8 +1096,8 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	let thumbnailExists = false;
 	let fileInput = [];
 	if(typeof req.files==='undefined') req.files=[];
-		for(let i = 0 ; i < req.files.length ; i++){
-			fileInput.push('/'+req.files[i].filename);
+	for(let i = 0 ; i < req.files.length ; i++){
+		if(req.files[i].filename) fileInput.push('/'+req.files[i].filename);
 	}
 	setTimeout(()=>{
 		Item.find().sort('-timestamp').limit(1).then((data)=>{
@@ -1314,7 +1314,7 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
-				newFilelist[i] = '/' + req.files[count].filename;
+				if(req.files[count].filename) newFilelist[i] = '/' + req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
@@ -1354,7 +1354,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
-				newFilelist[i] = '/'+ req.files[count].filename;
+				if(req.files[count].filename) newFilelist[i] = '/'+ req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
