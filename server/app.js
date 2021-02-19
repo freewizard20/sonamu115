@@ -1129,7 +1129,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},800);
+	},1000);
 	setTimeout(()=>{
 		let loopArray = function(x){
 			if(x===fileInput.length){
@@ -1157,7 +1157,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			}
 		}
 		loopArray(0);
-	},2000);
+	},5000);
 });
 
 async function makeID(region){
@@ -1272,7 +1272,7 @@ app.post("/register", async (req, res) => {
 		}).catch((err)=>console.log(err));
 		setTimeout(()=>{
 			res.redirect("/manage");
-		},1500);		
+		},5500);		
 	} else {
 		logger.info('unauthorized access to /register');
 		res.render("unauthorized");
