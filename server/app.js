@@ -1166,7 +1166,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 			}
 		}
 		loopArray(0);
-	},20000);
+	},60000);
 });
 
 async function makeID(region){
@@ -1326,8 +1326,12 @@ app.post("/stats", (req, res) => {
 
 })
 
+let detailsFlag = false;
+let detailsFlag2 = false;
+
 app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 	console.log('/detailsimage2');
+	detailsFlag2 = true;
 	if(jwtverify(req.cookies)){
 		let newFilelist = req.body.uploadFilelist2.split(',');
 		let count = 0;
@@ -1365,6 +1369,7 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 
 app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	console.log('/detailsimage');
+	detailsFlag = true;
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
 		// console.log(req.body);
@@ -1467,25 +1472,6 @@ app.post("/details", (req, res) => {
 			req.body.detail = he.encode(req.body.detail);
 			req.body.id = req.body.id_letter + req.body.id_number;
 			
-			if(req.body.area_ground && req.body.area_ground2 === ''){
-				//console.log('hello');
-				req.body.area_ground2 = Math.round(req.body.area_ground * 3.3058);
-			}
-			if(req.body.area_ground2 && req.body.area_ground === ''){
-				//console.log('hello2');
-				req.body.area_ground = Math.round(req.body.area_ground2 * 0.3025);
-			}
-			if(req.body.area_building && req.body.area_building2 === ''){
-				//console.log('hello3');
-				req.body.area_building2 = Math.round(req.body.area_building * 3.3058);
-			}
-			if(req.body.area_building2 && req.body.area_building === ''){
-				//console.log('hello4');
-				req.body.area_building = Math.round(req.body.area_building2 * 0.3025);
-			}
-			if(req.body.area_ground && req.body.price_sell){
-				req.body.price_unit = Math.round(req.body.price_sell/req.body.area_ground);
-			}
 			// console.log('/details before updateOne');
 			Item.updateOne({ _id: currentItem }, req.body)
 				.then(() => { 
@@ -1494,15 +1480,19 @@ app.post("/details", (req, res) => {
 				})
 				.catch((err) => { logger.info(err); });
 	
-			setTimeout(()=>{
-				res.redirect('/manage');
-			},6000);
-			// setTimeout(()=>{
-			// 	if(deleteFile.length!=0){
-			// 		sharp('./public/images'+imageref[0])
-			// 		.resize(233,165).toFile('./public/images/thumbnail'+imageref[0],(err, info)=>{logger.info(err);});
-			// 	}
-			// },5000);
+			let checkFlag2 = function(){
+				if(detailsFlag && detailsFlag2){
+					setTimeout(()=>{
+						console.log('redirect to manage..');
+						detailsFlag = false;
+						detailsFlag2 = false;
+						res.redirect('/manage');
+					},1500)
+				}else{
+					setTimeout(checkFlag2,100);
+				}
+			}
+			checkFlag2();
 		})
 	} else {
 		logger.info('unauthorized access to /details POST');
