@@ -1333,7 +1333,9 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 	console.log('/detailsimage2');
 	detailsFlag2 = true;
 	if(jwtverify(req.cookies)){
+		console.log(req.body.uploadFilelist2);
 		let newFilelist = req.body.uploadFilelist2.split(',');
+		console.log(newFilelist);
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
@@ -1341,7 +1343,7 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
-
+		console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			let originalImage = [];
 			for(let i = 0 ; i < data[0].image2.length ; i++){
@@ -1372,9 +1374,9 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	detailsFlag = true;
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
-		// console.log(req.body);
+		console.log(req.body);
 		let newFilelist = req.body.uploadFilelist.split(',');
-		//console.log(newFilelist);
+		console.log(newFilelist);
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
@@ -1382,7 +1384,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
-		// console.log(newFilelist);
+		console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			// console.log(newFilelist);
 			let originalImage = [];
@@ -1395,7 +1397,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 					originalImage.splice(originalImage.indexOf(newImage[i]),1);
 				}
 			}
-			// console.log(originalImage);
+			console.log(originalImage);
 			for(let i = 0 ; i < originalImage.length ; i++){
 				if(fs.existsSync('./public/images'+originalImage[i])) fs.unlinkSync('./public/images' + originalImage[i]);
 			}
