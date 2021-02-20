@@ -1081,6 +1081,7 @@ let registerFlag = false;
 let registerFlag2 = false;
 
 app.post('/registerimage2',upload.array('image',100),(req,res)=>{
+	console.log('registerimage2 POST');
 	registerFlag2 = true;
 	setTimeout(()=>{
 		let fileInput = [];
@@ -1282,6 +1283,8 @@ app.post("/register", async (req, res) => {
 			if(registerFlag && registerFlag2){
 				setTimeout(()=>{
 					console.log('redirect to manage..');
+					registerFlag = false;
+					registerFlag2 = false;
 					res.redirect('/manage');
 				},1500)				
 			}else{
