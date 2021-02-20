@@ -1337,7 +1337,7 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
-				if(req.files[count]) newFilelist[i] = '/' + req.files[count].filename; // problem when empty
+				newFilelist[i] = '/' + req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
@@ -1378,7 +1378,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
-				if(req.files[count]) newFilelist[i] = '/'+ req.files[count].filename; // problem when empty
+				newFilelist[i] = '/'+ req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
