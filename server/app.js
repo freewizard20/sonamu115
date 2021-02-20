@@ -1154,10 +1154,10 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 							if(err){
 								logger.info(err);
 								if(fs.existsSync('./public/images'+fileInput[x])) fs.unlinkSync('./public/images'+fileInput[x]);
-								fs.unlinkSync('./public/images'+fileInput[x]+'2');
+								if(fs.existsSync('./public/images' + fileInput[x]+'2')) fs.unlinkSync('./public/images'+fileInput[x]+'2');
 								fs.rename('./public/images/temp','./public/images'+fileInput[x],()=>{loopArray(x+1)});
 							}else{
-								fs.unlinkSync('./public/images'+fileInput[x]+'2');
+								if(fs.existsSync('./public/images' + fileInput[x]+'2')) fs.unlinkSync('./public/images'+fileInput[x]+'2');
 								fs.unlink('./public/images/temp',()=>{loopArray(x+1)});
 							}
 						})
