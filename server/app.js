@@ -1077,7 +1077,11 @@ app.get("/register", (req, res) => {
 	}
 });
 
+let registerFlag = false;
+let registerFlag2 = false;
+
 app.post('/registerimage2',upload.array('image',100),(req,res)=>{
+	registerFlag2 = true;
 	setTimeout(()=>{
 		let fileInput = [];
 		if(typeof req.files==='undefined') req.files=[];
@@ -1092,6 +1096,7 @@ app.post('/registerimage2',upload.array('image',100),(req,res)=>{
 });
 
 app.post("/registerimage",upload.array('image',100),(req,res)=>{
+	registerFlag = true;
 	console.log('registerimage POST');
 	let thumbnailExists = false;
 	let fileInput = [];
@@ -1131,7 +1136,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 				});
 			})				
 		}
-	},3000);
+	},800);
 	setTimeout(()=>{
 		console.log('resize started..');
 		let loopArray = function(x){
@@ -1272,11 +1277,18 @@ app.post("/register", async (req, res) => {
 		const item = new Item(req.body);
 		item.save().then(()=>{
 			logger.info('item saved!!');
-		}).catch((err)=>console.log(err));
-		setTimeout(()=>{
-			console.log('redirect to manage..');
-			res.redirect("/manage");
-		},10000);		
+		}).catch((err)=>console.log(err));	
+		let checkFlag = function(){
+			if(registerFlag && registerFlag2){
+				setTimeout(()=>{
+					console.log('redirect to manage..');
+					res.redirect('/manage');
+				},1500)				
+			}else{
+				setTimeout(checkFlag,100);
+			}
+		}
+		checkFlag();	
 	} else {
 		logger.info('unauthorized access to /register');
 		res.render("unauthorized");
