@@ -1335,14 +1335,15 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 	if(jwtverify(req.cookies)){
 		console.log(req.body.uploadFilelist2);
 		let newFilelist = req.body.uploadFilelist2.split(',');
-		console.log(newFilelist);
+		if(newFilelist.length===1 && newFilelist[0]==='' && req.files.length===0) newFilelist = [];
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
-				newFilelist[i] = '/' + req.files[count].filename; // problem when empty
+				if(req.files[count]) newFilelist[i] = '/' + req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
+		console.log('after');
 		console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			let originalImage = [];
@@ -1376,7 +1377,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 		//console.log(req.files);
 		console.log(req.body);
 		let newFilelist = req.body.uploadFilelist.split(',');
-		console.log(newFilelist);
+		if(newFilelist.length===1 && newFilelist[0]==='' && req.files.length===0) newFilelist = [];
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
@@ -1384,7 +1385,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
-		console.log(newFilelist);
+		// console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			// console.log(newFilelist);
 			let originalImage = [];
