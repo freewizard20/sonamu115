@@ -1685,7 +1685,8 @@ app.post('/footer',(req,res)=>{
 	console.log(req.body);
 	if(req.body.password==='26980'){
 		Item.find({_id:req.body.item}).then((data)=>{
-			res.send(data[0].memo);
+			// res.send(data[0].memo);
+			res.send(data[0].memo.replace(/\d{3}-\d{3,4}-\d{4}/gi,"<a href='tel:$&'>$&</a>"));
 		})
 	}else{
 		res.send('비밀번호가 틀립니다.');
