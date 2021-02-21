@@ -705,19 +705,11 @@ a:active {
 }
 
 .mButton {
-  margin-left:6px;
+  margin-left:3px;
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 13px;
-  padding: 8px 8px;
-}
-
-.mButton:hover {
-  margin-left:6px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 13px;
-  padding: 8px 8px;
+  padding: 6px 6px;
 }
 
 .closed {
