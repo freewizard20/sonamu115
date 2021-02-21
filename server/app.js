@@ -1267,6 +1267,7 @@ app.post("/register", async (req, res) => {
 		}
 		req.body.gallery = he.encode(req.body.gallery);
 		req.body.detail = he.encode(req.body.detail);
+		console.log(req.body.detail);
 		if (req.body.icon === undefined) req.body.icon = "";
 		if (req.body.ad === undefined) req.body.ad = "";
 		if (req.body.theme === undefined) req.body.theme = "";
@@ -1447,8 +1448,8 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 app.get("/details", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		Item.find({ _id: req.query.id }).then((data) => {
-			data[0].detail = he.decode(data[0].detail).replace(/&nbsp;/gi,'').replace(/&amp;/gi,'');
-			data[0].gallery = he.decode(data[0].gallery).replace(/&nbsp;/gi,'').replace(/&amp;/gi,'');
+			data[0].detail = he.decode(data[0].detail).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'').replace(/&/gi, ' ');
+			data[0].gallery = he.decode(data[0].gallery).replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'').replace(/&/gi, ' ');
 			User.find().then((info)=>{
 				res.render('details', { data: JSON.stringify(data), user: info });
 			})
