@@ -1469,7 +1469,9 @@ app.post("/details", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		Item.find({_id:req.body.query_id}).then((data)=>{
 			let currentItem = req.body.query_id;
+			let currentUUID = req.body.uuid;
 			delete req.body.query_id;
+			delete req.body.uuid;
 			console.log(req.body);
 			// req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
@@ -1490,7 +1492,7 @@ app.post("/details", (req, res) => {
 						console.log('redirect to manage..');
 						detailsFlag = false;
 						detailsFlag2 = false;
-						res.redirect('/manage');
+						res.redirect('/manage?search='+currentUUID);
 					},1500)
 				}else{
 					setTimeout(checkFlag2,100);

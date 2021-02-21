@@ -216,37 +216,37 @@
 						
 				<tr style="background-color:<%= index%2===1?'#FEF4C9':'white' %>">					
 					<td><input type="checkbox" class="1" name="1"></td>
-					<td><a href="/item?id=<%= d._id %>">LINK</a></td>
-					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break:break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.id %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'">
+					<td><a href="/item?id=<%= d._id %>&uuid=<%= uuid %>">LINK</a></td>
+					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break:break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.id %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'">
 						<% if(d.contract==='완료') { %>
 							<span style="color:red;">완료</span>
 						<% } else { %>
 							<%= d.contract %>
 						<% } %>
 					</td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.adon === 'Y' ? 'ON' : 'OFF' %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
-					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.title %></td>
-					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.memo.length >= 30? d.memo.slice(0,30) + '...' : d.memo %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.sell %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.type %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.address_up %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_jeon %></td>
-					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_structure %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_ground %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_building %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_deposit %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.price_rent %></td>
-					<td style="cursor:pointer;width:45px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_date %></td>
-					<td style="cursor:pointer;width:30px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>'"><%= d.detail_orientation %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_rooms %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.area_toilets %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.ad %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= new Date(d.timestamp_modified).toISOString().split('T')[0] %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= new Date(d.timestamp).toISOString().split('T')[0] %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>'"><%= d.views %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.adon === 'Y' ? 'ON' : 'OFF' %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><image src="/images<%= d.thumbnail %>" style="height:80px;"></td>
+					<td style="width:100px;cursor:pointer;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.title %></td>
+					<td style="cursor:pointer;color:blue;width:120px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.memo.length >= 30? d.memo.slice(0,30) + '...' : d.memo %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.sell %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.type %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.address_up %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_jeon %></td>
+					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_structure %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_ground %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_building %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_deposit %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_rent %></td>
+					<td style="cursor:pointer;width:45px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_date %></td>
+					<td style="cursor:pointer;width:30px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_orientation %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_rooms %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_toilets %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.ad %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= new Date(d.timestamp_modified).toISOString().split('T')[0] %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= new Date(d.timestamp).toISOString().split('T')[0] %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.views %></td>
 				</tr>
 				
 			<% }) %>
