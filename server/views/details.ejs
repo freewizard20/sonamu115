@@ -501,6 +501,9 @@
 
 	g1.addEventListener('change',function(){
 		g2.value = Math.round(g1.value * 3.3058);
+		if(p1.value!==''){
+			p2.value = Math.round(p1.value/g1.value);
+		}
 	});
 
 	g2.addEventListener('change',function(){
