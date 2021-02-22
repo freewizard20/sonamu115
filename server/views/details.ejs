@@ -892,7 +892,7 @@
 	function changes() {
 		var selectType = document.getElementById('type');
 		var selectSell = document.getElementById('sell');
-		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent') {
+		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent' || selectType.value==='consumer') {
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
 				document.getElementById('22').style.display = "none";
@@ -1005,7 +1005,7 @@
 
 		changes();
 
-		if (selectType.value === 'house' || selectType.value === "factory" || selectType.value === "villa" || selectType.value === "rent") {
+		if (selectType.value === 'house' || selectType.value === "factory" || selectType.value === "villa" || selectType.value === "rent" || selectType.value==='consumer') {
 			document.getElementById('1').style.display = "";
 			document.getElementById('2').style.display = "";
 			document.getElementById('3').style.display = "";

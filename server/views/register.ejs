@@ -779,7 +779,7 @@
 	var selectSell = document.getElementById('sell');
 
 	function changes() {
-		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent') {
+		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent' || selectType.value==='consumer') {
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
 				document.getElementById('22').style.display = "none";
@@ -893,7 +893,7 @@
 		}
 		changes();
 
-		if (this.value === 'house' || this.value === "factory" || this.value === "villa" || this.value==='rent') {
+		if (this.value === 'house' || this.value === "factory" || this.value === "villa" || this.value==='rent' || this.value==='consumer') {
 			document.getElementById('1').style.display = "";
 			document.getElementById('2').style.display = "";
 			document.getElementById('3').style.display = "";

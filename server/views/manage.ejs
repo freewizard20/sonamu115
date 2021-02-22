@@ -54,9 +54,9 @@
 		<button id="searchItem">매물검색</button>
 		
 		<select style="margin-left:30px;" id="itemnumber" name="itemnumber">
+			<option value="100">100</option>
 			<option value="30">30</option>
 			<option value="50">50</option>
-			<option value="100">100</option>
 			<option value="300">300</option>
 		</select>
 		페이지당 라인
@@ -388,7 +388,7 @@
 		var current = Math.floor(document.getElementById('current').innerHTML/10);
 		var documentSize = document.getElementById('count').innerHTML;
 		var itemsNumberQueryString = getQueryStringValue('number')===""?"":"&number="+getQueryStringValue('number');
-		var itemsNumber = getQueryStringValue('number')===""?30:Number(getQueryStringValue('number'));
+		var itemsNumber = getQueryStringValue('number')===""?100:Number(getQueryStringValue('number'));
 		if(documentSize<=itemsNumber*10){
 			documentSize = Math.floor(documentSize / itemsNumber);
 		}else{

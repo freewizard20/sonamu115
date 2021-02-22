@@ -746,7 +746,7 @@ app.get("/manage", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		let pages = 0;
 		let sort = "";
-		let itemsNumber = 30;
+		let itemsNumber = 100;
 		// build search query
 		let userQuery;
 		let permission;
