@@ -97,7 +97,7 @@ function flushSearchHistory(req, res, next) {
 	}
 
 	// add visitors
-	if(req.cookies.visited || req.cookies.visited==='admin' || req.path === '/login' || req.path === '/manage' || req.path === '/stats' || req.path === '/register' || req.path === 'details' || req.path==='/images'){
+	if(req.cookies.visited || req.cookies.visited==='admin' || req.path === '/sonamu' || req.path === '/manage' || req.path === '/stats' || req.path === '/register' || req.path === 'details' || req.path==='/images'){
 		if(req.cookies.visited){
 
 		}else{
@@ -688,11 +688,11 @@ app.get("/item",(req,res)=>{
 	})	
 });
 
-app.get("/login", (req, res) => {
+app.get("/sonamu", (req, res) => {
 	res.render('login');
 });
 
-app.post("/login", (req, res) => {	
+app.post("/sonamu", (req, res) => {	
 	User.find({ name: req.body.name }).then((data) => {
 		if (data.length === 0) {
 			res.send("아이디가 존재하지 않습니다.");
@@ -728,7 +728,7 @@ app.get("/admin", (req, res) => {
 		})	
 	} else {
 		logger.info('unauthorized accessto /admin GET');
-		res.redirect("/login");
+		res.redirect("/sonamu");
 	}
 });
 
