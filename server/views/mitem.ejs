@@ -31,14 +31,14 @@
 				<tr>
 					<td class="item_label">가격</td>
 					<td class="item_value red bold" colspan="3">
-						<% if(data.price_sell !=0) { %>
+						<% if(data.price_sell !=0 && data.price_sell) { %>
 							매매가 :
 							<% if(data.price_sell>=10000) { %>
 								<%= Math.floor(data.price_sell/10000)%>억<% if(data.price_sell%10000!=0) { %><%= data.price_sell%10000 %>만<% } %>
 							<% } else { %>
 								<%= data.price_sell %>만
 							<% } %>
-						<% } else if (data.price_jeondeposit != 0) { %>
+						<% } else if (data.price_jeondeposit != 0 && data.price_jeondeposit) { %>
 							전세보증금 :
 							<% if(data.price_jeondeposit>=10000) { %>
 								<%= Math.floor(data.price_jeondeposit/10000)%>억<% if(data.price_jeondeposit%10000!=0) { %><%= data.price_jeondeposit%10000 %>만<% } %>

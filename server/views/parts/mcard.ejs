@@ -226,7 +226,7 @@
             <%= data.title.length>=17? data.title.slice(0,17) + '...' : data.title %>
         </div>
         <div class="card_price">
-            <% if(data.price_sell != 0 || (data.price_jeondeposit===0 && data.price_rentdeposit===0)) { %>
+            <% if((data.price_sell != 0 && data.price_sell) || (data.price_jeondeposit===0 && data.price_rentdeposit===0)) { %>
                 <div class="card_price_breadcrum">매</div>
                 <div class="card_price_info">
                     <% if(data.price_sell>=10000) { %>
@@ -241,7 +241,7 @@
                     <%= data.price_unit %>만
                 </div>
                 <% } %>
-            <% } else if(data.price_jeondeposit != 0) { %>
+            <% } else if(data.price_jeondeposit != 0 && data.price_jeondeposit) { %>
                 <div class="card_jeon_breadcrum">전</div>
                 <div class="card_jeon_info">
                     <% if(data.price_jeondeposit>=10000) { %>
