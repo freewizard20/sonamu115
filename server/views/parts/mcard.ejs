@@ -212,7 +212,7 @@
         <div class="card_land">
             <div class="card_land_breadcrum">대지</div>
             <div class="card_land_info card_info"><%= Math.floor(data.area_ground2) %>㎡<span style="font-size:12px;">(<span style="color:red;font-size:12px;"><%= Math.floor(data.area_ground) %></span>평)</span></div>
-            <% if(data.area_building!=0 || data.area_building===null) { %>
+            <% if(data.area_building!=0 || !data.area_building) { %>
             <div style="margin:3px;"></div>
             <div class="card_building_breadcrum">건물</div>
             <div class="card_building_info card_info"><%= Math.floor(data.area_building2) %>㎡<span style="font-size:12px;">(<span style="color:red;font-size:12px;"><%= Math.floor(data.area_building) %></span>평)</span></div>
