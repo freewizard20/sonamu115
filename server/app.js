@@ -1069,7 +1069,7 @@ app.post('/lab', upload.array('images'), (req,res)=>{
 app.get("/register", (req, res) => {
 	if (jwtverify(req.cookies)) {
 		User.find().then((info)=>{
-			res.render("register",{user: info});
+			res.render("register",{user: info, currentUser: userInfo[req.cookies.user]});
 		})
 	} else {
 		logger.info('unauthorized access to /register GET');

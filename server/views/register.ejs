@@ -124,7 +124,7 @@
 			<tr>
 				<td>담당자</td>
 				<td colspan="3">
-					<select name="user">
+					<select name="user" id="user_dropdown">
 						<% for(let i = 0 ; i < user.length ; i++) { %>
 						<option value="<%= user[i].name %>"><%= user[i].explanation %> (<%=user[i].name %>)</option>
 						<% } %>
@@ -473,12 +473,16 @@
     		<div id="imagecontainer2"></div>
 		</div>
 	</form>
+	<div style="display:none" id="userInfo"><%= currentUser %></div>
 	<button style="margin-top:10px;" onclick="submitHandler()">제출</button>
 	<footer>
 		<%- include('parts/footer2') %>
 	</footer>
 </body>
 <script>
+
+	document.getElementById('user_dropdown').value = document.getElementById('userInfo').innerHTML;
+
 	var g1 = document.getElementById('area_ground');
 	var g2 = document.getElementById('area_ground2');
 	var b1 = document.getElementById('area_building');

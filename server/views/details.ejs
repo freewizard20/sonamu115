@@ -1061,13 +1061,24 @@
 	var selectType = document.getElementById('type');
 	var selectSell = document.getElementById('sell');
 
+	function resetprices(){
+		document.getElementById('price_sell').value = 0;
+		document.getElementById('price_jeondeposit').value = 0;
+		document.getElementById('price_borrow').value = 0;
+		document.getElementById('price_rentdeposit').value = 0;
+		document.getElementById('price_rent').value = 0;
+		document.getElementById('price_deposit').value = 0;
+	}
+
 	selectSell.addEventListener('change', function (e) {
+		resetprices();
 		changes();
 	});
 
 	selectType.addEventListener('change', function (e) {
 		changes();		
 		changes2();
+		resetprices();
 	});
 </script>
 
