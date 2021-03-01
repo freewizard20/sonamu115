@@ -610,7 +610,7 @@
 	insertValue(values, preData);
 	document.getElementById('query_id').value = preData[0]._id;
 	changes();
-	changes2();
+	changes2(1);
 
     document.getElementById('uploadBox').addEventListener('change',function(){
         // extract files and make element, assign file to element input, assign picture to image
@@ -983,21 +983,21 @@
 		}
 	}
 
-	function changes2(){
+	function changes2(x){
 		var selectType = document.getElementById('type');
 		var selectSell = document.getElementById('sell');
 		if (selectType.value === 'land') {
-			selectSell.value = 'sell';
+			if(!x) selectSell.value = 'sell';
 			document.getElementById('sell2').style.display = 'block';
 			document.getElementById('jeon').style.display = "none";
 			document.getElementById('rent').style.display = "none";
 		} else if(selectType.value==='rent'){
-			selectSell.value = 'jeon';
+			if(!x) selectSell.value = 'jeon';
 			document.getElementById('sell2').style.display = 'none';
 			document.getElementById('jeon').style.display = "block";
 			document.getElementById('rent').style.display = "block";
 		} else {
-			selectSell.value = 'sell';
+			if(!x) selectSell.value = 'sell';
 			document.getElementById('sell2').style.display = 'block';
 			document.getElementById('jeon').style.display = "block";
 			document.getElementById('rent').style.display = "block";
