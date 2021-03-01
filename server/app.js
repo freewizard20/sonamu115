@@ -780,10 +780,10 @@ app.get("/manage", (req, res) => {
 					if (sh.price_sell_upper) findQuery.price_sell.$lte = Number(sh.price_sell_upper);
 					if (sh.price_sell_lower) findQuery.price_sell.$gte = Number(sh.price_sell_lower);
 				}
-				if (sh.price_jeon_upper || sh.price_jeon_lower) {
-					findQuery.price_jeon = {};
-					if (sh.price_jeon_upper) findQuery.price_jeon.$lte = Number(sh.price_jeon_upper);
-					if (sh.price_jeon_lower) findQuery.price_jeon.$gte = Number(sh.price_jeon_lower);
+				if (sh.price_jeondeposit_upper || sh.price_jeondeposit_lower) {
+					findQuery.price_jeondeposit = {};
+					if (sh.price_jeondeposit_upper) findQuery.price_jeondeposit.$lte = Number(sh.price_jeondeposit_upper);
+					if (sh.price_jeondeposit_lower) findQuery.price_jeondeposit.$gte = Number(sh.price_jeondeposit_lower);
 				}
 				if (sh.detail_structure) findQuery.detail_structure = new RegExp(sh.detail_structure,'i');
 				if (sh.area_ground_upper || sh.area_ground_lower) {

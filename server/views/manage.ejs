@@ -118,8 +118,8 @@
 						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;"><input class="short2" type="text" id="price_sell_upper" name="price_sell_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" id="price_jeon_lower" name="price_jeon_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short2" id="price_jeon_upper" name="price_jeon_upper">이하</div>
+						<div style="display:flex;width:75px;font-size:10px;"><input type="text" class="short2" id="price_jeondeposit_lower" name="price_jeondeposit_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short2" id="price_jeondeposit_upper" name="price_jeondeposit_upper">이하</div>
 					</td>
 					<td style="width:40px;">
 						<input type="text" class="short" name="detail_structure">
@@ -194,7 +194,7 @@
 				<td>매물종류</td>
 				<td>광고해당동</td>
 				<td><div style="display:flex">매매가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_sell_desc&search=<%= uuid %>">🔻</a></div></div></td>
-				<td><div style="display:flex">전세가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeon_desc&search=<%= uuid %>">🔻</a></div></div></td>
+				<td><div style="display:flex">전세가 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeondeposit_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=price_jeondeposit_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td style="width:40px;">건축구조</td>
 				<td><div style="display:flex">광고대지평 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_ground_desc&search=<%= uuid %>">🔻</a></div></div></td>
 				<td><div style="display:flex">광고평수 <div style="display:flex;flex-direction:column;"><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_asc&search=<%= uuid %>">🔺</a><a style="font-size:12px;text-decoration:none;" href="/manage?sort=area_building_desc&search=<%= uuid %>">🔻</a></div></div></td>
@@ -233,7 +233,7 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.address_up %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_jeon %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_jeondeposit %></td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_structure %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_ground %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_building %></td>
