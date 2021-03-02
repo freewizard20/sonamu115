@@ -233,7 +233,13 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.address_up %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_jeondeposit %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'">
+						<% if(d.price_jeondeposit===0) { %>
+							<%= d.price_rentdeposit %>
+						<% } else { %>	
+							<%= d.price_jeondeposit %>
+						<% } %>
+					</td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_structure %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_ground %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_building %></td>
