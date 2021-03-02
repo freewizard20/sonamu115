@@ -670,21 +670,25 @@ app.post("/list",(req,res)=>{
 app.get("/item",(req,res)=>{
 	let query = req.query.id;
 	Item.find({_id:query}).then((data)=>{
-		if(data.length===0){
-			logger.info('access to invalid item ' + req.query.id);
-			res.render('404');
+		if(data[0].adon==='Y' || (data[0].adon==='N' && jwtverify(req.cookies))){
+			if(data.length===0){
+				logger.info('access to invalid item ' + req.query.id);
+				res.render('404');
+			}else{
+				data[0].detail = he.decode(data[0].detail).replace(/nbsp;/gi,'');
+				data[0].views = data[0].views ? data[0].views + 1 : 0;
+				Item.updateOne({_id: query}, data[0]).then(()=>{});
+				Item.find({sell:data[0].sell, type: data[0].type}).limit(20).then((similar)=>{
+					User.find({name:data[0].user}).then((user)=>{
+						Notice.find().then((notice)=>{
+							res.render('item',{data:data[0], similar: similar, user:user[0],notice:notice});
+						})
+					})
+				})	
+			}
 		}else{
-		data[0].detail = he.decode(data[0].detail).replace(/nbsp;/gi,'');
-		data[0].views = data[0].views ? data[0].views + 1 : 0;
-		Item.updateOne({_id: query}, data[0]).then(()=>{});
-		Item.find({sell:data[0].sell, type: data[0].type}).limit(20).then((similar)=>{
-			User.find({name:data[0].user}).then((user)=>{
-				Notice.find().then((notice)=>{
-					res.render('item',{data:data[0], similar: similar, user:user[0],notice:notice});
-				})
-			})
-		})	
-	}	
+			res.render('unauthorized');
+		}	
 	})	
 });
 
