@@ -392,12 +392,16 @@ app.get('/mitem',(req,res)=>{
 			logger.info('access to invalid item /mitem ' + req.query.id);
 			res.render('404');
 		}else{
+			if(data[0].adon==='Y' || (data[0].adon==='N' && jwtverify(req.cookies))){
 			data[0].detail = he.decode(data[0].detail).replace(/nbsp;/gi,'');
 			data[0].views = data[0].views ? data[0].views + 1 : 0;
 			Item.updateOne({_id: query}, data[0]).then(()=>{});
 			User.find({name:data[0].user}).then((user)=>{
 				res.render('mitem',{data:data[0],user:user[0]});
 			})
+			}else{
+				res.render('unauthorized');
+			}
 		}	
 	})	
 })
@@ -800,10 +804,10 @@ app.get("/manage", (req, res) => {
 					if (sh.area_building_upper) findQuery.area_building.$lte = Number(sh.area_building_upper);
 					if (sh.area_building_lower) findQuery.area_building.$gte = Number(sh.area_building_lower);
 				}
-				if (sh.price_deposit_upper || sh.price_deposit_lower) {
-					findQuery.price_deposit = {};
-					if (sh.price_deposit_upper) findQuery.price_deposit.$lte = Number(sh.price_deposit_upper);
-					if (sh.price_deposit_lower) findQuery.price_deposit.$gte = Number(sh.price_deposit_lower);
+				if (sh.price_rentdeposit_upper || sh.price_rentdeposit_lower) {
+					findQuery.price_rentdeposit = {};
+					if (sh.price_rentdeposit_upper) findQuery.price_rentdeposit.$lte = Number(sh.price_rentdeposit_upper);
+					if (sh.price_rentdeposit_lower) findQuery.price_rentdeposit.$gte = Number(sh.price_rentdeposit_lower);
 				}
 				if (sh.price_rent_upper || sh.price_rent_lower) {
 					findQuery.price_rent = {};

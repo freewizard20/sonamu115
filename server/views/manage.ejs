@@ -133,8 +133,8 @@
 						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="area_building_upper" name="area_building_upper">이하</div>
 					</td>
 					<td>
-						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="price_deposit_lower" name="price_deposit_lower">이상</div>
-						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="price_deposit_upper" name="price_deposit_upper">이하</div>
+						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="price_rentdeposit_lower" name="price_rentdeposit_lower">이상</div>
+						<div style="font-size:10px;position:relative;left:-2px;top:3px;margin-bottom:4px;""><input type="text" class="short" id="price_rentdeposit_upper" name="price_rentdeposit_upper">이하</div>
 					</td>
 					<td>
 						<div style="display:flex;width:60px;font-size:10px;"><input type="text" class="short" id="price_rent_lower" name="price_rent_lower">이상</div>
@@ -233,17 +233,11 @@
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.type %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.address_up %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",")==='null'?'':String(d.price_sell).replace(/\B(?=(\d{3})+(?!\d))/g, ",") %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'">
-						<% if(d.price_jeondeposit===0) { %>
-							<%= d.price_rentdeposit %>
-						<% } else { %>	
-							<%= d.price_jeondeposit %>
-						<% } %>
-					</td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_jeondeposit %></td>
 					<td style="cursor:pointer;width:40px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_structure %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_ground %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.area_building %></td>
-					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_deposit %></td>
+					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_rentdeposit %></td>
 					<td style="cursor:pointer;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.price_rent %></td>
 					<td style="cursor:pointer;width:45px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_date %></td>
 					<td style="cursor:pointer;width:30px;table-layout: fixed;word-break: break-all;" onclick="location.href='details?id=<%= d._id %>&uuid=<%= uuid %>'"><%= d.detail_orientation %></td>
