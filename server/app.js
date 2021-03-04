@@ -944,7 +944,7 @@ app.post("/delete", (req, res) => {
 	}
 })
 
-async function makeID2(region){
+async function makeID2(si, gun, region){
 	let result = [];
 	switch(region){
 	   case '강하면':
@@ -989,9 +989,28 @@ async function makeID2(region){
 	   case '남종면':
 		   result.push('N');
 		   break;
-	   default:
-		   result.push('F');
-		   break;
+		   case '곤지암읍':
+			result.push('U');
+			break;
+		case '초월읍':
+			result.push('R');
+			break;
+		default:
+			if(gun==='여주시'){
+				result.push('P');
+			}else if(gun==='가평군'){
+				result.push('G');
+			}else if(gun==='남양주시'){
+				result.push('H');
+			}else if(gun==='이천시'){
+				result.push('L');
+			}else if(gun==='광주시'){
+				result.push('X');
+			}else if(si==='강원도'){
+				result.push('Z');
+			}else{
+				result.push('F');
+			}
    }
    let done = false;
    let idNumber = -1;
@@ -1013,7 +1032,7 @@ app.post('/duplicate', (req,res)=>{
 		for(let i of items){
 			Item.find({_id:i}).lean().then( async (data)=>{
 				delete data[0].id;
-				const test = await makeID2(data[0].address_up);
+				const test = await makeID2(data[0].address_si, data[0].address_gun, data[0].address_up);
 				data[0].id_letter = test[0];
 				data[0].id_number = test[1];
 				data[0].id = data[0].id_letter + data[0].id_number;
@@ -1177,7 +1196,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 	},60000);
 });
 
-async function makeID(region){
+async function makeID(si, gun, region){
 	 let result = [];
 	 switch(region){
 		case '강하면':
@@ -1222,9 +1241,28 @@ async function makeID(region){
 		case '남종면':
 			result.push('N');
 			break;
-		default:
-			result.push('F');
+		case '곤지암읍':
+			result.push('U');
 			break;
+		case '초월읍':
+			result.push('R');
+			break;
+		default:
+			if(gun==='여주시'){
+				result.push('P');
+			}else if(gun==='가평군'){
+				result.push('G');
+			}else if(gun==='남양주시'){
+				result.push('H');
+			}else if(gun==='이천시'){
+				result.push('L');
+			}else if(gun==='광주시'){
+				result.push('X');
+			}else if(si==='강원도'){
+				result.push('Z');
+			}else{
+				result.push('F');
+			}
 	}
 	
 	let idNumber = -1;
@@ -1249,7 +1287,7 @@ app.post("/register", async (req, res) => {
 		// console.log(req.body);
 		req.body.id = req.body.id_letter + req.body.id_number;
 		if(req.body.randomId){
-			let test = await makeID(req.body.address_up);
+			let test = await makeID(req.body.address_si, req.body.address_gun, req.body.address_up);
 			req.body.id_letter = test[0];
 			req.body.id_number = test[1];
 			req.body.id = req.body.id_letter + req.body.id_number;
