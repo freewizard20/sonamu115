@@ -1519,6 +1519,7 @@ app.post("/details", (req, res) => {
 			delete req.body.query_id;
 			delete req.body.uuid;
 			console.log(req.body);
+			if(!req.body.ad) req.body.ad = [];
 			// req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);

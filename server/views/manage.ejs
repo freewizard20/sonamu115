@@ -398,7 +398,13 @@
 		if(documentSize===1) documentSize++;
 
 		for(var i = current * 10 + 1; i < current * 10 + 1 + documentSize; i++){
-			if(document.getElementById('count').innerHTML >= itemsNumber * (i-1) ) r += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+i + '</a> ';
+			if(document.getElementById('count').innerHTML >= itemsNumber * (i-1) ) {
+				if(i==getQueryStringValue('page')){
+					r += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+'<span style="color:red;font-weight:bold">' + i + '</span>' + '</a> ';
+				}else{
+					r += '<a href="/manage?page='+i+sortKey+searchKey+itemsNumberQueryString+'">'+i + '</a> ';
+				}
+			}
 		}
 		document.getElementById('s').innerHTML = r;
 		

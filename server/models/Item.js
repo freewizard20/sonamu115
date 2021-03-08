@@ -86,11 +86,11 @@ const ItemSchema = mongoose.Schema({
 		required: false,
 	},
 	address_bunji1: {
-		type: Number,
+		type: String,
 		required: false,
 	},
 	address_bunji2: {
-		type: Number,
+		type: String,
 		required: false,
 	},
 	area_ground: {
@@ -102,11 +102,11 @@ const ItemSchema = mongoose.Schema({
 		required: false,
 	},
 	area_building: {
-		type: Number,
+		type: String,
 		required: false,
 	},
 	area_building2: {
-		type: Number,
+		type: String,
 		required: false,
 	},
 	area_rooms: {
