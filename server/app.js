@@ -414,7 +414,7 @@ app.get("/", (req, res) => {
 		Item.find({adon: 'Y', ad:'recommended'}).sort('-timestamp_modified').limit(10).then((recommended)=>{
 			Item.find({adon: 'Y', sell:'sell',type:'house',price_sell:{$gte : 100000}}).sort('-timestamp_modified').limit(10).then((luxury)=>{
 				Item.find({adon: 'Y', type:'land'}).sort('-timestamp_modified').limit(10).then((land)=>{
-					Item.find({adon: 'Y', sell:'sell',price_sell:{$lte:30000}}).sort('-timestamp_modified').limit(10).then((affordable)=>{
+					Item.find({adon: 'Y', sell:'sell', type:'house', price_sell:{$lte:30000}}).sort('-timestamp_modified').limit(10).then((affordable)=>{
 						Item.find({adon: 'Y', type: {$in: ['consumer']}}).sort('-timestamp_modified').limit(5).then((commercial)=>{
 							Item.find({adon: 'Y', sell:{$in:['rent','jeon']}}).sort('-timestamp_modified').limit(5).then((rent)=>{
 								Notice.find().then((notice)=>{
@@ -815,7 +815,17 @@ app.get("/manage", (req, res) => {
 					if (sh.price_rent_lower) findQuery.price_rent.$gte = Number(sh.price_rent_lower);
 				}
 				if (sh.detail_date) findQuery.detail_date = sh.detail_date;
-				if (sh.detail_orientation) findQuery.detail_orientation = sh.detail_orientation;
+				if (sh.detail_orientation) {
+					if(sh.detail_orientation==='남향'){
+						findQuery.detail_orientation = {};
+						findQuery.detail_orientation.$in = ['남향','남동향','남서향','정남향'];
+					}else if(sh.detail_orientation==='북향'){
+						findQuery.detail_orientation = {};
+						findQuery.detail_orientation.$in = ['북향','북서향','북동향'];
+					}else{
+						findQuery.detail_orientation = sh.detail_orientation;
+					}
+				}
 				if (sh.area_rooms_upper || sh.area_rooms_lower) {
 					findQuery.area_rooms = {};
 					if (sh.area_rooms_upper) findQuery.area_rooms.$lte = Number(sh.area_rooms_upper);
