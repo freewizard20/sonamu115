@@ -815,17 +815,7 @@ app.get("/manage", (req, res) => {
 					if (sh.price_rent_lower) findQuery.price_rent.$gte = Number(sh.price_rent_lower);
 				}
 				if (sh.detail_date) findQuery.detail_date = sh.detail_date;
-				if (sh.detail_orientation) {
-					if(sh.detail_orientation==='남향'){
-						findQuery.detail_orientation = {};
-						findQuery.detail_orientation.$in = ['남향','남동향','남서향','정남향'];
-					}else if(sh.detail_orientation==='북향'){
-						findQuery.detail_orientation = {};
-						findQuery.detail_orientation.$in = ['북향','북서향','북동향'];
-					}else{
-						findQuery.detail_orientation = sh.detail_orientation;
-					}
-				}
+				if (sh.detail_orientation) findQuery.detail_orientation = new RegExp(sh.detail_orientation,'i');
 				if (sh.area_rooms_upper || sh.area_rooms_lower) {
 					findQuery.area_rooms = {};
 					if (sh.area_rooms_upper) findQuery.area_rooms.$lte = Number(sh.area_rooms_upper);
