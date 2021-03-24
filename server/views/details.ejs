@@ -587,7 +587,11 @@
 
 	function insertValue(given, p) {
 		for (let i = 0; i < given.length; i++) {
-			x(given[i]).value = p[0][given[i]];
+			if(given[i]==='memo'){
+				x('memo').value = p[0]['memo'].replace('&gt;','>').replace('&lt;','<');
+			}else{
+				x(given[i]).value = p[0][given[i]];
+			}
 		}
 	}
 	
