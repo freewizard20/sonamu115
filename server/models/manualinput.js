@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const sharp = require('sharp');
 const fs = require('fs');
 const { brotliDecompress } = require('zlib');
+const Jimp = require('jimp');
 
 mongoose.connect(
 	"mongodb://localhost/sonamu",
@@ -649,6 +650,41 @@ function trimImagesSync(){
 	})
 }
 
+function watermarkImages(){
+	Item.find().then((data)=>{
+		console.log(data.length + ' items found');
+		let loopArray = function(x,y){
+			if(x%30===0 && y===0) console.log(x + ' th item');
+			if(x===data.length){
+				return;
+			}else{
+				if(typeof data[x].image === 'undefined'){
+					loopArray(x+1,0);
+				}else{
+					if(y===data[x].image.length){
+						loopArray(x+1,0);
+					}else{
+						// do work
+						if(data[x].image[y].substr(data[x].image[y].length-3)!=='gif' && fs.existsSync('../public/images'+data[x].image[y]) && getFilesizeInBytes('../public/images'+data[x].image[y])!=0){
+							Jimp.read('../public/images'+data[x].image[y])
+								.then((tpl) =>
+									Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
+										logoTpl.opacity(0.25)
+										return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+									}),
+								)
+								.then((tpl) => tpl.write('../public/images'+data[x].image[y]))
+								.then(()=>{loopArray(x,y+1)});
+						}else{
+							loopArray(x,y+1);
+						}
+					}
+				}
+			}
+		}
+	})
+}
+
 function countTest(){
 	let count = 0;
 	Item.find().then((data)=>{
@@ -787,6 +823,8 @@ function changeType(){
 // makeThumbnails();
 // countThumbnails();
 // trimImagesSync();
+// countMissingImages();
+// watermarkImages();
 // countMissingImages();
 // changeType();
 
