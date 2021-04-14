@@ -666,6 +666,11 @@ function watermarkImages(){
 					}else{
 						// do work
 						if(data[x].image[y].substr(data[x].image[y].length-3)!=='gif' && fs.existsSync('../public/images'+data[x].image[y]) && getFilesizeInBytes('../public/images'+data[x].image[y])!=0){
+							process.on('uncaughtException',(err)=>{
+								console.log(x + ' ' + y + ' errored in process.on');
+								loopArray(x,y+1);
+							})
+							
 							try{
 							Jimp.read('../public/images'+data[x].image[y])
 								.then((tpl) =>
