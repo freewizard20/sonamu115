@@ -682,6 +682,7 @@ function watermarkImages(){
 				}
 			}
 		}
+		loopArray(0,0);
 	})
 }
 
