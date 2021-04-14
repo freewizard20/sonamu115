@@ -654,7 +654,7 @@ function watermarkImages(){
 	Item.find().then((data)=>{
 		console.log(data.length + ' items found');
 		let loopArray = function(x,y){
-			if(x%30===0 && y===0) console.log(x + ' th item');
+			if(x%10===0 && y===0) console.log(x + ' th item');
 			if(x===data.length){
 				return;
 			}else{
