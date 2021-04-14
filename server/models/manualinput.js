@@ -666,6 +666,7 @@ function watermarkImages(){
 					}else{
 						// do work
 						if(data[x].image[y].substr(data[x].image[y].length-3)!=='gif' && fs.existsSync('../public/images'+data[x].image[y]) && getFilesizeInBytes('../public/images'+data[x].image[y])!=0){
+							try{
 							Jimp.read('../public/images'+data[x].image[y])
 								.then((tpl) =>
 									Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
@@ -675,6 +676,10 @@ function watermarkImages(){
 								)
 								.then((tpl) => tpl.write('../public/images'+data[x].image[y]))
 								.then(()=>{loopArray(x,y+1)});
+							} catch (err) {
+								console.log(x + ' ' + y + ' errored')
+								loopArray(x,y+1);
+							}
 						}else{
 							loopArray(x,y+1);
 						}
