@@ -14,6 +14,7 @@ const iconv = require('iconv-lite');
 const querystring = require('querystring');
 const path = require('path');
 const cors = require('cors');
+var Jimp = require('jimp');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -1185,7 +1186,17 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 								fs.rename('./public/images/temp','./public/images'+fileInput[x],()=>{loopArray(x+1)});
 							}else{
 								if(fs.existsSync('./public/images' + fileInput[x]+'2')) fs.unlinkSync('./public/images'+fileInput[x]+'2');
-								fs.unlink('./public/images/temp',()=>{loopArray(x+1)});
+								fs.unlink('./public/images/temp',()=>{
+									Jimp.read('./public/images'+fileInput[x])
+										.then((tpl) =>
+											Jimp.read('./public/assets/watermark.png').then((logoTpl) => {
+												logoTpl.opacity(0.9)
+												return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+											}),
+										)
+										.then((tpl) => tpl.write('./public/images'+fileInput[x]))
+										.then(()=>{loopArray(x+1);});
+								});
 							}
 						})
 					})						
@@ -1432,6 +1443,47 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 				count++;
 			}
 		}
+		setTimeout(()=>{
+			//console.log('resize started..');
+			let loopArray = function(x){
+				//console.log(x + ' started')
+				if(x>=req.files.length){
+					return;
+				}else{
+					//console.log(req.files[x].filename + ' ' + 'resize start');
+					if(fs.existsSync('./public/images/temp2')){
+						fs.unlinkSync('./public/images/temp2');
+					}
+					fs.copyFile('./public/images/'+ req.files[x].filename,'./public/images/temp2',()=>{
+						fs.rename('./public/images/'+ req.files[x].filename,'./public/images/'+ req.files[x].filename+'2',(err)=>{
+							sharp('./public/images/'+ req.files[x].filename+'2').resize({fit:'fill',width:950,height:550})
+							.toFile('./public/images/'+ req.files[x].filename,(err,info)=>{
+								if(err){
+									logger.info(err);
+									if(fs.existsSync('./public/images/'+ req.files[x].filename)) fs.unlinkSync('./public/images/'+ req.files[x].filename);
+									if(fs.existsSync('./public/images/'+ req.files[x].filename+'2')) fs.unlinkSync('./public/images/'+ req.files[x].filename+'2');
+									fs.rename('./public/images/temp2','./public/images/'+ req.files[x].filename,()=>{loopArray(x+1)});
+								}else{
+									if(fs.existsSync('./public/images/'+ req.files[x].filename+'2')) fs.unlinkSync('./public/images/'+ req.files[x].filename+'2');
+									fs.unlink('./public/images/temp2',()=>{
+										Jimp.read('./public/images/'+ req.files[x].filename)
+											.then((tpl) =>
+												Jimp.read('./public/assets/watermark.png').then((logoTpl) => {
+													logoTpl.opacity(0.9)
+													return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+												}),
+											)
+											.then((tpl) => tpl.write('./public/images/'+ req.files[x].filename))
+											.then(()=>{loopArray(x+1);});
+									});
+								}
+							})
+						})						
+					})
+				}
+			}
+			loopArray(0);
+		},60000);
 		// console.log(newFilelist);
 		Item.find({_id:req.body._id}).then((data)=>{
 			// console.log(newFilelist);
