@@ -20,12 +20,12 @@ var Jimp = require('jimp');
 
 let imgActive = 'tmp.jpg';
 
-Jimp.read('15ed55587a2a0f15140dd006f169e25a')
+Jimp.read('test.jpg')
       .then((tpl) =>
           Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
-              logoTpl.opacity(0.25)
+              logoTpl.opacity(0.4)
               return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
           }),
       )
-      .then((tpl) => tpl.write('15ed55587a2a0f15140dd006f169e25a'))
+      .then((tpl) => tpl.write('watermark.png'))
       .then(()=>{console.log('1')});

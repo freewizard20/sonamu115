@@ -653,6 +653,7 @@ function trimImagesSync(){
 function watermarkImages(){
 	Item.find().then((data)=>{
 		console.log(data.length + ' items found');
+		console.log(data[0].id);
 		let loopArray = function(x,y){
 			if(x%1===0 && y===0) console.log(x + ' th item');
 			if(x===data.length){
@@ -670,7 +671,7 @@ function watermarkImages(){
 							Jimp.read('../public/images'+data[x].image[y])
 								.then((tpl) =>
 									Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
-										logoTpl.opacity(0.25)
+										logoTpl.opacity(0.8)
 										return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
 									}),
 								)
