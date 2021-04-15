@@ -671,7 +671,7 @@ function watermarkImages(){
 							Jimp.read('../public/images'+data[x].image[y])
 								.then((tpl) =>
 									Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
-										logoTpl.opacity(0.8)
+										logoTpl.opacity(1)
 										return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
 									}),
 								)
