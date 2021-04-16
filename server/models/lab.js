@@ -23,8 +23,8 @@ let imgActive = 'tmp.jpg';
 Jimp.read('test.jpg')
       .then((tpl) =>
           Jimp.read('../public/assets/watermark.png').then((logoTpl) => {
-              logoTpl.opacity(0.4)
-              return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+              logoTpl.opacity(0.9)
+              return tpl.composite(logoTpl, 350, 212, [Jimp.BLEND_DESTINATION_OVER])
           }),
       )
       .then((tpl) => tpl.write('watermark.png'))

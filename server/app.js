@@ -1191,7 +1191,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 										.then((tpl) =>
 											Jimp.read('./public/assets/watermark.png').then((logoTpl) => {
 												logoTpl.opacity(0.9)
-												return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+												return tpl.composite(logoTpl, 350, 212, [Jimp.BLEND_DESTINATION_OVER])
 											}),
 										)
 										.then((tpl) => tpl.write('./public/images'+fileInput[x]))
@@ -1470,7 +1470,7 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 											.then((tpl) =>
 												Jimp.read('./public/assets/watermark.png').then((logoTpl) => {
 													logoTpl.opacity(0.9)
-													return tpl.composite(logoTpl, 275, 175, [Jimp.BLEND_DESTINATION_OVER])
+													return tpl.composite(logoTpl, 350, 212, [Jimp.BLEND_DESTINATION_OVER])
 												}),
 											)
 											.then((tpl) => tpl.write('./public/images/'+ req.files[x].filename))
