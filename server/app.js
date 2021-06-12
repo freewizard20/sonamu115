@@ -1084,7 +1084,7 @@ app.get('/lab',(req,res)=>{
 	res.render('lab');
 });
 
-app.post('/lab', upload.array('images'), (req,res)=>{
+app.post('/lab', upload.array('image'), (req,res)=>{
 	console.log('/lab POST');
 	console.log(req.files);
 	if(typeof req.files === 'undefined') req.files=[];

@@ -1,0 +1,156 @@
+<%- include('parts/header') %>
+<form action="/lab" method="POST" enctype="multipart/form-data">
+    <input type="file" id="uploadBox" name="uploadBox" multiple>
+    <div id="imagecontainer"></div>
+
+</form>
+<button onclick="submitHandler()">제출</button>
+
+<script>
+    let imageCount = 0;
+    let uploadFilelist = [];
+
+    document.getElementById('uploadBox').addEventListener('change',function(){
+        // extract files and make element, assign file to element input, assign picture to image
+        // console.log(this.files);
+        if(this.files){
+            for(var i = 0 ; i < this.files.length ; i++){
+                addElement();
+                const reader = new FileReader();
+                var imageee = document.getElementById('preview'+(imageCount-1));
+                reader.onload = (function(aImg){ return function(e){aImg.src=e.target.result;};})(imageee);
+                reader.readAsDataURL(this.files[i]);
+                uploadFilelist.push(this.files[i]);
+            }
+            // console.log(uploadFilelist);
+        }
+    });
+
+    function submitHandler(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST",'/lab',true);
+        var form_data = new FormData();
+        for(let i = 0 ; i < uploadFilelist.length; i++){
+            form_data.append('image',uploadFilelist[i]);
+        }
+        form_data.append('name','hello');
+        // console.log(form_data);
+        xhr.send(form_data);
+    }
+
+    function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
+
+    Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+    }
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+        for(var i = this.length - 1; i >= 0; i--) {
+            if(this[i] && this[i].parentElement) {
+                this[i].parentElement.removeChild(this[i]);
+            }
+        }
+    }
+
+    function addElement(){
+        var divv = document.createElement('div');
+        divv.id='divv'+imageCount;
+        divv.classList.add('uploadDiv');
+        var div2 = document.createElement('div');
+        div2.innerHTML = imageCount;
+        div2.style.display = 'none';
+        divv.appendChild(div2);
+        var imagee = document.createElement('img');
+        imagee.src = '/assets/empty.gif';
+        imagee.classList.add('uploadimage');
+        imagee.id = 'preview' + imageCount;
+        divv.appendChild(imagee);
+        divv.appendChild(document.createElement('br'));
+        var leftButton = document.createElement('button');
+        var rightButton = document.createElement('button');
+        var deleteButton = document.createElement('button');
+        leftButton.innerHTML = '<';
+        leftButton.type = 'button';
+        leftButton.style.marginRight = '5px';
+        rightButton.style.marginRight = '5px';
+        rightButton.innerHTML = '>';
+        rightButton.type = 'button';
+        deleteButton.innerHTML = div2.innerHTML;
+        deleteButton.type = 'button';
+        leftButton.addEventListener('click',function(){
+            leftHandler(div2.innerHTML);
+        });
+        rightButton.addEventListener('click',function(){
+            rightHandler(div2.innerHTML);
+        })
+        deleteButton.addEventListener('click',function(){
+            deleteHandler(div2.innerHTML);
+        })
+        divv.appendChild(leftButton);
+        divv.appendChild(rightButton);
+        divv.appendChild(deleteButton);
+        document.getElementById('imagecontainer').appendChild(divv);
+        imageCount++;
+    }
+
+    var getSiblings = function (elem) {
+
+        // Setup siblings array and get the first sibling
+        var siblings = [];
+        var sibling = elem.firstChild;
+
+        // Loop through each sibling and push to the array
+        while (sibling) {
+            if (sibling.nodeType === 1 && sibling !== elem) {
+                siblings.push(sibling);
+            }
+            sibling = sibling.nextSibling
+        }
+
+        return siblings;
+
+    };
+
+    function getCurrentIndex(index){
+        var result = 0;
+        var siblings = getSiblings(document.getElementById('imagecontainer'));
+        for(var i = 0 ; i < siblings.length ; i++){
+            if(siblings[i].id==='divv'+index){
+                return i;
+            }
+        }
+        return -1; 
+    }
+
+    function leftHandler(index){
+        // console.log('leftHandler ' + index);
+        if(document.getElementById('divv'+index).previousSibling===null){
+            return;
+        }
+        uploadFilelist.splice(getCurrentIndex(index)-1,0,uploadFilelist[getCurrentIndex(index)]);
+        uploadFilelist.splice(getCurrentIndex(index)+1,1);
+        document.getElementById('imagecontainer').insertBefore(document.getElementById('divv'+index),document.getElementById('divv'+index).previousSibling);
+        // console.log(getCurrentIndex(index));
+    }
+
+    function rightHandler(index){
+        // console.log('rightHandler ' + index);
+        if(document.getElementById('divv'+index).nextSibling===null){
+            return;
+        }
+        uploadFilelist.splice(getCurrentIndex(index)+2,0,uploadFilelist[getCurrentIndex(index)]);
+        uploadFilelist.splice(getCurrentIndex(index),1);
+        // console.log(uploadFilelist);
+        insertAfter(document.getElementById('divv'+index).nextSibling,document.getElementById('divv'+index))
+    }
+
+    function deleteHandler(index){
+        // console.log('deleteHandler ' + index);
+        uploadFilelist.splice(getCurrentIndex(index),1);
+        document.getElementById('divv'+index).remove();
+        //console.log(uploadFilelist);
+    }
+</script>
+
+<!-- 좌우, 삭제 버튼, 삭제하면 엘리먼트 자체가 삭제, 추가 업로드시 반영되도록 설정 -->
