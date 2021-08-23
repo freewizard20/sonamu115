@@ -1391,8 +1391,12 @@ app.post('/detailsimage2',upload.array('image',100),(req,res)=>{
 	console.log('/detailsimage2');
 	detailsFlag2 = true;
 	if(jwtverify(req.cookies)){
-		console.log(req.body.uploadFilelist2);
+		//console.log(req.body.uploadFilelist2);
 		let newFilelist = req.body.uploadFilelist2.split(',');
+		console.log('detailsimage2 new files...')
+		for(let i = 0 ; i < req.files.length ; i++){
+			console.log(req.files[i].filename);
+		}
 		if(newFilelist.length===1 && newFilelist[0]==='' && req.files.length===0) newFilelist = [];
 		let count = 0;
 		for(let i = 0 ; i < newFilelist.length ; i++){
@@ -1433,16 +1437,22 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 	detailsFlag = true;
 	if(jwtverify(req.cookies)){
 		//console.log(req.files);
-		console.log(req.body);
+		// console.log(req.body);
 		let newFilelist = req.body.uploadFilelist.split(',');
 		if(newFilelist.length===1 && newFilelist[0]==='' && req.files.length===0) newFilelist = [];
 		let count = 0;
+		console.log('new files...')
+		for(let i = 0 ; i < req.files.length; i++){
+			console.log(req.files[i].filename);
+		}
 		for(let i = 0 ; i < newFilelist.length ; i++){
 			if(newFilelist[i].length===0){
 				newFilelist[i] = '/'+ req.files[count].filename; // problem when empty
 				count++;
 			}
 		}
+		console.log('newFilelist...')
+		console.log(newFilelist);
 		setTimeout(()=>{
 			//console.log('resize started..');
 			let loopArray = function(x){
@@ -1570,7 +1580,7 @@ app.post("/details", (req, res) => {
 			let currentUUID = req.body.uuid;
 			delete req.body.query_id;
 			delete req.body.uuid;
-			console.log(req.body);
+			//console.log(req.body);
 			if(!req.body.ad) req.body.ad = [];
 			// req.body.timestamp_modified = new Date().getTime();
 			req.body.gallery = he.encode(req.body.gallery);
