@@ -1538,12 +1538,14 @@ app.post('/detailsimage',upload.array('image',100),(req,res)=>{
 					})
 					data[0].image = newFilelist;
 					console.log('/detailsimage updateOne');
+					console.log(data[0].image);
 					Item.updateOne({_id:req.body._id},data[0]).then(()=>{console.log('/detailsImage updateOne done')}).catch((err)=>{console.log(err)});
 				},500);
 			}else{
 				setTimeout(()=>{
 					data[0].image = newFilelist;
 					console.log('/detailsimage updateOne');
+					console.log(data[0].image);
 					Item.updateOne({_id:req.body._id},data[0]).then(()=>{console.log('/detailsImage updateOne done')}).catch((err)=>{console.log(err)});
 				},500);
 			}
