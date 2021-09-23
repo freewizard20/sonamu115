@@ -889,6 +889,8 @@
 
 
 	window.onload = function () {
+		console.log(preData[0].detail.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
+		console.log(preData[0].gallery.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
 		tinymce.get('detail').setContent(preData[0].detail.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
 		tinymce.get('gallery').setContent(preData[0].gallery.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
 	}
