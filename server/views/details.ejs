@@ -5,26 +5,6 @@
 	<%- include('parts/header') %>
 	<script src="https://cdn.tiny.cloud/1/jywrs1th1xlg376cn6oruuf2oogy6cpatq0r9px4a8ppt30p/tinymce/5/tinymce.min.js"
 		referrerpolicy="origin"></script>
-	<script>
-		tinymce.init({
-		  selector: '#detail',
-		  plugins: 'media, table',
-		  menubar: 'insert, table',
-		  toolbar: 'undo redo bold italic underline fontsizeselect media table forecolor alignleft aligncenter alignright',
-		  statusbar: false,
-		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
-		  height: '400px',
-		});
-		tinymce.init({
-		  selector: '#gallery',
-		  plugins: 'media, table',
-		  menubar: 'insert, table',
-		  toolbar: 'undo redo bold italic underline fontsizeselect media table forecolor alignleft aligncenter alignright',
-		  statusbar: false,
-		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
-		  height: '400px',
-		});
-	</script>
 	<link rel="stylesheet" href="/css/register.css" type="text/css">
 </head>
 
@@ -895,6 +875,25 @@
 		document.getElementById('gallery').innerHTML = preData[0].gallery.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<');
 		// tinymce.get('detail').setContent(preData[0].detail.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
 		// tinymce.get('gallery').setContent(preData[0].gallery.replace(/&gt;/gi, '>').replace(/&lt;/gi, '<'));
+		tinymce.init({
+		  selector: '#detail',
+		  plugins: 'media, table',
+		  menubar: 'insert, table',
+		  toolbar: 'undo redo bold italic underline fontsizeselect media table forecolor alignleft aligncenter alignright',
+		  statusbar: false,
+		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+		  height: '400px',
+		});
+		tinymce.init({
+		  selector: '#gallery',
+		  plugins: 'media, table',
+		  menubar: 'insert, table',
+		  toolbar: 'undo redo bold italic underline fontsizeselect media table forecolor alignleft aligncenter alignright',
+		  statusbar: false,
+		  fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+		  height: '400px',
+		});
+
 	}
 
 	function changes() {
