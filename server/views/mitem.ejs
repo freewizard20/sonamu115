@@ -80,11 +80,22 @@
 				</tr>
 				<tr>
 					<td class="item_label">면적</td>
-					<td class="item_value">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
-					<% if(data.area_building!=0 && data.area_building) { %>
-					 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
-					<% } %>
+					<% if(data.type=='villa') { %>
+						<td class="item_value">공급면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+						<% if(data.area_building!=0 && data.area_building) { %>
+						/ 전용면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+						<% } %>
+						<% if(data.area_area_ground2!=0) { %>
+						/ 전용률: <%= Math.floor((data.area_building2 * 100)/data.area_ground2) %>%
+						<% } %>
 					</td>
+					<% } else { %>
+						<td class="item_value">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+						<% if(data.area_building!=0 && data.area_building) { %>
+						/ 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+						<% } %>
+						</td>
+					<% } %>
 					<td class="item_label">방/욕실</td>
 					<td class="item_value"><%= data.area_rooms %> / <%= data.area_toilets %></td>
 				</tr>

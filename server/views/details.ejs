@@ -145,14 +145,14 @@
 						</td>
 					</tr>
 					<tr id="1">
-						<td>대지면적</td>
+						<td id="ground_label">대지면적</td>
 						<td colspan="3">
 							<input type="number" step="0.001" id="area_ground" name="area_ground" /> py (
 							<input type="number" step="0.001" id="area_ground2" name="area_ground2" />m2 )
 						</td>
 					</tr>
 					<tr id="2">
-						<td>건물연면적</td>
+						<td id="building_label">건물연면적</td>
 						<td colspan="3">
 							<input type="number" step="0.001" id="area_building" name="area_building" /> py (
 							<input type="number" step="0.001" id="area_building2" name="area_building2" />m2 )
@@ -1006,6 +1006,15 @@
 	function changes2(x){
 		var selectType = document.getElementById('type');
 		var selectSell = document.getElementById('sell');
+
+		if(selectType.value=='villa'){
+			document.getElementById('ground_label').innerHTML="공급면적";
+			document.getElementById('building_label').innerHTML="전용면적";
+		}else{
+			document.getElementById('ground_label').innerHTML="대지면적";
+			document.getElementById('building_label').innerHTML="건물연면적";
+		}
+
 		if (selectType.value === 'land') {
 			if(!x) selectSell.value = 'sell';
 			document.getElementById('sell2').style.display = 'block';
@@ -1099,6 +1108,13 @@
 		changes();		
 		changes2();
 		resetprices();
+		if(this.value=='villa'){
+			document.getElementById('ground_label').innerHTML="공급면적";
+			document.getElementById('building_label').innerHTML="전용면적";
+		}else{
+			document.getElementById('ground_label').innerHTML="대지면적";
+			document.getElementById('building_label').innerHTML="건물연면적";
+		}
 	});
 </script>
 
