@@ -264,7 +264,7 @@ const ItemSchema = mongoose.Schema({
 	move_available_date:{
 		type: String,
 		required: false,
-	}
+	},
 });
 
 module.exports = mongoose.model("Item", ItemSchema);

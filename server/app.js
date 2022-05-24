@@ -816,6 +816,7 @@ app.get("/manage", (req, res) => {
 					if (sh.price_rent_lower) findQuery.price_rent.$gte = Number(sh.price_rent_lower);
 				}
 				if (sh.detail_date) findQuery.detail_date = sh.detail_date;
+				if (sh.area_use) findQuery.area_use = new RegExp(sh.area_use,'i');
 				if (sh.detail_orientation) findQuery.detail_orientation = new RegExp(sh.detail_orientation,'i');
 				if (sh.area_rooms_upper || sh.area_rooms_lower) {
 					findQuery.area_rooms = {};
@@ -1303,6 +1304,11 @@ app.post("/register", async (req, res) => {
 			req.body.id_number = test[1];
 			req.body.id = req.body.id_letter + req.body.id_number;
 		}
+		if(req.body.area_use[0] === ''){
+			req.body.area_use = req.body.area_use[1];
+		}else{
+			req.body.area_use = req.body.area_use[0];
+		}
 		if(req.body.area_ground && req.body.area_ground2 === ''){
 			//console.log('hello');
 			req.body.area_ground2 = Math.round(req.body.area_ground * 3.3058);
@@ -1588,7 +1594,15 @@ app.post("/details", (req, res) => {
 			req.body.gallery = he.encode(req.body.gallery);
 			req.body.detail = he.encode(req.body.detail);
 			req.body.id = req.body.id_letter + req.body.id_number;
-			
+			console.log(req.body.area_use);
+			if(req.body.area_use[0] === ''){
+				req.body.area_use = req.body.area_use[1];
+			}else{
+				req.body.area_use = req.body.area_use[0];
+			}
+			console.log(req.body.area_use);
+
+
 			// console.log('/details before updateOne');
 			Item.updateOne({ _id: currentItem }, req.body)
 				.then(() => { 

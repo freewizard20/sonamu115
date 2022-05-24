@@ -167,7 +167,7 @@
 						<td>
 							<input type="number" step="0.001" id="area_toilets" name="area_toilets" /> 개
 						</td>
-					</tr>
+					</tr>										
 					<tr id="4" style="display:none;">
 						<td>추천용도</td>
 						<td>
@@ -312,13 +312,7 @@
 							<td>
 								<input type="number" step="0.001" id="price_unit" name="price_unit" /> 만원
 							</td>
-						</tr>
-						<tr id="301">
-							<td>입주가능일</td>
-							<td>
-								<input type="text" id="move_available_date" name="move_available_date" />
-							</td>
-						</tr>
+						</tr>						
 					</table>
 				</div>
 				<div style="margin:5px;"></div>
@@ -420,6 +414,18 @@
 							<td>
 								<input type="text" id="detail_phone" name="detail_phone" />
 							</td>
+						</tr>
+						<tr id="302">
+							<td>건축물 용도</td>
+							<td>
+								<input type="text" id="area_use_building" name="area_use" />
+							</td>
+						</tr>
+						<tr id="301">
+							<td>입주가능일</td>
+							<td>
+								<input type="text" id="move_available_date" name="move_available_date" />
+							</td>							
 						</tr>
 					</table>
 				</div>
@@ -595,6 +601,7 @@
 	for (let i = 0; i < preData[0].theme.length; i++) {
 		if (!(preData[0].theme[i] === '')) x('theme_' + preData[0].theme[i]).checked = true;
 	}
+	document.getElementById('area_use_building').value = preData[0].area_use;
 
 	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date'];
 	insertValue(values, preData);
@@ -906,6 +913,7 @@
 		var selectType = document.getElementById('type');
 		var selectSell = document.getElementById('sell');
 		if (selectType.value === 'house' || selectType.value === 'factory' || selectType.value === 'villa' || selectType.value==='rent' || selectType.value==='consumer') {
+			document.getElementById('area_use').value = '';
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
 				document.getElementById('22').style.display = "none";
@@ -919,6 +927,7 @@
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else if (selectSell.value === "jeon") {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -932,6 +941,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -945,8 +955,10 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			}
 		} else if (selectType.value === 'land') {
+			document.getElementById('area_use_building').value = '';
 			document.getElementById('21').style.display = "";
 			document.getElementById('22').style.display = "none";
 			document.getElementById('23').style.display = "";
@@ -959,7 +971,9 @@
 			document.getElementById('30').style.display = "";
 			document.getElementById('300').style.display = "";
 			document.getElementById('301').style.display = "none";
+			document.getElementById('302').style.display = "none";
 		} else {
+			document.getElementById('area_use').value = '';
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
 				document.getElementById('22').style.display = "none";
@@ -973,6 +987,7 @@
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else if (selectSell.value === 'jeon') {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -986,6 +1001,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -999,6 +1015,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			}
 		}
 	}

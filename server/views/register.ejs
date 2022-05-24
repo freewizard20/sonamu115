@@ -184,6 +184,7 @@
 					<input type="number" step="0.001" name="area_toilets" /> 개
 				</td>
 			</tr>
+			
 			<tr id="4" style="display:none;">
 				<td>추천용도</td>
 				<td>
@@ -330,12 +331,6 @@
 					<input type="number" step="0.001" id="price_unit" name="price_unit" /> 만원
 				</td>
 			</tr>
-			<tr id="301">
-				<td>입주가능일</td>
-				<td>
-					<input type="text" name="move_available_date" />
-				</td>
-			</tr>
 		</table>
 		</div>
 		<div style="margin:5px;"></div>
@@ -436,6 +431,18 @@
 					<td>
 						<input type="text" name="detail_phone" />
 					</td>
+				</tr>
+				<tr id="302">
+					<td>건축물 용도</td>
+					<td>
+						<input type="text" id="area_use_building" name="area_use" />
+					</td>
+				</tr>
+				<tr id="301">
+					<td>입주가능일</td>
+					<td>
+						<input type="text" id="move_available_date" name="move_available_date" />
+					</td>							
 				</tr>
 			</table>
 		</div>
@@ -803,6 +810,7 @@
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else if (selectSell.value === "jeon") {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -816,6 +824,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -829,6 +838,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			}
 		} else if (selectType.value === 'land') {
 			document.getElementById('21').style.display = "";
@@ -843,6 +853,7 @@
 			document.getElementById('30').style.display = "";
 			document.getElementById('300').style.display = "";
 			document.getElementById('301').style.display = "none";
+			document.getElementById('302').style.display = "none";
 		} else {
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
@@ -857,6 +868,7 @@
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else if (selectSell.value === 'jeon') {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -870,6 +882,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -883,6 +896,7 @@
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
 				document.getElementById('301').style.display = "";
+				document.getElementById('302').style.display = "";
 			}
 		}
 	}
