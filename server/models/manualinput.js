@@ -360,7 +360,7 @@ function makeItem(){
 	body.ad = typeAd[Math.floor(Math.random()*7)];
 	body.theme = typeTheme[Math.floor(Math.random()*8)];
 	body.user = typeUser[Math.floor(Math.random()*2)];
-	body.id = randomWord()+randomNumber(1000);
+	body.id = 'A'+randomNumber(1000);
 	body.title = randomWord() + " " + randomWord();
 	body.address_si = '경기도';
 	body.address_gun = '양평군';
@@ -823,7 +823,7 @@ function changeType(){
 
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
 // images/thumbnail directory >> makeThumbnails(makeThumbnails) >> trimimages(trimImages)
-// addDummyDatabase();
+addDummyDatabase();
 // addUsers();
 // addLocationSync();
 // addNotification();
