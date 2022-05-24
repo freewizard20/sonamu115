@@ -683,7 +683,7 @@ app.get("/item",(req,res)=>{
 				data[0].detail = he.decode(data[0].detail).replace(/nbsp;/gi,'');
 				data[0].views = data[0].views + 1;
 				Item.updateOne({_id: query}, data[0]).then(()=>{});
-				Item.find({sell:data[0].sell, type: data[0].type}).limit(20).then((similar)=>{
+				Item.find({sell:data[0].sell, type: data[0].type,  _id: {$ne: data[0]._id}, price_sell: {$gte : Math.floor(data[0].price_sell * 0.7), $lte: Math.floor(data[0].price_sell * 1.3)}}).limit(20).then((similar)=>{
 					User.find({name:data[0].user}).then((user)=>{
 						Notice.find().then((notice)=>{
 							res.render('item',{data:data[0], similar: similar, user:user[0],notice:notice});

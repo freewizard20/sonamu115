@@ -314,6 +314,49 @@
 							</td>
 						</tr>						
 					</table>
+					<table style="margin-top:10px;width:500px;">
+						<tr id="500" style="display:none">
+							<td>토목공사여부</td>
+							<td>
+								<select id="tomok" name="tomok">
+									<option value="O">O</option>
+									<option value="X" selected>X</option>
+								</select>
+							</td>
+							<td>전기시설</td>
+							<td>
+								<select id="electric" name="electric">
+									<option value="O">O</option>
+									<option value="X" selected>X</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="501" style="display:none">
+							<td>수도시설</td>
+							<td>
+								<select id="water" name="water">
+									<option value="O">O</option>
+									<option value="X" selected>X</option>
+								</select>
+							</td>
+							<td>오수처리시설</td>
+							<td>
+								<select id="sewage" name="sewage">
+									<option value="O">O</option>
+									<option value="X" selected>X</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="502" style="display:none">
+							<td>우수시설</td>
+							<td>
+								<select id="wusu" name="wusu">
+									<option value="O">O</option>
+									<option value="X" selected>X</option>
+								</select>
+							</td>
+						</tr>
+					</table>
 				</div>
 				<div style="margin:5px;"></div>
 				<div id="current">
@@ -603,7 +646,7 @@
 	}
 	document.getElementById('area_use_building').value = preData[0].area_use;
 
-	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date'];
+	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date','tomok','electric','water','sewage','wusu'];
 	insertValue(values, preData);
 	document.getElementById('query_id').value = preData[0]._id;
 	changes();
@@ -1057,6 +1100,9 @@
 			document.getElementById('3').style.display = "";
 			document.getElementById('4').style.display = "none";
 			document.getElementById('5').style.display = "none";
+			document.getElementById('500').style.display = "none";
+			document.getElementById('501').style.display = "none";
+			document.getElementById('502').style.display = "none";
 			document.getElementById('6').style.display = "none";
 			document.getElementById('7').style.display = "none";
 
@@ -1077,6 +1123,9 @@
 			document.getElementById('3').style.display = "none";
 			document.getElementById('4').style.display = "";
 			document.getElementById('5').style.display = "";
+			document.getElementById('500').style.display = "";
+			document.getElementById('501').style.display = "";
+			document.getElementById('502').style.display = "";
 			document.getElementById('6').style.display = "none";
 			document.getElementById('7').style.display = "none";
 
@@ -1087,6 +1136,9 @@
 			document.getElementById('3').style.display = "";
 			document.getElementById('4').style.display = "none";
 			document.getElementById('5').style.display = "none";
+			document.getElementById('500').style.display = "none";
+			document.getElementById('501').style.display = "none";
+			document.getElementById('502').style.display = "none";
 			document.getElementById('6').style.display = "";
 			document.getElementById('7').style.display = "";
 

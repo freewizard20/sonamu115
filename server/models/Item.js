@@ -265,6 +265,26 @@ const ItemSchema = mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	tomok:{
+		type: String,
+		required: false,
+	},
+	electric:{
+		type: String,
+		required: false,
+	},
+	water:{
+		type: String,
+		required: false,
+	},
+	sewage:{
+		type: String,
+		required: false,
+	},
+	wusu:{
+		type: String,
+		required: false,
+	},
 });
 
 module.exports = mongoose.model("Item", ItemSchema);
