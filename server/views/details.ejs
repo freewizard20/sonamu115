@@ -313,6 +313,12 @@
 								<input type="number" step="0.001" id="price_unit" name="price_unit" /> 만원
 							</td>
 						</tr>
+						<tr id="301">
+							<td>입주가능일</td>
+							<td>
+								<input type="text" id="move_available_date" name="move_available_date" />
+							</td>
+						</tr>
 					</table>
 				</div>
 				<div style="margin:5px;"></div>
@@ -570,7 +576,7 @@
 			if(given[i]==='memo'){
 				x('memo').value = p[0]['memo'].replace('&gt;','>').replace('&lt;','<');
 			}else{
-				x(given[i]).value = p[0][given[i]];
+				x(given[i]).value = p[0][given[i]]!=undefined?p[0][given[i]]:'';
 			}
 		}
 	}
@@ -590,7 +596,7 @@
 		if (!(preData[0].theme[i] === '')) x('theme_' + preData[0].theme[i]).checked = true;
 	}
 
-	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo'];
+	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date'];
 	insertValue(values, preData);
 	document.getElementById('query_id').value = preData[0]._id;
 	changes();
@@ -912,6 +918,7 @@
 				document.getElementById('29').style.display = "none";
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			} else if (selectSell.value === "jeon") {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -924,6 +931,7 @@
 				document.getElementById('29').style.display = "none";
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -936,6 +944,7 @@
 				document.getElementById('29').style.display = "none";
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			}
 		} else if (selectType.value === 'land') {
 			document.getElementById('21').style.display = "";
@@ -949,6 +958,7 @@
 			document.getElementById('29').style.display = "none";
 			document.getElementById('30').style.display = "";
 			document.getElementById('300').style.display = "";
+			document.getElementById('301').style.display = "none";
 		} else {
 			if (selectSell.value === 'sell') {
 				document.getElementById('21').style.display = "";
@@ -962,6 +972,7 @@
 				document.getElementById('29').style.display = "";
 				document.getElementById('30').style.display = "";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			} else if (selectSell.value === 'jeon') {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "";
@@ -974,6 +985,7 @@
 				document.getElementById('29').style.display = "none";
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			} else {
 				document.getElementById('21').style.display = "none";
 				document.getElementById('22').style.display = "none";
@@ -986,6 +998,7 @@
 				document.getElementById('29').style.display = "none";
 				document.getElementById('30').style.display = "none";
 				document.getElementById('300').style.display = "none";
+				document.getElementById('301').style.display = "";
 			}
 		}
 	}

@@ -409,6 +409,7 @@ function makeItem(){
 	body.detail = randomWord() + ' ' + randomWord() + ' ' + randomWord();
 	body.gallery =  randomWord() + ' ' + randomWord() + ' ' + randomWord();
 	body.memo =  randomWord() + ' ' + randomWord() + ' ' + randomWord();
+	// body.move_available_date = randomWord()
 
 	imageref = ['/example.jpg','/example.jpg','/example.jpg','/example.jpg','/example.jpg'];
 	body.thumbnail = '/example.jpg';

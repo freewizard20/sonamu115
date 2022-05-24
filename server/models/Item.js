@@ -260,6 +260,10 @@ const ItemSchema = mongoose.Schema({
 	image2: {
 		type: Array,
 		required: false,
+	},
+	move_available_date:{
+		type: String,
+		required: false,
 	}
 });
 
