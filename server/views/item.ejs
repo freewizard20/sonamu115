@@ -50,7 +50,7 @@
 				<div class="section_name item_title">
 					<span class="section_big"><%= data.title %></span>
 				</div>
-				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %><button style="margin-left:10px;" onclick="print()">인쇄하기</button></div>
+				<div class="item_address"><%= data.address_si %> <%= data.address_gun %> <%= data.address_up %>  <%= data.address_li %><button style="margin-left:10px;" onclick="print()">인쇄하기</button></div>
 				<% if(data.type!=='land') { %>
 				<table class="item_table">
 					<tr>
@@ -120,7 +120,7 @@
 						<td class="item_value"><%= data.detail_temperature %></td>
 					</tr>
 					<tr>
-						<td class="item_label">준공년도</td>
+						<td class="item_label">사용승인일</td>
 						<td class="item_value"><%= data.detail_date %></td>
 						<td class="item_label">방향</td>
 						<td class="item_value"><%= data.detail_orientation %></td>
@@ -193,6 +193,13 @@
 					</div>
 					<div class="item_detail_text" id="target">
 						<%= data.detail %>
+						<p>
+							상호명 : 소나무공인중개사사무소</br>
+							대표자 : 최기혁</br>
+							소재지 : 경기도 양평군 강하면 강남로 354</br>
+							연락처 : 031-773-5900</br>
+							등록번호 : 41830-2016-00045</br>
+						</p>
 					</div>
 				</div>
 				<div class="item_related">
