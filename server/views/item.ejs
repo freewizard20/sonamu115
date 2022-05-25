@@ -110,7 +110,7 @@
 							<% if(data.area_building!=0 && data.area_building) { %>
 							/ 전용면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
 							<% } %>
-							<% if(data.area_ground2!=0) { %>
+							<% if(Math.floor(data.area_ground2!=0)) { %>
 							/ 전용률: <%= Math.floor((data.area_building2 * 100)/data.area_ground2) %>%
 							<% } %>
 						</td>
