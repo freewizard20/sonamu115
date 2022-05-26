@@ -276,8 +276,23 @@ app.get('/m',(req,res)=>{
 			if(req.query.category && searchHistoryClient[req.query.category]){
 				let sh = searchHistoryClient[req.query.category];
 				if(sh.type){
-					findQuery.type = {};
-					findQuery.type.$in = sh.type;
+					//console.log(sh.type);
+					let firstQuery = {};
+					firstQuery.type = {};
+					firstQuery.type.$in = sh.type;
+					let secondQuery = {};
+					if(sh.type.includes('rent')){
+						//console.log('rent included');
+						secondQuery.sell = {};
+						secondQuery.sell.$in = ['jeon','rent'];
+					}
+					// if array sh.type contains 'rent'
+					//if(sh.type.includes('rent')){
+						//findQuery.sell.$in = ['sell','jeon','rent'];
+					findQuery.$or = [firstQuery];
+					if(secondQuery.sell){
+						findQuery.$or.push(secondQuery);
+					}
 				}
 				if (sh.price_low || sh.price_high) {
 					findQuery.price_sell = {};
@@ -536,8 +551,23 @@ app.get("/list",(req,res)=>{
 			if(req.query.category && searchHistoryClient[req.query.category]){
 				let sh = searchHistoryClient[req.query.category];
 				if(sh.type){
-					findQuery.type = {};
-					findQuery.type.$in = sh.type;
+					//console.log(sh.type);
+					let firstQuery = {};
+					firstQuery.type = {};
+					firstQuery.type.$in = sh.type;
+					let secondQuery = {};
+					if(sh.type.includes('rent')){
+						//console.log('rent included');
+						secondQuery.sell = {};
+						secondQuery.sell.$in = ['jeon','rent'];
+					}
+					// if array sh.type contains 'rent'
+					//if(sh.type.includes('rent')){
+						//findQuery.sell.$in = ['sell','jeon','rent'];
+					findQuery.$or = [firstQuery];
+					if(secondQuery.sell){
+						findQuery.$or.push(secondQuery);
+					}
 				}
 				if (sh.price_low || sh.price_high) {
 					findQuery.price_sell = {};
