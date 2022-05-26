@@ -948,6 +948,8 @@ app.post("/delete", (req, res) => {
 
 async function makeID2(si, gun, region){
 	let result = [];
+	// remove all spaces from variable region
+	region = region.replace(/ /g, '');
 	switch(region){
 	   case '강하면':
 		   result.push('A');
@@ -1210,6 +1212,7 @@ app.post("/registerimage",upload.array('image',100),(req,res)=>{
 
 async function makeID(si, gun, region){
 	 let result = [];
+	 region = region.replace(/ /g, '');
 	 switch(region){
 		case '강하면':
 			result.push('A');

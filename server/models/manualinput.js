@@ -850,6 +850,48 @@ function changeMoveDate(){
 	)
 }
 
+function changeGunYong(){
+	Item.find().then((data)=>{
+		let total = data.length;
+		let loopArray = function(x){
+			if(x===total){
+				console.log('done..');
+				return;
+			}else{
+				if(data[x].area_use){
+					var curr = data[x].area_use;
+					// switch case with curr
+					var gun = 0;
+					var yong = 0;
+					if (curr==='계획관리지역'){
+						gun = 40;
+						yong = 100;
+					}else if(curr==='자연환경보전지역'){
+						gun = 20;
+						yong = 100;
+					}else if(curr==='보전관리지역'||curr==='생산관리지역'||curr==='농업진흥구역'||curr==='농업보호구역'){
+						gun = 20;
+						yong = 80;
+					}
+					data[x].area_gun = gun;
+					data[x].area_yong = yong;
+					Item.updateOne({_id:data[x]._id},data[x]).then(()=>{
+						loopArray(x+1);
+					}).catch((err)=>{
+						console.log(err);
+						console.log(data[x]._id + ' error!!');
+						loopArray(x+1);
+					})
+				}else{
+					loopArray(x+1);
+				}
+			}
+		}
+		loopArray(0);
+	}
+	)
+}
+
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
 // images/thumbnail directory >> makeThumbnails(makeThumbnails) >> trimimages(trimImages)
 // addDummyDatabase();
@@ -864,5 +906,5 @@ function changeMoveDate(){
 // watermarkImages();
 // countMissingImages();
 // changeType();
-changeMoveDate();
-
+// changeMoveDate();
+changeGunYong();
