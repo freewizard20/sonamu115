@@ -242,11 +242,11 @@
 			<tr id="6" style="display:none;">
 				<td>용적률</td>
 				<td>
-					<input type="number" step="0.001" name="area_yong" />
+					<input type="number" step="0.001" id="area_yong" name="area_yong" />
 				</td>
 				<td>건폐율</td>
 				<td>
-					<input type="number" step="0.001" name="area_gun" />
+					<input type="number" step="0.001" id="area_gun" name="area_gun" />
 				</td>
 			</tr>
 			<tr id="7" style="display:none;">
@@ -536,6 +536,27 @@
 	</footer>
 </body>
 <script>
+	var areaUse = document.getElementById('area_use');
+	areaUse.addEventListener('change',function(){
+		var curr = areaUse.value;
+		// switch case with curr
+		var gun = 0;
+		var yong = 0;
+		if (curr==='계획관리지역'){
+			gun = 40;
+			yong = 100;
+		}else if(curr==='자연환경보전지역'){
+			gun = 20;
+			yong = 100;
+		}else if(curr==='보전관리지역'||curr==='생산관리지역'||curr==='농업진흥구역'||curr==='농업보호구역'){
+			gun = 20;
+			yong = 80;
+		}
+
+		document.getElementById('area_gun').value = gun;
+		document.getElementById('area_yong').value = yong;
+	})
+
 
 	document.getElementById('user_dropdown').value = document.getElementById('userInfo').innerHTML;
 

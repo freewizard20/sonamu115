@@ -518,6 +518,27 @@
 	</footer>
 </body>
 <script>
+	var areaUse = document.getElementById('area_use2');
+	areaUse.addEventListener('change',function(){
+		var curr = areaUse.value;
+		// switch case with curr
+		var gun = 0;
+		var yong = 0;
+		if (curr==='계획관리지역'){
+			gun = 40;
+			yong = 100;
+		}else if(curr==='자연환경보전지역'){
+			gun = 20;
+			yong = 100;
+		}else if(curr==='보전관리지역'||curr==='생산관리지역'||curr==='농업진흥구역'||curr==='농업보호구역'){
+			gun = 20;
+			yong = 80;
+		}
+
+		document.getElementById('area_gun').value = gun;
+		document.getElementById('area_yong').value = yong;
+	})
+
 	function getQueryStringValue(key) {  
   			return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
 	} 
