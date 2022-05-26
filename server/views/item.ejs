@@ -191,7 +191,7 @@
 							<td class="item_label">추천용도</td>
 							<td class="item_value"><%= data.area_recommended %></td>
 							<td class="item_label">용도지역</td>
-							<td class="item_value"><%= data.area_use %></td>
+							<td class="item_value"><%= data.area_use %>(건폐율<%= data.area_gun %>%,용적률<%= data.area_yong %>%)</td>
 						</tr>
 						<tr>
 							<td class="item_label">토목공사여부</td>
@@ -208,12 +208,6 @@
 						<tr>
 							<td class="item_label">우수시설</td>
 							<td class="item_value"><%= data.wusu %></td>
-						</tr>
-						<tr>
-							<td class="item_label">건폐율</td>
-							<td class="item_value"><%= data.area_gun %></td>
-							<td class="item_label">용적률</td>
-							<td class="item_value"><%= data.yong %></td>
 						</tr>
 						<tr>
 							<td class="item_label">담당자</td>
