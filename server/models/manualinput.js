@@ -833,11 +833,11 @@ function changeMoveDate(){
 			}else{
 				if(data[x].move_available_date!=='협의가능'){
 					data[x].move_available_date = '협의가능';
-					Item.updateOne({id:data[x].id},data[x]).then(()=>{
+					Item.updateOne({_id:data[x]._id},data[x]).then(()=>{
 						loopArray(x+1);
 					}).catch((err)=>{
 						console.log(err);
-						console.log(data[x].id + ' error!!');
+						console.log(data[x]._id + ' error!!');
 						loopArray(x+1);
 					})
 				}else{
