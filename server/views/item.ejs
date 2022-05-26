@@ -106,12 +106,12 @@
 					<tr>
 						<td class="item_label">면적</td>
 						<% if(data.type=='villa') { %>
-							<td class="item_value">공급면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+							<td class="item_value">공급: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
 							<% if(data.area_building!=0 && data.area_building) { %>
-							/ 전용면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
+							/ 전용: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
 							<% } %>
 							<% if(data.area_ground2!=0 && data.area_ground2) { %>
-							/ 전용률: <%= Math.floor((data.area_building2 * 100)/data.area_ground2) %>%
+							(전용률: <%= Math.floor((data.area_building2 * 100)/data.area_ground2) %>%)
 							<% } %>
 						</td>
 						<% } else { %>
@@ -179,21 +179,19 @@
 						</tr>
 						<tr>
 							<td class="item_label">면적</td>
-							<td class="item_value" colspan="3">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
+							<td class="item_value">대지면적: <%= Math.floor(data.area_ground2) %>㎡(<%= Math.floor(data.area_ground) %>평)
 							<% if(data.area_building!=0 && data.area_building) { %>
 							 / 건물면적: <%= Math.floor(data.area_building2) %>㎡(<%= Math.floor(data.area_building) %>평)
 							<% } %>
 							</td>
+							<td class="item_label">지목</td>
+							<td class="item_value"><%= data.area_using %></td>
 						</tr>
 						<tr>
 							<td class="item_label">추천용도</td>
 							<td class="item_value"><%= data.area_recommended %></td>
 							<td class="item_label">용도지역</td>
 							<td class="item_value"><%= data.area_use %></td>
-						</tr>
-						<tr>
-							<td class="item_label">지목</td>
-							<td class="item_value" colspan="3"><%= data.area_using %></td>
 						</tr>
 						<tr>
 							<td class="item_label">토목공사여부</td>
@@ -238,6 +236,21 @@
 							소재지 : 경기도 양평군 강하면 강남로 354</br>
 							연락처 : 031-773-5900</br>
 							등록번호 : 41830-2016-00045</br>
+							<br />
+							☞ 홈페이지<br />
+							<a href="https://sonamu114.com" style="color:blue" target="_blank">https://sonamu114.com</a><br />
+
+							☞ 유튜브<br />
+							<a href="https://youtube.com/7735900" style="color:blue" target="_blank">https://youtube.com/7735900</a><br />
+
+							☞ 블로그<br />
+							<a href="https://blog.naver.com/rebchjs" style="color:blue" target="_blank">https://blog.naver.com/rebchjs</a><br />
+
+							☞ 카페[시골이장의 양평전원주택]<br />
+							<a href="https://cafe.naver.com/62food" style="color:blue" target="_blank">https://cafe.naver.com/62food</a><br />
+
+							☞ 티스토리<br />
+							<a href="https://7735900.tistory.com" style="color:blue" target="_blank">https://7735900.tistory.com</a><br />
 						</p>
 					</div>
 				</div>
