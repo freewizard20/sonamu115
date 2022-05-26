@@ -822,9 +822,37 @@ function changeType(){
 	loopArray(0);
 }
 
+// get all items in Item collection and change move_available_date value to '협의가능'
+function changeMoveDate(){
+	Item.find().then((data)=>{
+		let total = data.length;
+		let loopArray = function(x){
+			if(x===total){
+				console.log('done..');
+				return;
+			}else{
+				if(data[x].move_available_date!=='협의가능'){
+					data[x].move_available_date = '협의가능';
+					Item.updateOne({id:data[x].id},data[x]).then(()=>{
+						loopArray(x+1);
+					}).catch((err)=>{
+						console.log(err);
+						console.log(data[x].id + ' error!!');
+						loopArray(x+1);
+					})
+				}else{
+					loopArray(x+1);
+				}
+			}
+		}
+		loopArray(0);
+	}
+	)
+}
+
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
 // images/thumbnail directory >> makeThumbnails(makeThumbnails) >> trimimages(trimImages)
-addDummyDatabase();
+// addDummyDatabase();
 // addUsers();
 // addLocationSync();
 // addNotification();
@@ -836,4 +864,5 @@ addDummyDatabase();
 // watermarkImages();
 // countMissingImages();
 // changeType();
+changeMoveDate();
 
