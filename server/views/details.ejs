@@ -318,42 +318,31 @@
 						<tr id="500" style="display:none">
 							<td>토목공사여부</td>
 							<td>
-								<select id="tomok" name="tomok">
-									<option value="O">O</option>
-									<option value="X" selected>X</option>
-								</select>
+								<input id="tomok" type="text" name="tomok" />
 							</td>
 							<td>전기시설</td>
 							<td>
-								<select id="electric" name="electric">
-									<option value="O">O</option>
-									<option value="X" selected>X</option>
-								</select>
+								<input id="electric" type="text" name="electric" />
 							</td>
 						</tr>
 						<tr id="501" style="display:none">
 							<td>수도시설</td>
 							<td>
-								<select id="water" name="water">
-									<option value="O">O</option>
-									<option value="X" selected>X</option>
-								</select>
+								<input id="water" type="text" name="water" />
 							</td>
 							<td>오수처리시설</td>
 							<td>
-								<select id="sewage" name="sewage">
-									<option value="O">O</option>
-									<option value="X" selected>X</option>
-								</select>
+								<input id="sewage" type="text" name="sewage" />
 							</td>
 						</tr>
 						<tr id="502" style="display:none">
 							<td>우수시설</td>
 							<td>
-								<select id="wusu" name="wusu">
-									<option value="O">O</option>
-									<option value="X" selected>X</option>
-								</select>
+								<input id="wusu" type="text" name="wusu" />
+							</td>
+							<td>토지경사도</td>
+							<td>
+								<input id="ground_angle" type="text" name="ground_angle" />
 							</td>
 						</tr>
 					</table>
@@ -646,7 +635,11 @@
 			if(given[i]==='memo'){
 				x('memo').value = p[0]['memo'].replace('&gt;','>').replace('&lt;','<');
 			}else{
-				x(given[i]).value = p[0][given[i]]!=undefined?p[0][given[i]]:'';
+				if(x(given[i])!=null) {					
+					x(given[i]).value = p[0][given[i]]!=undefined?p[0][given[i]]:'';
+				}else{
+					console.log(given[i]);
+				}
 			}
 		}
 	}
@@ -667,7 +660,7 @@
 	}
 	document.getElementById('area_use_building').value = preData[0].area_use;
 
-	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date','tomok','electric','water','sewage','wusu'];
+	let values = ['type', 'sell', 'contract', 'user', 'id_letter', 'id_number', 'title', 'address_si', 'address_gun', 'address_up', 'address_li', 'address_bunji1', 'address_bunji2', 'area_ground', 'area_ground2', 'area_building', 'area_building2', 'area_rooms', 'area_toilets', 'area_recommended', 'area_use', 'area_using', 'area_orientation', 'area_yong', 'area_gun', 'area_road', 'area_mainroad', 'price_sell', 'price_jeondeposit', 'price_borrow', 'price_rentdeposit', 'price_rent', 'price_deposit', 'price_monthly', 'price_yearly', 'price_margin', 'price_published', 'price_jeon', 'price_unit', 'detail_temperature', 'detail_orientation', 'detail_structure', 'detail_date', 'detail_elevator', 'detail_use', 'detail_approval', 'detail_parking', 'detail_parking2', 'detail_phone', 'memo','move_available_date','tomok','electric','water','sewage','wusu','ground_angle'];
 	insertValue(values, preData);
 	document.getElementById('query_id').value = preData[0]._id;
 	changes();

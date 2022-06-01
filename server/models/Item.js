@@ -285,6 +285,10 @@ const ItemSchema = mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	ground_angle: {
+		type: String,
+		required: false,
+	}
 });
 
 module.exports = mongoose.model("Item", ItemSchema);
