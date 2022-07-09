@@ -280,31 +280,86 @@ app.get('/m',(req,res)=>{
 					let firstQuery = {};
 					firstQuery.type = {};
 					firstQuery.type.$in = sh.type;
+					if(sh.price_low || sh.price_high){
+						let sellQuery = {};
+						let jeonQuery = {};
+						let rentQuery = {};
+						sellQuery.price_sell = {};
+						jeonQuery.price_jeondeposit = {};
+						rentQuery.price_rentdeposit = {};
+						if(sh.price_low){
+							sellQuery.price_sell.$gte = Number(sh.price_low);
+							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
+							rentQuery.price_rentdeposit.$gte = Number(sh.price_low);
+						}
+						if(sh.price_high){
+							sellQuery.price_sell.$lte = Number(sh.price_high);
+							jeonQuery.price_jeondeposit.$lte = Number(sh.price_high);
+							rentQuery.price_rentdeposit.$lte = Number(sh.price_high);
+						}
+						firstQuery.$or = [sellQuery,jeonQuery,rentQuery];
+					}
 					let secondQuery = {};
 					if(sh.type.includes('rent')){
 						//console.log('rent included');
 						secondQuery.sell = {};
 						secondQuery.sell.$in = ['jeon','rent'];
+						if(sh.price_low || sh.price_high){
+							let jeonQuery = {};
+							let rentQuery = {};
+							jeonQuery.price_jeondeposit = {};
+							rentQuery.price_rentdeposit = {};
+							if(sh.price_low){
+								jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
+								rentQuery.price_rentdeposit.$gte = Number(sh.price_low);
+							}
+							if(sh.price_high){
+								jeonQuery.price_jeondeposit.$lte = Number(sh.price_high);
+								rentQuery.price_rentdeposit.$lte = Number(sh.price_high);
+							}
+							secondQuery.$or = [jeonQuery,rentQuery];
+						}
 					}
 					// if array sh.type contains 'rent'
 					//if(sh.type.includes('rent')){
-						//findQuery.sell.$in = ['sell','jeon','rent'];
+						//findQuery.sell.$in = ['sell','jeon','rent'];						
 					findQuery.$or = [firstQuery];
-					if(secondQuery.sell){
+					if(sh.type.includes('rent')){
 						findQuery.$or.push(secondQuery);
 					}
+					
+				}else{
+					if(sh.price_low || sh.price_high){
+						let sellQuery = {};
+						let jeonQuery = {};
+						let rentQuery = {};
+						sellQuery.price_sell = {};
+						jeonQuery.price_jeondeposit = {};
+						rentQuery.price_rentdeposit = {};
+						if(sh.price_low){
+							sellQuery.price_sell.$gte = Number(sh.price_low);
+							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
+							rentQuery.price_rentdeposit.$gte = Number(sh.price_low);
+						}
+						if(sh.price_high){
+							sellQuery.price_sell.$lte = Number(sh.price_high);
+							jeonQuery.price_jeondeposit.$lte = Number(sh.price_high);
+							rentQuery.price_rentdeposit.$lte = Number(sh.price_high);
+						}
+						findQuery.$or = [sellQuery,jeonQuery,rentQuery];
+					}
 				}
-				if (sh.price_low || sh.price_high) {
-					if(sh.type && sh.type.includes('rent')){
-						findQuery.price_jeondeposit = {};
-						if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
-						if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
-					}else{
-						findQuery.price_sell = {};
-						if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
-						if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
-					}					
-				}
+				// if (sh.price_low || sh.price_high) {
+				// 	if(sh.type && sh.type.includes('rent')){
+				// 		findQuery.price_jeondeposit = {};
+				// 		if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
+				// 		if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
+				// 	}else{
+				// 		findQuery.price_sell = {};
+				// 		if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
+				// 		if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
+				// 	}					
+				// }
 				if (sh.area_ground_high || sh.area_ground_low) {
 					findQuery.area_ground = {};
 					if (sh.area_ground_high) findQuery.area_ground.$lte = Number(sh.area_ground_high);
