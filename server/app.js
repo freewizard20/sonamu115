@@ -295,9 +295,15 @@ app.get('/m',(req,res)=>{
 					}
 				}
 				if (sh.price_low || sh.price_high) {
-					findQuery.price_sell = {};
-					if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
-					if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
+					if(sh.type.includes('rent')){
+						findQuery.price_jeondeposit = {};
+						if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
+					}else{
+						findQuery.price_sell = {};
+						if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
+					}					
 				}
 				if (sh.area_ground_high || sh.area_ground_low) {
 					findQuery.area_ground = {};

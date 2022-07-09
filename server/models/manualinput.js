@@ -894,7 +894,7 @@ function changeGunYong(){
 
 // addUsers(addUsers) >> addLocation(addLocationSync) >> uploadDatabase(uploadDatabase) >> 이미지 업로드(ftp) >> 
 // images/thumbnail directory >> makeThumbnails(makeThumbnails) >> trimimages(trimImages)
-// addDummyDatabase();
+addDummyDatabase();
 // addUsers();
 // addLocationSync();
 // addNotification();
@@ -907,4 +907,4 @@ function changeGunYong(){
 // countMissingImages();
 // changeType();
 // changeMoveDate();
-changeGunYong();
+// changeGunYong();
