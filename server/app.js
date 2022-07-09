@@ -281,7 +281,7 @@ app.get('/m',(req,res)=>{
 					firstQuery.type = {};
 					firstQuery.type.$in = sh.type;
 					let secondQuery = {};
-					if(sh.type.includes('rent')){
+					if(sh.type && sh.type.includes('rent')){
 						//console.log('rent included');
 						secondQuery.sell = {};
 						secondQuery.sell.$in = ['jeon','rent'];
