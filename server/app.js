@@ -725,7 +725,7 @@ app.get("/list",(req,res)=>{
 	}
 
 	let limitQuery = skipQuery===0? 24 : 12;
-	Item.find(findQuery).or(findQuery_price).or(findQuery_type).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
+	Item.find(findQuery).or(findQuery_type).or(findQuery_price).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
 		if(skipQuery===0){
 			Notice.find().then((notice)=>{
 				res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox, notice: notice});
