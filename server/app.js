@@ -287,6 +287,9 @@ app.get('/m',(req,res)=>{
 						sellQuery.price_sell = {};
 						jeonQuery.price_jeondeposit = {};
 						rentQuery.price_rentdeposit = {};
+						sellQuery.price_sell.$gte = 1;
+						jeonQuery.price_jeondeposit.$gte = 1;
+						rentQuery.price_rentdeposit.$gte = 1;
 						if(sh.price_low){
 							sellQuery.price_sell.$gte = Number(sh.price_low);
 							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
@@ -336,6 +339,9 @@ app.get('/m',(req,res)=>{
 						sellQuery.price_sell = {};
 						jeonQuery.price_jeondeposit = {};
 						rentQuery.price_rentdeposit = {};
+						sellQuery.price_sell.$gte = 1;
+						jeonQuery.price_jeondeposit.$gte = 1;
+						rentQuery.price_rentdeposit.$gte = 1;
 						if(sh.price_low){
 							sellQuery.price_sell.$gte = Number(sh.price_low);
 							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
@@ -623,6 +629,9 @@ app.get("/list",(req,res)=>{
 						sellQuery.price_sell = {};
 						jeonQuery.price_jeondeposit = {};
 						rentQuery.price_rentdeposit = {};
+						sellQuery.price_sell.$gte = 1;
+						jeonQuery.price_jeondeposit.$gte = 1;
+						rentQuery.price_rentdeposit.$gte = 1;
 						if(sh.price_low){
 							sellQuery.price_sell.$gte = Number(sh.price_low);
 							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
@@ -672,6 +681,9 @@ app.get("/list",(req,res)=>{
 						sellQuery.price_sell = {};
 						jeonQuery.price_jeondeposit = {};
 						rentQuery.price_rentdeposit = {};
+						sellQuery.price_sell.$gte = 1;
+						jeonQuery.price_jeondeposit.$gte = 1;
+						rentQuery.price_rentdeposit.$gte = 1;
 						if(sh.price_low){
 							sellQuery.price_sell.$gte = Number(sh.price_low);
 							jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
