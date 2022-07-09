@@ -476,7 +476,8 @@ app.get("/list",(req,res)=>{
 		skipQuery = 20 + req.query.skip * 12;
 	}
 	let findQuery = {adon:'Y'};
-	let findQuery_price = {};
+	let findQuery_type = [];
+	let findQuery_price = [];
 	let listType = 'search';
 	let fillSearchBox = JSON.stringify({});
 	if(req.query.category){
@@ -586,9 +587,9 @@ app.get("/list",(req,res)=>{
 					// if array sh.type contains 'rent'
 					//if(sh.type.includes('rent')){
 						//findQuery.sell.$in = ['sell','jeon','rent'];
-					findQuery.$or = [firstQuery];
+					findQuery_type = [firstQuery];
 					if(secondQuery.sell){
-						findQuery.$or.push(secondQuery);
+						findQuery_type.push(secondQuery);
 					}
 				}
 				if (sh.price_low || sh.price_high) {
@@ -613,7 +614,7 @@ app.get("/list",(req,res)=>{
 						rentquery.price_rentdeposit.$gte = 1;
 					}
 					
-					findQuery_price.$or = [pricequery, jeonquery, rentquery];
+					findQuery_price = [pricequery, jeonquery, rentquery];
 					
 				}
 				if (sh.area_ground_high || sh.area_ground_low) {
@@ -724,7 +725,7 @@ app.get("/list",(req,res)=>{
 	}
 
 	let limitQuery = skipQuery===0? 24 : 12;
-	Item.find(findQuery_price).find(findQuery).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
+	Item.find(findQuery).or(findQuery_price).or(findQuery_type).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
 		if(skipQuery===0){
 			Notice.find().then((notice)=>{
 				res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox, notice: notice});
