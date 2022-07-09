@@ -576,8 +576,8 @@ app.get("/list",(req,res)=>{
 				if(sh.type){
 					//console.log(sh.type);
 					let firstQuery = {};
-					firstQuery.type = {};
-					firstQuery.type.$in = sh.type;
+					firstQuery.type = 'land'; //{};
+					// firstQuery.type.$in = sh.type;
 					let secondQuery = {};
 					if(sh.type.includes('rent')){
 						//console.log('rent included');
