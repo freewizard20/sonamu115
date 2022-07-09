@@ -312,6 +312,8 @@ app.get('/m',(req,res)=>{
 							let rentQuery = {};
 							jeonQuery.price_jeondeposit = {};
 							rentQuery.price_rentdeposit = {};
+							jeonQuery.price_jeondeposit.$gte = 1;
+							rentQuery.price_rentdeposit.$gte = 1;
 							if(sh.price_low){
 								jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
 								rentQuery.price_rentdeposit.$gte = Number(sh.price_low);
@@ -654,6 +656,8 @@ app.get("/list",(req,res)=>{
 							let rentQuery = {};
 							jeonQuery.price_jeondeposit = {};
 							rentQuery.price_rentdeposit = {};
+							jeonQuery.price_jeondeposit.$gte = 1;
+							rentQuery.price_rentdeposit.$gte = 1;
 							if(sh.price_low){
 								jeonQuery.price_jeondeposit.$gte = Number(sh.price_low);
 								rentQuery.price_rentdeposit.$gte = Number(sh.price_low);
