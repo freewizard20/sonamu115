@@ -201,7 +201,6 @@ app.get('/m',(req,res)=>{
 		skipQuery = 20 + req.query.skip * 4;
 	}
 	let findQuery = {adon:'Y'};
-	let findQuery_price = {};
 	let listType = '추천매물';
 	let fillSearchBox = JSON.stringify({});
 	if(req.query.category){
@@ -296,29 +295,15 @@ app.get('/m',(req,res)=>{
 					}
 				}
 				if (sh.price_low || sh.price_high) {
-					let pricequery = {};
-					let jeonquery = {};
-					let rentquery = {};
-					pricequery.price_sell = {};
-					jeonquery.price_jeondeposit = {};
-					rentquery.price_rentdeposit = {};
-					if(sh.price_high){
-						pricequery.price_sell.$lte = Number(sh.price_high);
-						jeonquery.price_jeondeposit.$lte = Number(sh.price_high);
-						rentquery.price_rentdeposit.$lte = Number(sh.price_high);
-					}
-					if(sh.price_low){
-						pricequery.price_sell.$gte = Number(sh.price_low);
-						jeonquery.price_jeondeposit.$gte = Number(sh.price_low);
-						rentquery.price_rentdeposit.$gte = Number(sh.price_low);
+					if(sh.type && sh.type.includes('rent')){
+						findQuery.price_jeondeposit = {};
+						if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
 					}else{
-						pricequery.price_sell.$gte = 1;
-						jeonquery.price_jeondeposit.$gte = 1;
-						rentquery.price_rentdeposit.$gte = 1;
-					}
-					
-					findQuery_price.$or = [pricequery, jeonquery, rentquery];
-					
+						findQuery.price_sell = {};
+						if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
+					}					
 				}
 				if (sh.area_ground_high || sh.area_ground_low) {
 					findQuery.area_ground = {};
@@ -407,7 +392,7 @@ app.get('/m',(req,res)=>{
 		}
 	}
 	let limitQuery = skipQuery===0? 24 : 4;
-	Item.find(findQuery_price).find(findQuery).sort('-timestamp_modified').skip(skipQuery).limit(limitQuery).then((data)=>{
+	Item.find(findQuery).sort('-timestamp_modified').skip(skipQuery).limit(limitQuery).then((data)=>{
 		if(skipQuery===0) res.render('mobile',{data:data, listType: listType, fillSearchBox:fillSearchBox});
 		else res.render('mskip',{data:data});
 	});	
@@ -476,8 +461,6 @@ app.get("/list",(req,res)=>{
 		skipQuery = 20 + req.query.skip * 12;
 	}
 	let findQuery = {adon:'Y'};
-	let findQuery_type = [];
-	let findQuery_price = [];
 	let listType = 'search';
 	let fillSearchBox = JSON.stringify({});
 	if(req.query.category){
@@ -576,8 +559,8 @@ app.get("/list",(req,res)=>{
 				if(sh.type){
 					//console.log(sh.type);
 					let firstQuery = {};
-					firstQuery.type = 'land'; //{};
-					// firstQuery.type.$in = sh.type;
+					firstQuery.type = {};
+					firstQuery.type.$in = sh.type;
 					let secondQuery = {};
 					if(sh.type.includes('rent')){
 						//console.log('rent included');
@@ -587,35 +570,21 @@ app.get("/list",(req,res)=>{
 					// if array sh.type contains 'rent'
 					//if(sh.type.includes('rent')){
 						//findQuery.sell.$in = ['sell','jeon','rent'];
-					findQuery_type = [firstQuery];
+					findQuery.$or = [firstQuery];
 					if(secondQuery.sell){
-						findQuery_type.push(secondQuery);
+						findQuery.$or.push(secondQuery);
 					}
 				}
 				if (sh.price_low || sh.price_high) {
-					let pricequery = {};
-					let jeonquery = {};
-					let rentquery = {};
-					pricequery.price_sell = {};
-					jeonquery.price_jeondeposit = {};
-					rentquery.price_rentdeposit = {};
-					if(sh.price_high){
-						pricequery.price_sell.$lte = Number(sh.price_high);
-						jeonquery.price_jeondeposit.$lte = Number(sh.price_high);
-						rentquery.price_rentdeposit.$lte = Number(sh.price_high);
-					}
-					if(sh.price_low){
-						pricequery.price_sell.$gte = Number(sh.price_low);
-						jeonquery.price_jeondeposit.$gte = Number(sh.price_low);
-						rentquery.price_rentdeposit.$gte = Number(sh.price_low);
+					if(sh.type && sh.type.includes('rent')){
+						findQuery.price_jeondeposit = {};
+						if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
 					}else{
-						pricequery.price_sell.$gte = 1;
-						jeonquery.price_jeondeposit.$gte = 1;
-						rentquery.price_rentdeposit.$gte = 1;
+						findQuery.price_sell = {};
+						if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
+						if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
 					}
-					
-					findQuery_price = [pricequery, jeonquery, rentquery];
-					
 				}
 				if (sh.area_ground_high || sh.area_ground_low) {
 					findQuery.area_ground = {};
@@ -725,7 +694,7 @@ app.get("/list",(req,res)=>{
 	}
 
 	let limitQuery = skipQuery===0? 24 : 12;
-	Item.find(findQuery).or(findQuery_type).or(findQuery_price).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
+	Item.find(findQuery).sort(sortQuery).skip(skipQuery).limit(limitQuery).then((data)=>{
 		if(skipQuery===0){
 			Notice.find().then((notice)=>{
 				res.render('list',{data:data, listType: listType, fillSearchBox: fillSearchBox, notice: notice});
