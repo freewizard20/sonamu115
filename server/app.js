@@ -701,17 +701,6 @@ app.get("/list",(req,res)=>{
 						findQuery.$or = [sellQuery,jeonQuery,rentQuery];
 					}
 				}
-				// if (sh.price_low || sh.price_high) {
-				// 	if(sh.type && sh.type.includes('rent')){
-				// 		findQuery.price_jeondeposit = {};
-				// 		if (sh.price_high) findQuery.price_jeondeposit.$lte = Number(sh.price_high);
-				// 		if (sh.price_low) findQuery.price_jeondeposit.$gte = Number(sh.price_low);
-				// 	}else{
-				// 		findQuery.price_sell = {};
-				// 		if (sh.price_high) findQuery.price_sell.$lte = Number(sh.price_high);
-				// 		if (sh.price_low) findQuery.price_sell.$gte = Number(sh.price_low);
-				// 	}
-				// }
 				if (sh.area_ground_high || sh.area_ground_low) {
 					findQuery.area_ground = {};
 					if (sh.area_ground_high) findQuery.area_ground.$lte = Number(sh.area_ground_high);
@@ -1455,7 +1444,7 @@ async function makeID(si, gun, region){
 				 idNumber = Number(data[i].id_number);
 			 }
 		 }
-	 });
+	});
 	if(idNumber === -1) Math.floor(Math.random()*100000 + 10001);
 	result.push(idNumber+1);
 	return result;
