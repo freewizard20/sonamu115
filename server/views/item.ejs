@@ -70,9 +70,9 @@
 								<% } else { %>
 									<%= data.price_jeondeposit %>만
 								<% } %>
-								<% if(data.price_borrow != 0) { %>
+								<% if(true || data.price_borrow != 0) { %>
 								/ 융자금 :
-								<% if(true || data.price_borrow>=10000) { %>
+								<% if(data.price_borrow>=10000) { %>
 									<%= Math.floor(data.price_borrow/10000)%>억<% if(data.price_borrow%10000!=0) { %><%= data.price_borrow%10000 %>만<% } %>
 								<% } else { %>
 									<%= data.price_borrow %>만
