@@ -80,7 +80,13 @@
 						<%= user[i].phone %>
 					</td>
 					<td>
-						<%= user[i].permission %>
+						<% if(user[i].permission==2) { %>
+							운영자
+						<% } else if (user[i].permission==1) { %>
+							직원
+						<% } else { %>
+							알바
+						<% } %> 
 					</td>
 				</tr>
 			<% } %>

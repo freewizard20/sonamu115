@@ -889,7 +889,9 @@ app.get("/admin", (req, res) => {
 	// check for valid token
 	if (jwtverify(req.cookies)) {	
 		User.find({name:userInfo[req.cookies.user]}).then((info)=>{
-			if(info.length===0) res.render("admin",{name:userInfo[req.cookies.user],permission:1});
+			if(info.length===0){
+				res.redirect("/sonamu");
+			}
 			else res.render("admin", { name: userInfo[req.cookies.user], permission: info[0].permission });
 		})	
 	} else {
