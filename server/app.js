@@ -900,6 +900,13 @@ app.get("/admin", (req, res) => {
 	}
 });
 
+app.get("/logout", (req, res) => {
+	// clear the JWT cookie
+	res.clearCookie("user");
+	// redirect to the login page or any other desired page
+	res.redirect("/sonamu");
+  });
+
 app.get('/excel',(req,res)=>{
 	let filename = req.cookies.excel;
 	let stat = fs.statSync('excel/'+filename+'.xlsx');
